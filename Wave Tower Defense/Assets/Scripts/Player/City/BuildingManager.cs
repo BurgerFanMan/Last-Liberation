@@ -15,6 +15,7 @@ public class BuildingManager : MonoBehaviour
     [SerializeField] Text popDisplay;
     [SerializeField] bool popPercentage = false;
     [SerializeField] List<Mesh> _meshes = new List<Mesh>();
+    [SerializeField] List<GameObject> _buildingRubblePrefabs;
     [SerializeField] bool _randomRotation = true;
 
     [Header("Building Weapons")]
@@ -39,16 +40,7 @@ public class BuildingManager : MonoBehaviour
 
     private void Start()
     {
-        if(_smallArms != null)
-        {
-            List <GameObject> buildingsToAdd = new List<GameObject>(_buildings);
-            for(int i = _maxConcurrentSmallArms; i > 0; i--)
-            {
-                Transform build = GetFarthestObject(buildingsToAdd, transform.position);
-                buildingsToAdd.Remove(build.gameObject);
-                _smallArms.ChangeValues(build.position + _smallArmsOffset);
-            }
-        }
+        UpdateSmallArms();
     }
 
     void Update()
@@ -79,11 +71,13 @@ public class BuildingManager : MonoBehaviour
     void AssignBuildingValues(GameObject building)
     {
         MeshFilter meshFilter = building.GetComponent<MeshFilter>();
-        meshFilter.mesh = _meshes[Random.Range(0, _meshes.Count - 1)];
+        int index = Random.Range(0, _meshes.Count - 1);
+        meshFilter.mesh = _meshes[index];
         if (_randomRotation)
             meshFilter.transform.rotation = Quaternion.Euler(new Vector3(-90f, Random.Range(0f, 360f), 0f));
 
         Building build = new Building();
+        build.modelIndex = index;
         buildClasses.Add(build);
 
         build.maxPopulation = _totalPopulationThousands / _buildings.Count;
@@ -118,21 +112,28 @@ public class BuildingManager : MonoBehaviour
     {
         if (_buildings.Contains(buildingToDestroy))
         {
-            buildClasses.Remove(buildClasses[_buildings.IndexOf(buildingToDestroy)]);
+            Building b = buildClasses[_buildings.IndexOf(buildingToDestroy)];
+            buildClasses.Remove(b);
             _buildings.Remove(buildingToDestroy);
 
-            if(_buildingDestroyPrefab != null)
-                Instantiate(_buildingDestroyPrefab, buildingToDestroy.transform.position, buildingToDestroy.transform.rotation);
-            Destroy(buildingToDestroy.gameObject);
-
-            List<GameObject> buildingsToAdd = new List<GameObject>(_buildings);
-            _smallArms.ResetValue();
-            for (int i = _maxConcurrentSmallArms; i > 0; i--)
+            if (_buildingDestroyPrefab != null)
             {
-                Transform build = GetFarthestObject(buildingsToAdd, transform.position);
-                buildingsToAdd.Remove(build.gameObject);
-                _smallArms.ChangeValues(build.position + _smallArmsOffset);
+                Vector3 rot = buildingToDestroy.transform.rotation.eulerAngles;
+                rot.x = 0;
+                GameObject go = Instantiate(_buildingDestroyPrefab, 
+                    buildingToDestroy.transform.position, Quaternion.Euler(rot));
+                Destroy(buildingToDestroy.gameObject);
+                if (_buildingRubblePrefabs.Count - 1 >= b.modelIndex)
+                {
+                    Instantiate(_buildingRubblePrefabs[b.modelIndex], go.transform);
+                }
             }
+            else
+            {
+                Destroy(buildingToDestroy.gameObject);
+            }
+            
+            UpdateSmallArms();
         }
     }
 
@@ -159,6 +160,21 @@ public class BuildingManager : MonoBehaviour
         }
         return closest;
     }
+
+    void UpdateSmallArms()
+    {
+        if (_smallArms != null)
+        {
+            List<GameObject> buildingsToAdd = new List<GameObject>(_buildings);
+            _smallArms.ResetValue();
+            for (int i = _maxConcurrentSmallArms; i > 0; i--)
+            {
+                Transform build = GetFarthestObject(buildingsToAdd, transform.position);
+                buildingsToAdd.Remove(build.gameObject);
+                _smallArms.ChangeValues(build.position + _smallArmsOffset);
+            }
+        }
+    }
 }
 
 public class Building
@@ -167,6 +183,7 @@ public class Building
     public float _health;
     public float maxPopulation;
     public float currentPopulation;
+    public int modelIndex;
 
     public void StartCustom()
     {
