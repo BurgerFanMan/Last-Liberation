@@ -432,7 +432,6 @@ GameObject:
   - component: {fileID: 8238848887607212517}
   - component: {fileID: 8238848887607212510}
   - component: {fileID: 8238848887607212513}
-  - component: {fileID: 8238848887607212511}
   - component: {fileID: 1670875761231046562}
   - component: {fileID: -3341531459120773344}
   - component: {fileID: -7565003862861358901}
@@ -526,22 +525,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!208 &8238848887607212511
-NavMeshObstacle:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8238848887607212516}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
-  m_MoveThreshold: 0.1
-  m_Carve: 0
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 0.5, z: 0}
-  m_TimeToStationary: 0.5
 --- !u!54 &1670875761231046562
 Rigidbody:
   m_ObjectHideFlags: 0

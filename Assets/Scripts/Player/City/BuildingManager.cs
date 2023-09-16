@@ -15,15 +15,13 @@ public class BuildingManager : MonoBehaviour
     [SerializeField] Text popDisplay;
     [SerializeField] bool popPercentage = false;
     [SerializeField] List<Mesh> _meshes = new List<Mesh>();
-    [SerializeField] List<GameObject> _buildingRubblePrefabs;
-    [SerializeField] bool _randomRotation = true;
 
     [Header("Building Weapons")]
-    [SerializeField] bool _useWeapons = true;
     [SerializeField] int _maxConcurrentSmallArms = 10;
     [SerializeField] Vector3 _smallArmsOffset;
 
     private List<Building> buildClasses = new List<Building>();
+
     private SmallArms _smallArms;
 
     private float population;
@@ -36,6 +34,20 @@ public class BuildingManager : MonoBehaviour
         }
 
         _smallArms = GetComponent<SmallArms>();
+
+        void AssignBuildingValues(GameObject building)
+        {
+            int index = Random.Range(0, _meshes.Count - 1);
+
+            MeshFilter meshFilter = building.GetComponent<MeshFilter>();
+            meshFilter.mesh = _meshes[index];
+
+            Building build = new Building();
+            build.modelIndex = index;
+            buildClasses.Add(build);
+
+            build.Start(_buildingHealth, _totalPopulationThousands / _buildings.Count);
+        }
     }
 
     private void Start()
@@ -55,7 +67,7 @@ public class BuildingManager : MonoBehaviour
             }
             else
             {
-                population += build.currentPopulation;
+                population += build._currentPopulation;
             }
         }
         if(popDisplay != null)
@@ -66,38 +78,6 @@ public class BuildingManager : MonoBehaviour
         {
             Lose();
         }
-    }
-
-    void AssignBuildingValues(GameObject building)
-    {
-        MeshFilter meshFilter = building.GetComponent<MeshFilter>();
-        int index = Random.Range(0, _meshes.Count - 1);
-        meshFilter.mesh = _meshes[index];
-        if (_randomRotation)
-            meshFilter.transform.rotation = Quaternion.Euler(new Vector3(-90f, Random.Range(0f, 360f), 0f));
-
-        Building build = new Building();
-        build.modelIndex = index;
-        buildClasses.Add(build);
-
-        build.maxPopulation = _totalPopulationThousands / _buildings.Count;
-        build._maxHealth = _buildingHealth;
-
-        build.StartCustom();
-    }
-    public List<GameObject> arrayToList(GameObject[] array)
-    {
-        List<GameObject> b = new List<GameObject>();
-        for(int i = array.Length; i > 0; i--)
-        {
-            b.Add(array[i - 1]);
-        }
-        return b;
-    }
-
-    public float GetPopulation()
-    {
-        return population;
     }
 
     public void DamageBuilding(GameObject buildingToDamage, float _damage)
@@ -112,26 +92,22 @@ public class BuildingManager : MonoBehaviour
     {
         if (_buildings.Contains(buildingToDestroy))
         {
-            Building b = buildClasses[_buildings.IndexOf(buildingToDestroy)];
-            buildClasses.Remove(b);
-            _buildings.Remove(buildingToDestroy);
+            int index = _buildings.IndexOf(buildingToDestroy);
 
+            Building b = buildClasses[index];
+           
             if (_buildingDestroyPrefab != null)
             {
                 Vector3 rot = buildingToDestroy.transform.rotation.eulerAngles;
                 rot.x = 0;
-                GameObject go = Instantiate(_buildingDestroyPrefab, 
+                Instantiate(_buildingDestroyPrefab, 
                     buildingToDestroy.transform.position, Quaternion.Euler(rot));
-                Destroy(buildingToDestroy.gameObject);
-                if (_buildingRubblePrefabs.Count - 1 >= b.modelIndex)
-                {
-                    Instantiate(_buildingRubblePrefabs[b.modelIndex], go.transform);
-                }
             }
-            else
-            {
-                Destroy(buildingToDestroy.gameObject);
-            }
+
+            buildClasses.Remove(b);
+            _buildings.Remove(buildingToDestroy);
+
+            Destroy(buildingToDestroy);
             
             UpdateSmallArms();
         }
@@ -139,7 +115,33 @@ public class BuildingManager : MonoBehaviour
 
     void Lose()
     {
-        Object.FindObjectOfType<MajorEvents>().Lose();
+        FindObjectOfType<MajorEvents>().Lose();
+    }
+
+    void UpdateSmallArms()
+    {
+        if (_smallArms != null)
+        {
+            List<GameObject> buildingsToAdd = new List<GameObject>(_buildings);
+            _smallArms.ResetValue();
+            for (int i = _maxConcurrentSmallArms; i > 0; i--)
+            {
+                Transform build = GetFarthestObject(buildingsToAdd, transform.position);
+                buildingsToAdd.Remove(build.gameObject);
+                _smallArms.ChangeValues(build.position + _smallArmsOffset);
+            }
+        }
+    }
+
+    //Utility functions
+    public List<GameObject> arrayToList(GameObject[] array)
+    {
+        List<GameObject> b = new List<GameObject>();
+        for (int i = array.Length; i > 0; i--)
+        {
+            b.Add(array[i - 1]);
+        }
+        return b;
     }
 
     Transform GetFarthestObject(List<GameObject> gos, Vector3 currentPos)
@@ -161,19 +163,9 @@ public class BuildingManager : MonoBehaviour
         return closest;
     }
 
-    void UpdateSmallArms()
+    public float GetPopulation()
     {
-        if (_smallArms != null)
-        {
-            List<GameObject> buildingsToAdd = new List<GameObject>(_buildings);
-            _smallArms.ResetValue();
-            for (int i = _maxConcurrentSmallArms; i > 0; i--)
-            {
-                Transform build = GetFarthestObject(buildingsToAdd, transform.position);
-                buildingsToAdd.Remove(build.gameObject);
-                _smallArms.ChangeValues(build.position + _smallArmsOffset);
-            }
-        }
+        return population;
     }
 }
 
@@ -181,13 +173,14 @@ public class Building
 {
     public float _maxHealth;
     public float _health;
-    public float maxPopulation;
-    public float currentPopulation;
+    public float _maxPopulation;
+    public float _currentPopulation;
     public int modelIndex;
 
-    public void StartCustom()
+    public void Start(float maxHealth, float maxPop)
     {
-        currentPopulation = maxPopulation;
-        _health = _maxHealth;
+        _maxHealth = maxHealth; _maxPopulation = maxPop;
+
+        _health = maxHealth; _currentPopulation = maxPop;
     }
 }
