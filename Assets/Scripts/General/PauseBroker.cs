@@ -23,7 +23,7 @@ public class PauseBroker : MonoBehaviour
         if(tempTimeScale != timeScale)
         {
             ChangeValues();
-            if(_pauseManager.paused)
+            if(_pauseManager.paused && !_pauseManager.nonPauseMenu)
             {
                 _pauseMenu.SetActive(true);
             }

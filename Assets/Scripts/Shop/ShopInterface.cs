@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class ShopInterface : ICanBePaused
 {
-    
     [SerializeField] Pause _pause;
     [SerializeField] KeyCode _shopButton;
     [SerializeField] GameObject _shopMenu;

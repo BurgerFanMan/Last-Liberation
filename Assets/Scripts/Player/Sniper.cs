@@ -63,7 +63,7 @@ public class Sniper : IFireBullets
         _sniperGun.localRotation = Quaternion.Euler(gunRotation.x, 0f, 0f);
     }
 
-    public void Shoot()
+    public bool Shoot()
     {
         Vector3 rotation = _lookRot.eulerAngles;
         rotation.y =
@@ -78,6 +78,10 @@ public class Sniper : IFireBullets
             bullets.Add(bullet);
             bullet._fireBullets = this;
             bullet.ChangeTime(_timeScale);
+
+            return true;
         }
+
+        return false;
     }
 }

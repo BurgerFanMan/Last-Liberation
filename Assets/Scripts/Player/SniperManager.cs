@@ -81,7 +81,7 @@ public class SniperManager : ICanBeUpgraded
         {
             sniper.FacePosition(targetPos);
         }
-
+        //deal with this
         bool overUI = EventSystem.current.IsPointerOverGameObject() &&
                       EventSystem.current.currentSelectedGameObject != null &&
                       EventSystem.current.currentSelectedGameObject.CompareTag(_forbiddenUITag) ? true 
@@ -93,7 +93,8 @@ public class SniperManager : ICanBeUpgraded
                 audioSource.Play();
             foreach(Sniper sniper in _snipers)
             {
-                sniper.Shoot();
+                if (sniper.Shoot())
+                    break;
             }
             magazineCount--;
         }

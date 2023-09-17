@@ -7,15 +7,15 @@ public class Healthbar : ICanBePaused
 {
     [SerializeField] ICanTakeDamage _healthSource;
 
-    [SerializeField] Transform _healthbarHealth;
-    [SerializeField] Transform _healthbar;
+    [SerializeField] Transform _healthScale;
+    [SerializeField] Transform _healthRotate;
 
     [SerializeField] bool _rotateHealthbar = true;
 
     [Header("Color")]
     [SerializeField] bool _changeColour;
     [SerializeField] Gradient _gradient;
-    [SerializeField] MeshRenderer _colourToChange;
+    [SerializeField] SpriteRenderer _colourToChange;
 
     [Header("Fade")]
     [SerializeField] bool _fade = true;
@@ -23,41 +23,34 @@ public class Healthbar : ICanBePaused
     [Tooltip("Determines whether the healthbar fades or instantly disappears after Time Till Fade")]
     [SerializeField] bool _instantFade = false;
     [SerializeField] float _fadePerSecond = 0.3f;
-    [SerializeField] List<MeshRenderer> _fadeMeshes = new List<MeshRenderer>();
+    [SerializeField] List<SpriteRenderer> _fadeRenderers = new List<SpriteRenderer>();
 
     private float healthTemp;
     private Transform cam;
 
-    private float scaleY, scaleX;
+    private float scaleY, scaleZ;
     private float fadeTime = 0f;
     private bool showing, fading;
-
-    private List<Material> fadeMaterials = new List<Material>();
 
     private void Start()
     {
         healthTemp = _healthSource._health;
         cam = Camera.main.transform;
 
-        scaleX = _healthbar.localScale.x;
-        scaleY = _healthbar.localScale.y;
+        scaleZ = _healthScale.localScale.z;
+        scaleY = _healthScale.localScale.y;
 
         if (_changeColour)
         {
-            _colourToChange.materials[0].color = ColorFromGradient(1);
+            _colourToChange.color = ColorFromGradient(1);
         }
 
         if (_fade)
         {
-            foreach (MeshRenderer mesh in _fadeMeshes)
+            foreach (SpriteRenderer spriteRenderer in _fadeRenderers)
             {
-                foreach (Material mat in mesh.materials)
-                {
-                    fadeMaterials.Add(mat);
-                    Color color = mat.color;
-
-                    mat.color = new Color(color.r, color.g, color.b, 0);
-                }
+                Color color = spriteRenderer.color;
+                spriteRenderer.color = new Color(color.r, color.g, color.b, 0f);
             }
         }
     }
@@ -81,20 +74,20 @@ public class Healthbar : ICanBePaused
     void HealthbarScale()
     {
         float scale = _healthSource._health / _healthSource._maxHealth;
-        _healthbarHealth.localScale = new Vector3(scaleX, scaleY, scale);
+        _healthScale.localScale = new Vector3(scale, scaleY, scaleZ);
 
         if (_changeColour)
         {
-            _colourToChange.materials[0].color = ColorFromGradient(scale);
+            _colourToChange.color = ColorFromGradient(scale);
         }
 
         if (_fade)
         {
-            foreach (Material mat in fadeMaterials)
+            foreach (SpriteRenderer spriteRenderer in _fadeRenderers)
             {
-                Color color = mat.color;
+                Color color = spriteRenderer.color;
 
-                mat.color = new Color(color.r, color.g, color.b, 1);
+                spriteRenderer.color = new Color(color.r, color.g, color.b, 1f);
             }
             showing = true;
         }
@@ -102,7 +95,7 @@ public class Healthbar : ICanBePaused
 
     void HealthbarRotate()
     {
-        _healthbar.transform.LookAt(cam);
+        _healthRotate.transform.LookAt(cam);
     }
 
     Color ColorFromGradient(float value)  // Range of 0-1
@@ -117,20 +110,19 @@ public class Healthbar : ICanBePaused
 
         if (_instantFade)
         {
-            foreach (Material mat in fadeMaterials)
+            foreach (SpriteRenderer spriteRenderer in _fadeRenderers)
             {
-                Color color = mat.color;
-
-                mat.color = new Color(color.r, color.g, color.b, 0);
+                Color color = spriteRenderer.color;
+                spriteRenderer.color = new Color(color.r, color.g, color.b, 0f);
             }
         }
         else
         {
-            foreach (Material mat in fadeMaterials)
+            foreach (SpriteRenderer spriteRenderer in _fadeRenderers)
             {
-                Color color = mat.color;
+                Color color = spriteRenderer.color;
 
-                mat.color = new Color(color.r, color.g, color.b, 1);
+                spriteRenderer.color = new Color(color.r, color.g, color.b, 1f);
             }
             fading = true;
         }
@@ -151,18 +143,18 @@ public class Healthbar : ICanBePaused
         }
         else if (fading)
         {
-            if(fadeMaterials[0].color.a <= 0f)
+            if(_fadeRenderers[0].color.a <= 0f)
             {
                 fading = false;
             }
-            else foreach (Material mat in fadeMaterials)
+            else foreach (SpriteRenderer spriteRenderer in _fadeRenderers)
             {
-                Color color = mat.color;
+                Color color = spriteRenderer.color;
 
                 float a = color.a - _fadePerSecond * _timeScale * Time.deltaTime;
                 if (a <= 0f)
                     a = 0f;
-                mat.color = new Color(color.r, color.g, color.b, a);
+                spriteRenderer.color = new Color(color.r, color.g, color.b, a);
             }
         }
     }

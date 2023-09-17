@@ -23,6 +23,8 @@ public class Pause : MonoBehaviour
 
     public bool paused = false;
 
+    public bool nonPauseMenu = false;
+
     private void Awake()
     {
         _timeScale = _defaultTimeScale;
@@ -30,7 +32,7 @@ public class Pause : MonoBehaviour
     
     private void Update()
     {
-        if (paused && Input.GetKeyDown(_pauseButton))
+        if (paused && !nonPauseMenu && Input.GetKeyDown(_pauseButton))
         {
             Unpause();
         }
@@ -44,15 +46,19 @@ public class Pause : MonoBehaviour
     public void Unpause()
     {
         _timeScale = _defaultTimeScale;
+
         paused = false;
+        nonPauseMenu = false;
     }
 
     public void PauseAction(bool openPauseMenu)
     {
         _timeScale = _pauseTimeScale;
-        if (openPauseMenu)
+        if (!openPauseMenu)
         {
-            paused = true;
+            nonPauseMenu = true;
         }
+
+        paused = true;
     }
 }

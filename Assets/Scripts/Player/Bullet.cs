@@ -19,7 +19,7 @@ public class Bullet : ICanBeUpgraded
     }
     void Update()
     {
-        transform.position += transform.forward * _speed * Time.deltaTime * _timeScale;
+        transform.position += _speed * _timeScale * Time.deltaTime * transform.forward;
 
         if (transform.position.y < -1f || Vector3.Distance(startPoint, transform.position) >= _range * upgradeLevel[0]) 
         {
