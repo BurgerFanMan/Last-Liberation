@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class PauseBroker : MonoBehaviour
 {
@@ -9,38 +10,43 @@ public class PauseBroker : MonoBehaviour
     [Header("UI Management")]
     [SerializeField] GameObject _pauseMenu;
 
+    private List<ICanBePaused> pausable = new List<ICanBePaused>();
+
     private float timeScale;
-    private float tempTimeScale;
 
     private void Awake()
     {
         timeScale = _pauseManager._timeScale;
-    }
 
-    private void Update()
-    {
-        timeScale = _pauseManager._timeScale;
-        if(tempTimeScale != timeScale)
-        {
-            ChangeValues();
-            if(_pauseManager.paused && !_pauseManager.nonPauseMenu)
-            {
-                _pauseMenu.SetActive(true);
-            }
-            else
-            {
-                _pauseMenu.SetActive(false);
-            }
-        }
-        tempTimeScale = timeScale;
+        pausable = FindObjectsOfType<ICanBePaused>().ToList();
     }
 
     void ChangeValues()
     {
-        ICanBePaused[] pausable = Object.FindObjectsOfType<ICanBePaused>();
         foreach (ICanBePaused p in pausable)
         {
             p.ChangeTime(timeScale);
         }
+    }
+
+    public void Pause() 
+    {
+        if (!_pauseManager.nonPauseMenu)
+        {
+            _pauseMenu.SetActive(true);
+        }
+
+        timeScale = _pauseManager._timeScale;
+
+        ChangeValues();
+    }
+
+    public void UnPause()
+    {
+        _pauseMenu.SetActive(false);
+
+        timeScale = _pauseManager._timeScale;
+
+        ChangeValues();
     }
 }

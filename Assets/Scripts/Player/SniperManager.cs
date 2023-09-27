@@ -16,6 +16,8 @@ public class SniperManager : ICanBeUpgraded
     [SerializeField] float _rotationClamp = 90f;
     [SerializeField] List<Transform> _followMouse;
     [SerializeField] Transform _reloadIcon;
+
+    [Header("UI")]
     [SerializeField] TextMeshProUGUI _reloadNumb;
     [SerializeField] TextMeshProUGUI _reloadCap;
     [Tooltip("Won't fire if mouse is hovering over UI of this tag")]

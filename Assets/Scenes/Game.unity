@@ -919,11 +919,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   upgradeLevel: []
+  bulletPrefab: {fileID: 0}
+  upgradeBullets: 0
+  bulletUpgradeIndex: 0
   ignoreTags:
   - Bullet
   - Environment
-  upgradeBullets: 0
-  bulletUpgradeIndex: 0
   _sniperBody: {fileID: 26639126}
   _sniperGun: {fileID: 1133290976}
   _startRotationOffset: {x: 0, y: 0, z: 0}
@@ -4618,33 +4619,19 @@ MonoBehaviour:
   - 1
   - 1
   - 1
+  bulletPrefab: {fileID: 5225013782830467054, guid: ec198c6b510c4504b97539d596ec59dd, type: 3}
+  upgradeBullets: 1
+  bulletUpgradeIndex: 1
   ignoreTags:
   - Building
   - Bullet
   - Environment
-  upgradeBullets: 1
-  bulletUpgradeIndex: 1
-  _bulletPrefab: {fileID: 5225013782830467054, guid: ec198c6b510c4504b97539d596ec59dd, type: 3}
   _reloadTime: 1
   _maxDistance: 10
   _minDistance: 0
   _fireOffset: 0.1
   _leadAmount: 1
   _waitForUpgrade: 1
-  _debug: 0
-  _debugObjects:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!1 &484841123
 GameObject:
   m_ObjectHideFlags: 0
@@ -4803,11 +4790,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   upgradeLevel: []
+  bulletPrefab: {fileID: 0}
+  upgradeBullets: 0
+  bulletUpgradeIndex: 0
   ignoreTags:
   - Bullet
   - Environment
-  upgradeBullets: 0
-  bulletUpgradeIndex: 0
   _sniperBody: {fileID: 517071218}
   _sniperGun: {fileID: 689724573}
   _startRotationOffset: {x: 0, y: 0, z: 0}
@@ -6418,11 +6406,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   upgradeLevel: []
+  bulletPrefab: {fileID: 0}
+  upgradeBullets: 0
+  bulletUpgradeIndex: 0
   ignoreTags:
   - Bullet
   - Environment
-  upgradeBullets: 0
-  bulletUpgradeIndex: 0
   _sniperBody: {fileID: 1018960308}
   _sniperGun: {fileID: 1124126377}
   _startRotationOffset: {x: 0, y: 0, z: 0}
@@ -12068,11 +12057,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   upgradeLevel: []
+  bulletPrefab: {fileID: 0}
+  upgradeBullets: 0
+  bulletUpgradeIndex: 0
   ignoreTags:
   - Bullet
   - Environment
-  upgradeBullets: 0
-  bulletUpgradeIndex: 0
   _sniperBody: {fileID: 727686761}
   _sniperGun: {fileID: 1293064260}
   _startRotationOffset: {x: 0, y: 0, z: 0}
@@ -18002,7 +17992,7 @@ MonoBehaviour:
   - {fileID: 599553339}
   _bulletPrefab: {fileID: 5225013782830467054, guid: 1ac509510414be24f82e24797ab474dd, type: 3}
   _reloadTime: 4
-  _magazineSize: 3
+  _magazineSize: 10
   _turnSpeed: 3
   _rotationClamp: 91.5
   _followMouse:

@@ -11,7 +11,6 @@ public class BuildingManager : MonoBehaviour
     [SerializeField] float _buildingHealth = 10f;
 
     [Header("Graphics and Effects")]
-    [SerializeField] GameObject _buildingDestroyPrefab;
     [SerializeField] Text popDisplay;
     [SerializeField] bool popPercentage = false;
     [SerializeField] List<Mesh> _meshes = new List<Mesh>();
@@ -60,15 +59,7 @@ public class BuildingManager : MonoBehaviour
         population = 0f;
         for(int i = 0; i < buildClasses.Count; i++)
         {
-            Building build = buildClasses[i];
-            if(build._health <= 0f)
-            {
-                DestroyBuilding(_buildings[buildClasses.IndexOf(build)]);
-            }
-            else
-            {
-                population += build._currentPopulation;
-            }
+            population += buildClasses[i]._currentPopulation;
         }
         if(popDisplay != null)
         popDisplay.text = popPercentage ? Mathf.Round(population / _totalPopulationThousands * 100f).ToString()
@@ -83,34 +74,24 @@ public class BuildingManager : MonoBehaviour
     public void DamageBuilding(GameObject buildingToDamage, float _damage)
     {
         Building build = buildClasses[_buildings.IndexOf(buildingToDamage)];
-        if(build != null)
+
+        build._health -= _damage;
+
+        if (build._health <= 0f)
         {
-            build._health -= _damage;
+            DestroyBuilding(_buildings[buildClasses.IndexOf(build)]);
         }
     }
     public void DestroyBuilding(GameObject buildingToDestroy)
     {
-        if (_buildings.Contains(buildingToDestroy))
-        {
-            int index = _buildings.IndexOf(buildingToDestroy);
+        int index = _buildings.IndexOf(buildingToDestroy);
 
-            Building b = buildClasses[index];
-           
-            if (_buildingDestroyPrefab != null)
-            {
-                Vector3 rot = buildingToDestroy.transform.rotation.eulerAngles;
-                rot.x = 0;
-                Instantiate(_buildingDestroyPrefab, 
-                    buildingToDestroy.transform.position, Quaternion.Euler(rot));
-            }
+        buildClasses.Remove(buildClasses[index]);
+        _buildings.Remove(buildingToDestroy);
 
-            buildClasses.Remove(b);
-            _buildings.Remove(buildingToDestroy);
-
-            Destroy(buildingToDestroy);
-            
-            UpdateSmallArms();
-        }
+        Destroy(buildingToDestroy);
+        
+        UpdateSmallArms();
     }
 
     void Lose()
@@ -127,6 +108,8 @@ public class BuildingManager : MonoBehaviour
             for (int i = _maxConcurrentSmallArms; i > 0; i--)
             {
                 Transform build = GetFarthestObject(buildingsToAdd, transform.position);
+                if (build == null)
+                    break;
                 buildingsToAdd.Remove(build.gameObject);
                 _smallArms.ChangeValues(build.position + _smallArmsOffset);
             }

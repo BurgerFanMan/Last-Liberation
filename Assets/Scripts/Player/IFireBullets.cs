@@ -4,28 +4,47 @@ using UnityEngine;
 
 public class IFireBullets : ICanBeUpgraded
 {
-    protected List<Bullet> bullets = new List<Bullet>();
-    protected List<Bullet> disposedBullets = new List<Bullet>();
-    [SerializeField] protected List<string> ignoreTags;
+    [Header("Projectile Settings")]
+    [SerializeField] protected GameObject bulletPrefab;
     [SerializeField] protected bool upgradeBullets;
     [SerializeField] protected int bulletUpgradeIndex = 2;
+    [SerializeField] protected List<string> ignoreTags;
+
+    protected List<Bullet> allBullets = new List<Bullet>();
+    protected List<Bullet> freeBullets = new List<Bullet>();
 
     public List<string> IgnoreTags()
     {
         return ignoreTags;
     }
 
+    public void SpawnBullet(Vector3 position, Quaternion rotation)
+    {
+        if(freeBullets.Count > 0)
+        {
+            freeBullets[0].gameObject.SetActive(true);
+            freeBullets[0].transform.position = position;
+            freeBullets[0].transform.rotation = rotation;
+
+            freeBullets.Remove(freeBullets[0]);
+
+            return;
+        }
+        Bullet bullet = Instantiate(bulletPrefab, position, rotation).GetComponent<Bullet>();
+        allBullets.Add(bullet);
+        bullet._fireBullets = this;
+        bullet.ChangeTime(_timeScale);
+    }
     public void DestroyBullet(Bullet bullet)
     {
-        if (bullets.Contains(bullet) && !disposedBullets.Contains(bullet))
-        {
-            Destroy(bullet.gameObject);
-            bullets.Remove(bullet);
-            disposedBullets.Add(bullet);
-        }
-        else if(!disposedBullets.Contains(bullet))
-        {
-            Debug.Log($"Bullet not found. Bullet: {bullet}");
-        }
+        freeBullets.Add(bullet);
+
+        bullet.gameObject.SetActive(false);
+    }
+
+    protected override void UpdateTime()
+    {
+        foreach (Bullet bullet in allBullets)
+            bullet.ChangeTime(_timeScale);
     }
 }

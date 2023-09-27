@@ -18,8 +18,6 @@ public class Sniper : IFireBullets
     public float _baseTurnSpeed;
 
     private float _turnSpeed;
-    
-    GameObject _bulletPrefab;
     Vector3 _startRotation;
     Quaternion _lookRot, _bulletRot;
 
@@ -29,10 +27,10 @@ public class Sniper : IFireBullets
         _rotClampMin = _startRotation.y - _rotationClamp; _rotClampMax = _startRotation.y + _rotationClamp;
     }
 
-    public void SetValues(GameObject bulletPrefab, float turnSpeed,  
+    public void SetValues(GameObject bulletPrefabPass, float turnSpeed,  
         float rotClamp)
     {
-        _bulletPrefab = bulletPrefab; _baseTurnSpeed = turnSpeed;
+        bulletPrefab = bulletPrefabPass; _baseTurnSpeed = turnSpeed;
         _rotationClamp = rotClamp;
         CustomAwake();
     }
@@ -46,10 +44,7 @@ public class Sniper : IFireBullets
         _bulletRot = Quaternion.LookRotation(position - _gunExit.position);
 
         Vector3 rotation = _lookRot.eulerAngles;
-        rotation.y = 
-            (rotation.y > _rotClampMax && rotation.y - 360 > _rotClampMin) ? rotation.y - 360 : 
-            (rotation.y < _rotClampMin && rotation.y + 360 < _rotClampMax) ? rotation.y + 360 :
-            rotation.y;
+        rotation.y = GetRotation(rotation.y);
 
         if (rotation.y < _rotClampMax && rotation.y > _rotClampMin)
         {
@@ -66,22 +61,25 @@ public class Sniper : IFireBullets
     public bool Shoot()
     {
         Vector3 rotation = _lookRot.eulerAngles;
-        rotation.y =
-            (rotation.y > _rotClampMax && rotation.y - 360 > _rotClampMin) ? rotation.y - 360 :
-            (rotation.y < _rotClampMin && rotation.y + 360 < _rotClampMax) ? rotation.y + 360 :
-            rotation.y;
+        rotation.y = GetRotation(rotation.y);
         if (rotation.y < _rotClampMax && rotation.y > _rotClampMin)
         {
             Vector3 spawnOffset = _gunExit.forward * 0.4f;
-            Bullet bullet = Instantiate(_bulletPrefab, _gunExit.position + spawnOffset, _bulletRot)
-                .GetComponent<Bullet>();
-            bullets.Add(bullet);
-            bullet._fireBullets = this;
-            bullet.ChangeTime(_timeScale);
+            SpawnBullet(_gunExit.position + spawnOffset, _bulletRot);
 
             return true;
         }
 
         return false;
+    }
+
+    float GetRotation(float rotation)
+    {
+        rotation = 
+            (rotation > _rotClampMax && rotation - 360f > _rotClampMin) ? rotation - 360f :
+            (rotation < _rotClampMin && rotation + 360f < _rotClampMax) ? rotation + 360f :
+            rotation;
+
+        return rotation;
     }
 }

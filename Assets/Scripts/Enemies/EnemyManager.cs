@@ -27,7 +27,7 @@ public class EnemyManager : ICanBePaused
                                                //random value between 0 and _randomSpawnOffset.
     [SerializeField] GameObject _enemyDestroyPrefab;
 
-    public List<Enemy> _enemies = new List<Enemy>();
+    public List<Enemy> enemies = new List<Enemy>();
     List<GameObject> _targets = new List<GameObject>();
 
     float _waveDifficulty; 
@@ -58,7 +58,9 @@ public class EnemyManager : ICanBePaused
     {
         _waveUI.text = _waveNumber.ToString();
 
-        if(_enemies.Count == 0)
+        _targets = _buildingManager._buildings;
+
+        if (enemies.Count == 0)
         {
             if (_ongoingWave)
             {
@@ -76,14 +78,10 @@ public class EnemyManager : ICanBePaused
             }
         }
 
-        foreach(Enemy enem in _enemies)
+        foreach(Enemy enem in enemies)
         {
             enem.ChangeTime(_timeScale);
         }
-    }
-    private void LateUpdate()
-    {
-        _targets = _buildingManager._buildings;
     }
 
     void SpawnEnemies(int _numbOfSpawns)
@@ -93,9 +91,10 @@ public class EnemyManager : ICanBePaused
             _spawnPointParent.rotation = Quaternion.Euler(0f, Random.Range(0f, 359.9f), 0f);
             Vector3 spawnLocat = _spawnPoint.position + (_spawnPoint.forward * Random.Range(0, -_randomSpawnOffset));
             Enemy enemy = Instantiate(_enemyPrefab, spawnLocat, Quaternion.identity).GetComponent<Enemy>();
-            _enemies.Add(enemy);
-            
-            enemy.Move(GetNearestObject(_targets, enemy.transform.position).position);
+            enemies.Add(enemy);
+
+            enemy.ChangeTime(_timeScale);
+            enemy.Move(GetNearestObject(_buildingManager._buildings, enemy.transform.position).position);
             enemy.AssignManager(this);
         }
     }
@@ -125,11 +124,11 @@ public class EnemyManager : ICanBePaused
 
     public void KillEnemy(Enemy enemyToKill)
     {
-        for (int i = _enemies.Count; i > 0; i--)
+        for (int i = enemies.Count; i > 0; i--)
         {
-            if (_enemies[i-1] == enemyToKill)
+            if (enemies[i-1] == enemyToKill)
             {
-                _enemies.Remove(_enemies[i-1]);
+                enemies.Remove(enemies[i-1]);
                 Instantiate(_enemyDestroyPrefab, enemyToKill.transform.position, enemyToKill.transform.rotation);
                 Destroy(enemyToKill.gameObject);
                 i = -1;
@@ -160,15 +159,14 @@ public class EnemyManager : ICanBePaused
     {
         _buildingManager.DamageBuilding(building, damage);
         UpdateTargets();
-        Invoke("UpdateTargets", 2f);
     }
 
     void UpdateTargets()
     {
-        foreach(Enemy enemy in _enemies)
+        foreach(Enemy enemy in enemies)
         {
-            if(_targets.Count > 0)
-                enemy.Move(GetNearestObject(_targets, enemy.transform.position).position);
+            if(_buildingManager._buildings.Count > 0)
+                enemy.Move(GetNearestObject(_buildingManager._buildings, enemy.transform.position).position);
         }
     }
 }

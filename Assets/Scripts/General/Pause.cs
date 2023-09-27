@@ -25,9 +25,13 @@ public class Pause : MonoBehaviour
 
     public bool nonPauseMenu = false;
 
+    private PauseBroker pauseBroker;
+
     private void Awake()
     {
         _timeScale = _defaultTimeScale;
+
+        pauseBroker = GetComponent<PauseBroker>();
     }
     
     private void Update()
@@ -49,6 +53,8 @@ public class Pause : MonoBehaviour
 
         paused = false;
         nonPauseMenu = false;
+
+        pauseBroker.UnPause();
     }
 
     public void PauseAction(bool openPauseMenu)
@@ -60,5 +66,7 @@ public class Pause : MonoBehaviour
         }
 
         paused = true;
+
+        pauseBroker.Pause();
     }
 }
