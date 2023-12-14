@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class PauseButtons : MonoBehaviour
 {
-    [SerializeField] Pause _pause;
+    [SerializeField] PauseManager _pauseManager;
 
     public void QuitToMenu()
     {
@@ -14,10 +14,9 @@ public class PauseButtons : MonoBehaviour
 
     public void ResumeGame()
     {
-        if(_pause != null || gameObject.TryGetComponent<Pause>(out _pause))
+        if(_pauseManager != null || gameObject.TryGetComponent(out _pauseManager))
         {
-            _pause._timeScale = _pause._defaultTimeScale;
-            _pause.paused = false;
+            _pauseManager.ClosePauseMenu();
         }
     }
 

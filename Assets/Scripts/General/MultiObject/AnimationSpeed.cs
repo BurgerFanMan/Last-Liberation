@@ -2,12 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AnimationSpeed : ICanBePaused
+public class AnimationSpeed : MonoBehaviour
 {
     [SerializeField] Animator _animator;
-    [SerializeField] bool _usePausedSpeed;
+    [SerializeField] float _animationSpeed;
 
-    [System.NonSerialized] public float _animationSpeed;
     void Start()
     {
         _animator = _animator == null ? GetComponent<Animator>() : _animator;
@@ -15,7 +14,6 @@ public class AnimationSpeed : ICanBePaused
 
     void Update()
     {
-        float animspeed = _usePausedSpeed ? _timeScale : _animationSpeed;
-        _animator.speed = animspeed;
+        _animator.speed = Pause.adjTimeScale * _animationSpeed;
     }
 }

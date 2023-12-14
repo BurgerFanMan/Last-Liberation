@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Flash : ICanBePaused
+public class Flash : MonoBehaviour
 {
     [SerializeField] float _flashDuration;
     [SerializeField] MeshRenderer _meshRend;
@@ -30,7 +30,7 @@ public class Flash : ICanBePaused
     {
         if (waitingForMat)
         {
-            timeDone += Time.deltaTime * _timeScale;
+            timeDone += Pause.adjTimeScale;
             if(timeDone >= _flashDuration)
             {
                 FlashEnd();

@@ -16,7 +16,7 @@ public class SmallArms : IFireBullets
     protected EnemyManager enemyManager;
     protected Dictionary<Vector3, float> fireFromPoints = new Dictionary<Vector3, float>();
 
-    protected override void Awake()
+    private void Awake()
     {
         enemyManager = FindObjectOfType<EnemyManager>();
     }
@@ -27,7 +27,7 @@ public class SmallArms : IFireBullets
         List<Vector3> increaseCounters = new List<Vector3>();
         List<Vector3> resetCounters = new List<Vector3>();
 
-        if (!_waitForUpgrade || upgradedTimes >= 1)
+        if (!_waitForUpgrade || _upgradedTimes >= 1)
         {
             foreach (Vector3 ffp in fireFromPoints.Keys)
             {
@@ -39,7 +39,7 @@ public class SmallArms : IFireBullets
                     {
                         Vector3 firePos = closest.position + (closest.forward * _leadAmount);
                         float dist = Vector3.Distance(ffp, firePos);
-                        if (dist <= _maxDistance * upgradeLevel[1] && dist >= _minDistance)
+                        if (dist <= _maxDistance * _upgradeLevel[1] && dist >= _minDistance)
                         {
                             Fire(ffp, firePos);
                             resetCounters.Add(ffp);
@@ -53,7 +53,7 @@ public class SmallArms : IFireBullets
             }
             foreach (Vector3 newValue in increaseCounters)
             {
-                fireFromPoints[newValue] += Time.deltaTime * _timeScale * upgradeLevel[0];
+                fireFromPoints[newValue] += Pause.adjTimeScale * _upgradeLevel[0];
             }
             foreach (Vector3 newValue in resetCounters)
             {
@@ -63,8 +63,8 @@ public class SmallArms : IFireBullets
             if (upgradeBullets)
                 foreach (Bullet bullet in allBullets)
                 {
-                    bullet.Upgrade(upgradeLevel[bulletUpgradeIndex], 0);
-                    bullet.Upgrade(upgradeLevel[bulletUpgradeIndex + 1], 1);
+                    bullet.Upgrade(_upgradeLevel[bulletUpgradeIndex], 0);
+                    bullet.Upgrade(_upgradeLevel[bulletUpgradeIndex + 1], 1);
                 }
         }
     

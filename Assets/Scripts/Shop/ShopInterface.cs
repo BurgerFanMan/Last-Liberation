@@ -3,35 +3,37 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ShopInterface : ICanBePaused
+public class ShopInterface : MonoBehaviour
 {
-    [SerializeField] Pause _pause;
+    [SerializeField] PauseManager _pauseManager;
     [SerializeField] KeyCode _shopButton;
     [SerializeField] GameObject _shopMenu;
 
-    private bool shopMenuOpen = false;
-    protected override void Awake()
+    private bool _shopMenuOpen = false;
+    private void Awake()
     {
         _shopMenu.SetActive(false);
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(_shopButton) && (!_paused || shopMenuOpen))
+        if (Input.GetKeyDown(_shopButton) && (!Pause.inPauseMenu))
         {
             ShopMenuClicked();
         }
     }
 
+    //actives/deactivates the shop menu while pausing/unpausing the game
     public void ShopMenuClicked()
     {
-        shopMenuOpen = !shopMenuOpen;
-        if(_shopMenu != null)
-            _shopMenu.SetActive(shopMenuOpen);
+        if (_shopMenu == null) return;
 
-        if (shopMenuOpen == true)
-            _pause.PauseAction(false);
+        _shopMenuOpen = !_shopMenuOpen;
+        _shopMenu.SetActive(_shopMenuOpen);
+
+        if (_shopMenuOpen)
+            _pauseManager.PauseGame();
         else
-            _pause.Unpause();
+            _pauseManager.UnpauseGame();
     }
 }

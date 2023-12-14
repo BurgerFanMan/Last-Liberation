@@ -11,13 +11,19 @@ public class Enemy : ICanTakeDamage
     [SerializeField] float _speed;
 
     EnemyManager _enemyManager;
+
     private void Start()
     {
         navAgent.speed = _speed;
     }
-    public void Move(Vector3 target)
+    public void AssignManager(EnemyManager enemyMan)
     {
-        navAgent.SetDestination(target);
+        _enemyManager = enemyMan;
+    }
+
+    private void Update()
+    {
+        navAgent.speed = _speed * Pause.timeScale;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -29,18 +35,12 @@ public class Enemy : ICanTakeDamage
         }
     }
 
-    public void AssignManager(EnemyManager enemyMan)
-    {
-        _enemyManager = enemyMan;
-    }
-
     protected override void DeathAction()
     {
         _enemyManager.KillEnemy(this);
     }
-
-    protected override void UpdateTime()
+    public void SetTarget(Vector3 target)
     {
-        navAgent.speed = _speed * _timeScale;
+        navAgent.SetDestination(target);
     }
 }

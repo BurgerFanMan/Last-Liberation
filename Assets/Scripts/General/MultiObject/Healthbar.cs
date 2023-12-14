@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Healthbar : ICanBePaused
+public class Healthbar : MonoBehaviour
 {
     [SerializeField] ICanTakeDamage _healthSource;
 
@@ -138,7 +138,7 @@ public class Healthbar : ICanBePaused
             }
             else
             {
-                fadeTime += 1f * Time.deltaTime * _timeScale;
+                fadeTime += 1f * Pause.adjTimeScale;
             }
         }
         else if (fading)
@@ -151,7 +151,7 @@ public class Healthbar : ICanBePaused
             {
                 Color color = spriteRenderer.color;
 
-                float a = color.a - _fadePerSecond * _timeScale * Time.deltaTime;
+                float a = color.a - _fadePerSecond * Pause.adjTimeScale;
                 if (a <= 0f)
                     a = 0f;
                 spriteRenderer.color = new Color(color.r, color.g, color.b, a);

@@ -37,7 +37,7 @@ public class Sniper : IFireBullets
 
     public void FacePosition(Vector3 position)
     {
-        _turnSpeed = _baseTurnSpeed * _timeScale;
+        _turnSpeed = _baseTurnSpeed * Pause.timeScale;
 
         Vector3 direct = position - transform.position;
         _lookRot = Quaternion.LookRotation(direct);

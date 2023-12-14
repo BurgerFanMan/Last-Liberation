@@ -4,51 +4,55 @@ using UnityEngine;
 
 public class Bullet : ICanBeUpgraded
 {
-    public float _speed;
-    [SerializeField] float _damage;
-    [SerializeField] ParticleSystem _hitEffect;
-    [SerializeField] float _range;
-
+    [SerializeField] private float _speed;
+    [SerializeField] private float _damage;
+    [SerializeField] private float _range;
+    [SerializeField] private ParticleSystem _hitEffect;   
+    
     [Header("Readonly")]
-    public IFireBullets _fireBullets;
+    public IFireBullets fireBullets;
+    
+    private Vector3 startPoint;
 
-    Vector3 startPoint;
-    private void Start()
+    public void OnSpawn(Vector3 position, Quaternion rotation)
     {
-        startPoint = transform.position;
+
     }
     void Update()
     {
-        transform.position += _speed * _timeScale * Time.deltaTime * transform.forward;
+        transform.position += _speed * Pause.adjTimeScale * transform.forward;
 
-        if (transform.position.y < -1f || Vector3.Distance(startPoint, transform.position) >= _range * upgradeLevel[0]) 
+        //checks range
+        if (transform.position.y < -1f || Vector3.Distance(startPoint, transform.position) >= _range * _upgradeLevel[0]) 
         {
             DestroyBullet();
         }
     }
 
+    //checks if the hit object is an enemy and/or should be ignored
     private void OnCollisionEnter(Collision collision)
-    {
+    {   
         if(collision.gameObject.tag == "Enemy")
         {
-            collision.gameObject.GetComponent<ICanTakeDamage>().DealDamage(_damage * upgradeLevel[1]);
+            collision.gameObject.GetComponent<ICanTakeDamage>().DealDamage(_damage * _upgradeLevel[1]);
         }
-        List<string> ignore = _fireBullets.IgnoreTags();
-        if (!ignore.Contains(collision.gameObject.tag))
+        if (!fireBullets.ignoreTags.Contains(collision.gameObject.tag))
         {
             DestroyBullet(transform.position);
         }
     }
 
+
+    //tells firer to destroy bullet and spawns a hit effect
     void DestroyBullet(Vector3 hitPosition)
     {
         if (_hitEffect != null)
             Instantiate(_hitEffect, hitPosition, Quaternion.identity);
-        _fireBullets.DestroyBullet(this);
+        fireBullets.DestroyBullet(this);
     }
-
+    //just tells firer to destroy bullet
     void DestroyBullet()
     {
-        _fireBullets.DestroyBullet(this);
+        fireBullets.DestroyBullet(this);
     }
 }

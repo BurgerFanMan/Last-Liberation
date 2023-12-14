@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraMove : ICanBePaused
+public class CameraMove : MonoBehaviour
 {
     [SerializeField] Transform _cameraParent;
     [SerializeField] KeyCode _lockCameraKey;
@@ -17,7 +17,7 @@ public class CameraMove : ICanBePaused
     }
     void Update()
     {
-        if (!_paused && !Input.GetKey(_lockCameraKey))
+        if (!Pause.isPaused && !Input.GetKey(_lockCameraKey))
         {
             Vector3 _targetPos;
             _targetPos = rayStore.RayHitPoint();

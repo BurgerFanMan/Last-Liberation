@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.Audio;
 using TMPro;
 
-public class SniperManager : ICanBeUpgraded
+public class SniperManager : ICanBeUpgraded //UL(upgrade level) 0 is reload time, 1 is mag size, 2 is fire rate
 {
     [Header("Main")]
     [SerializeField] GameObject _bulletPrefab;
@@ -38,7 +38,7 @@ public class SniperManager : ICanBeUpgraded
     private RayStore rayStore;
     private AudioSource audioSource;
 
-    protected override void Awake()
+    private void Awake()
     {
         rayStore = FindObjectOfType<RayStore>();
         audioSource = GetComponent<AudioSource>();
@@ -53,7 +53,7 @@ public class SniperManager : ICanBeUpgraded
     }
     void Update()
     {
-        if (_paused)
+        if (Pause.isPaused)
             return;
 
         bool overUI = EventSystem.current.IsPointerOverGameObject() &&
@@ -66,7 +66,7 @@ public class SniperManager : ICanBeUpgraded
 
 
         _reloadNumb.text = magazineCount.ToString();
-        _reloadCap.text = (_magazineSize + upgradeLevel[1]).ToString();
+        _reloadCap.text = (_magazineSize + _upgradeLevel[1]).ToString();
 
         foreach (Transform trans in _followMouse)
         {
@@ -89,12 +89,12 @@ public class SniperManager : ICanBeUpgraded
                 reloadFirstFrame = false;
             }
 
-            timeSinceReload += 1 * Time.deltaTime * _timeScale;
-            _reloadIcon.localScale = new Vector3(timeSinceReload / (_reloadTime * upgradeLevel[0]), 1f, 1f);
+            timeSinceReload += 1f * Pause.adjTimeScale;
+            _reloadIcon.localScale = new Vector3(timeSinceReload / (_reloadTime * _upgradeLevel[0]), 1f, 1f);
 
-            if (timeSinceReload >= _reloadTime * upgradeLevel[0])
+            if (timeSinceReload >= _reloadTime * _upgradeLevel[0])
             {
-                magazineCount = _magazineSize + (int)upgradeLevel[1]; timeSinceReload = 0f;
+                magazineCount = _magazineSize + (int)_upgradeLevel[1]; timeSinceReload = 0f;
                 _reloadIcon.gameObject.SetActive(false);
 
                 reloadFirstFrame = true;
@@ -102,9 +102,9 @@ public class SniperManager : ICanBeUpgraded
         }
         else if (!readyToFire)
         {
-            timeDone += Time.deltaTime;
+            timeDone += Pause.adjTimeScale;
 
-            if(timeDone > 1f / (_fireRate * upgradeLevel[2]))
+            if(timeDone > 1f / (_fireRate * _upgradeLevel[2]))
             {
                 readyToFire = true;
                 timeDone = 0f;

@@ -46,7 +46,7 @@ public class ShopItem : MonoBehaviour
 
     public void Awake()
     {
-        originalValue = _upgradeTarget.GetUpgradeLevel(index); 
+        originalValue = _upgradeTarget.GetUpgradeLevelValue(index); 
         _currentLevel = 0;
 
         shopManager = FindObjectOfType<Shop>();
@@ -100,7 +100,7 @@ public class ShopItem : MonoBehaviour
     public void BuyAction()
     {
         float newValue = _values[_currentLevel];
-        float value = _affectOriginal ? originalValue : _upgradeTarget.GetUpgradeLevel(index);
+        float value = _affectOriginal ? originalValue : _upgradeTarget.GetUpgradeLevelValue(index);
         if (_operator == Operator.multiply)
             newValue *= value;
         else if (_operator == Operator.divide)

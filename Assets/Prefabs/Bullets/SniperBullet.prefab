@@ -172,14 +172,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e5f7b8ad94904749ac54ac1ee2f6557, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upgradeLevel:
+  _upgradeLevel:
   - 1
   - 1
   _speed: 30
   _damage: 20
-  _hitEffect: {fileID: 86743527198017769, guid: d565b5eb6d62c774da0a8802d0cd0716, type: 3}
   _range: 50
-  _fireBullets: {fileID: 0}
+  _hitEffect: {fileID: 86743527198017769, guid: d565b5eb6d62c774da0a8802d0cd0716, type: 3}
+  fireBullets: {fileID: 0}
 --- !u!54 &5225013782830467044
 Rigidbody:
   m_ObjectHideFlags: 0

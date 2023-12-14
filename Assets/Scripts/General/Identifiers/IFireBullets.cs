@@ -8,43 +8,35 @@ public class IFireBullets : ICanBeUpgraded
     [SerializeField] protected GameObject bulletPrefab;
     [SerializeField] protected bool upgradeBullets;
     [SerializeField] protected int bulletUpgradeIndex = 2;
-    [SerializeField] protected List<string> ignoreTags;
+    public                     List<string> ignoreTags;
 
     protected List<Bullet> allBullets = new List<Bullet>();
     protected List<Bullet> freeBullets = new List<Bullet>();
 
-    public List<string> IgnoreTags()
-    {
-        return ignoreTags;
-    }
-
     public void SpawnBullet(Vector3 position, Quaternion rotation)
     {
+        Bullet bullet = null;
+        //check if there are bullets in the pool, if yes activate them, if no spawn a new one
         if(freeBullets.Count > 0)
         {
-            freeBullets[0].gameObject.SetActive(true);
-            freeBullets[0].transform.position = position;
-            freeBullets[0].transform.rotation = rotation;
+            bullet = freeBullets[0];
+            bullet.gameObject.SetActive(true);
+            bullet.transform.position = position;
+            bullet.transform.rotation = rotation;
 
-            freeBullets.Remove(freeBullets[0]);
+            freeBullets.Remove(bullet);
 
             return;
         }
-        Bullet bullet = Instantiate(bulletPrefab, position, rotation).GetComponent<Bullet>();
+
+        bullet = Instantiate(bulletPrefab, position, rotation).GetComponent<Bullet>();
         allBullets.Add(bullet);
-        bullet._fireBullets = this;
-        bullet.ChangeTime(_timeScale);
+        bullet.fireBullets = this;
     }
     public void DestroyBullet(Bullet bullet)
     {
         freeBullets.Add(bullet);
 
         bullet.gameObject.SetActive(false);
-    }
-
-    protected override void UpdateTime()
-    {
-        foreach (Bullet bullet in allBullets)
-            bullet.ChangeTime(_timeScale);
     }
 }

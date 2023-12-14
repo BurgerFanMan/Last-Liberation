@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraManager : ICanBePaused
+public class CameraManager : MonoBehaviour
 {
     [Header("Cursor")]
     [SerializeField] bool _switchCursor; //False for default cursor
@@ -30,8 +30,9 @@ public class CameraManager : ICanBePaused
     // Update is called once per frame
     void Update()
     {
-        if (_timeScale == 0f)
+        if (Pause.isPaused)
             return;
+
         if(Input.GetKey(KeyCode.Mouse1))
         {
             float camYOrbit = Input.GetAxis("Mouse X") * Time.deltaTime * _orbitSpeedY * 10f;
