@@ -175,8 +175,8 @@ MonoBehaviour:
   upgradeLevel:
   - 1
   - 1
-  _speed: 20
-  _damage: 101
+  _speed: 30
+  _damage: 20
   _hitEffect: {fileID: 86743527198017769, guid: d565b5eb6d62c774da0a8802d0cd0716, type: 3}
   _range: 50
   _fireBullets: {fileID: 0}
