@@ -5,7 +5,7 @@ using UnityEngine;
 public class SkipWave : MonoBehaviour
 {
     [SerializeField] EnemyManager _enemyManager;
-    [SerializeField] Money _moneyManager;
+    [SerializeField] MoneyManager _moneyManager;
     [SerializeField] float _defaultDelay;
     [SerializeField] float _defaultReward;
 

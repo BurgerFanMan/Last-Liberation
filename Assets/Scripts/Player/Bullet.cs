@@ -7,7 +7,7 @@ public class Bullet : ICanBeUpgraded
     [SerializeField] private float _speed;
     [SerializeField] private float _damage;
     [SerializeField] private float _range;
-    [SerializeField] private ParticleSystem _hitEffect;   
+    [SerializeField] private GameObject _hitEffect;
     
     [Header("Readonly")]
     public IFireBullets fireBullets;
@@ -16,8 +16,9 @@ public class Bullet : ICanBeUpgraded
 
     public void OnSpawn(Vector3 position, Quaternion rotation)
     {
-
+        transform.SetPositionAndRotation(position, rotation);
     }
+
     void Update()
     {
         transform.position += _speed * Pause.adjTimeScale * transform.forward;
@@ -48,6 +49,7 @@ public class Bullet : ICanBeUpgraded
     {
         if (_hitEffect != null)
             Instantiate(_hitEffect, hitPosition, Quaternion.identity);
+
         fireBullets.DestroyBullet(this);
     }
     //just tells firer to destroy bullet

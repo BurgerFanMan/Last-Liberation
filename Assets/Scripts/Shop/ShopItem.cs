@@ -8,12 +8,12 @@ public class ShopItem : MonoBehaviour
 {
     [Header("General")]
     [SerializeField] ICanBeUpgraded _upgradeTarget;
-    public List<float> _costs = new List<float>();
+    public List<float> costs = new List<float>();
 
-    [Header("Levels")]
-    public int _levels = 1;
-    public int _currentLevel;
+    [Header("Levels")]   
+    [SerializeField] int _numberOfLevels = 1;
     [SerializeField] string secondaryDescription = "";
+    public int currentLevel;
 
     [Header("Upgrade")]
     [Tooltip("How to affect the current value.")]
@@ -23,8 +23,8 @@ public class ShopItem : MonoBehaviour
     [SerializeField] int index;
 
     [Header("References")]
-    public Button _buyButton;
-    public Text _costDisplay;
+    [SerializeField] Button _buyButton;
+    [SerializeField] Text _costDisplay;
 
     [Header("Prerequisites")]
     [SerializeField] ShopItem _prerequisite;
@@ -47,44 +47,39 @@ public class ShopItem : MonoBehaviour
     public void Awake()
     {
         originalValue = _upgradeTarget.GetUpgradeLevelValue(index); 
-        _currentLevel = 0;
+        currentLevel = 0;
 
         shopManager = FindObjectOfType<Shop>();
 
-        if (_buyButton == null)
-            _buyButton = GetComponent<Button>();
+        _buyButton = _buyButton == null ? GetComponent<Button>() : _buyButton;
+        _costDisplay = _costDisplay == null ? GetComponentsInChildren<Text>()[0] : _costDisplay;
+
         _buyButton.onClick.AddListener(delegate { shopManager.BuyItem(this); });
+        _costDisplay.text = costs[currentLevel].ToString();
 
-        if (_costDisplay == null)
-            _costDisplay = GetComponentsInChildren<Text>()[0];
-        _costDisplay.text = _costs[_currentLevel].ToString();
-
-        if(_prerequisite != null)
-        {
-            _buyButton.interactable = false;
-        }
+        _buyButton.interactable = _prerequisite == null;
     }
 
     private void Update()
-    {
-        if(_prerequisite != null && !prequisiteFulfilled)
+    {   
+        //check if the prerequisite is fulfilled
+        if (_prerequisite == null || prequisiteFulfilled)
+            return;
+        if (_prerequisite.currentLevel >= _prerequisiteLevel)
         {
-            if(_prerequisite._currentLevel >= _prerequisiteLevel)
-            {
-                _buyButton.interactable = true;
-                prequisiteFulfilled = true;
-            }
+            _buyButton.interactable = true;
+            prequisiteFulfilled = true;
         }
     }
 
     public void Buy()
     {
-        shopManager.ItemBought(_costs[_currentLevel]);      
+        shopManager.ItemBought(costs[currentLevel]);      
         BuyAction();
 
-        _currentLevel += 1;
-        if (_currentLevel != _levels)
-            _costDisplay.text = _costs[_currentLevel].ToString();
+        currentLevel += 1;
+        if (currentLevel != _numberOfLevels)
+            _costDisplay.text = costs[currentLevel].ToString();
         else
         {
             _buyButton.interactable = false;
@@ -99,7 +94,7 @@ public class ShopItem : MonoBehaviour
 
     public void BuyAction()
     {
-        float newValue = _values[_currentLevel];
+        float newValue = _values[currentLevel];
         float value = _affectOriginal ? originalValue : _upgradeTarget.GetUpgradeLevelValue(index);
         if (_operator == Operator.multiply)
             newValue *= value;

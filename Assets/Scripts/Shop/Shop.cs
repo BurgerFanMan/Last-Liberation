@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Shop : MonoBehaviour
 {
-    [SerializeField] Money _moneyManager;
+    [SerializeField] MoneyManager _moneyManager;
     [SerializeField] GameObject _moneyWarning;
     [SerializeField] float _timeToWarningFade;
 
@@ -15,11 +15,11 @@ public class Shop : MonoBehaviour
 
     public void BuyItem(ShopItem shopItem)
     {
-        if(shopItem._currentLevel < shopItem._levels && shopItem._costs[shopItem._currentLevel] <= _moneyManager._money)
+        if(shopItem.costs[shopItem.currentLevel] <= _moneyManager._money)
         {
             shopItem.Buy();
         }
-        else if(shopItem._costs[shopItem._currentLevel] > _moneyManager._money && _moneyWarning != null)
+        else if(_moneyWarning != null)
         {
             _moneyWarning.SetActive(true);
             CancelInvoke("ResetWarning");

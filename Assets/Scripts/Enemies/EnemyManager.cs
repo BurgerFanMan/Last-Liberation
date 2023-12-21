@@ -33,7 +33,7 @@ public class EnemyManager : MonoBehaviour
     bool _ongoingWave = true, _waitingForWave;
     float _timePassed;
 
-    private Money _moneyManager;
+    private MoneyManager _moneyManager;
     private BuildingManager _buildingManager;
 
     private void Start()
@@ -41,7 +41,7 @@ public class EnemyManager : MonoBehaviour
         _alarmSource = _alarmSource == null ? GetComponent<AudioSource>() : _alarmSource;
         _megaAlarmSource = _megaAlarmSource == null ? GetComponent<AudioSource>() : _megaAlarmSource;
 
-        _moneyManager = FindObjectOfType<Money>();
+        _moneyManager = FindObjectOfType<MoneyManager>();
         _buildingManager = FindObjectOfType<BuildingManager>();
     }
 

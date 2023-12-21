@@ -20,9 +20,9 @@ public class IFireBullets : ICanBeUpgraded
         if(freeBullets.Count > 0)
         {
             bullet = freeBullets[0];
+
             bullet.gameObject.SetActive(true);
-            bullet.transform.position = position;
-            bullet.transform.rotation = rotation;
+            bullet.OnSpawn(position, rotation);
 
             freeBullets.Remove(bullet);
 

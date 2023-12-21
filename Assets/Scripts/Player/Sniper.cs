@@ -21,40 +21,33 @@ public class Sniper : IFireBullets
     Vector3 _startRotation;
     Quaternion _lookRot, _bulletRot;
 
-    private void CustomAwake()
-    {
-        _startRotation = _sniperBody.rotation.eulerAngles;
-        _rotClampMin = _startRotation.y - _rotationClamp; _rotClampMax = _startRotation.y + _rotationClamp;
-    }
-
-    public void SetValues(GameObject bulletPrefabPass, float turnSpeed,  
-        float rotClamp)
+    public void SetValues(GameObject bulletPrefabPass, float turnSpeed, float rotClamp)
     {
         bulletPrefab = bulletPrefabPass; _baseTurnSpeed = turnSpeed;
+
+        _startRotation = _sniperBody.rotation.eulerAngles;
+
         _rotationClamp = rotClamp;
-        CustomAwake();
+        _rotClampMin = _startRotation.y - _rotationClamp; 
+        _rotClampMax = _startRotation.y + _rotationClamp;
     }
 
     public void FacePosition(Vector3 position)
     {
-        _turnSpeed = _baseTurnSpeed * Pause.timeScale;
+        _turnSpeed = _baseTurnSpeed * Pause.adjTimeScale;
 
-        Vector3 direct = position - transform.position;
-        _lookRot = Quaternion.LookRotation(direct);
+        _lookRot = Quaternion.LookRotation(position - transform.position);
         _bulletRot = Quaternion.LookRotation(position - _gunExit.position);
 
         Vector3 rotation = _lookRot.eulerAngles;
-        rotation.y = GetRotation(rotation.y);
+        rotation.y = GetRotation(rotation.y); //adjusts rotation
 
         if (rotation.y < _rotClampMax && rotation.y > _rotClampMin)
         {
-            rotation = Quaternion.Lerp(_sniperBody.rotation,
-            _lookRot, Time.deltaTime * _turnSpeed).eulerAngles;
-            _sniperBody.rotation = Quaternion.Euler(_startRotationOffset.x,
-                rotation.y + _startRotationOffset.y, 0f);
+            rotation = Quaternion.Lerp(_sniperBody.rotation,  _lookRot, _turnSpeed).eulerAngles;
+            _sniperBody.rotation = Quaternion.Euler(_startRotationOffset.x, rotation.y + _startRotationOffset.y, 0f);
         }
-        Vector3 gunRotation = Quaternion.Lerp(_sniperGun.rotation,
-            _lookRot, Time.deltaTime * _turnSpeed).eulerAngles;
+        Vector3 gunRotation = Quaternion.Lerp(_sniperGun.rotation, _lookRot, _turnSpeed).eulerAngles;
         _sniperGun.localRotation = Quaternion.Euler(gunRotation.x, 0f, 0f);
     }
 
