@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Sniper : IFireBullets
+public class Weapon : IFireBullets
 {
     [Header("Models")]
     [SerializeField] Transform _sniperBody;

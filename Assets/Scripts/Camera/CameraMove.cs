@@ -9,18 +9,13 @@ public class CameraMove : MonoBehaviour
     [SerializeField] float _speed;
 
     private Vector3 origin = new Vector3(0f, 0f, 0f);
-    private RayStore rayStore;
 
-    private void Start()
-    {
-        rayStore = FindObjectOfType<RayStore>();
-    }
     void Update()
     {
         if (!Pause.isPaused && !Input.GetKey(_lockCameraKey))
         {
             Vector3 _targetPos;
-            _targetPos = rayStore.RayHitPoint();
+            _targetPos = RayStore.hitPoint;
             _targetPos.y = 0;
             Vector3 newPos = ((origin + _targetPos) / 2);
 

@@ -18,6 +18,8 @@ public class Turret : IFireBullets
     [SerializeField] protected float _minRange = 0f;
     [SerializeField] protected bool _calculateLead;
     [SerializeField] protected float _leadRatio = 1f;
+    [SerializeField] protected bool _limitAngle = true;
+    [SerializeField] protected float angleRange = 60f; //range of angle to both clockwise and counterclockwise directions
 
     [Header("Debugging")]
     [SerializeField] protected Transform enemyT;
@@ -80,7 +82,7 @@ public class Turret : IFireBullets
         Vector3 enemyPosition = enemy.position;
 
         if (_calculateLead)
-            enemyPosition += (enemyT.position - transform.position).magnitude * _leadRatio * enemyT.transform.forward;
+            enemyPosition += (enemy.position - transform.position).magnitude * _leadRatio * enemy.transform.forward;
 
         foreach (Transform turret in turretsYAxis)
         {
@@ -89,7 +91,6 @@ public class Turret : IFireBullets
             turret.rotation = Quaternion.RotateTowards(turret.rotation, targetRot, turretRotationSpeed * Pause.adjTimeScale);
         }
     }
-
     protected virtual void FireShell()
     {
         Transform firePoint = firePoints[Random.Range(0, numbOfFirePoints)];
@@ -97,6 +98,7 @@ public class Turret : IFireBullets
         SpawnBullet(firePoint.position, firePoint.rotation);
     }
 
+    //Utility functions
     protected bool EnemyInRange(out Transform closestEnemy)
     {
         closestEnemy = null;
@@ -106,7 +108,7 @@ public class Turret : IFireBullets
             if (enemy != null)
             {
                 float thisDist = Vector3.Distance(enemy.transform.position, transform.position);
-                if (thisDist < dist && thisDist >= _minRange)
+                if (thisDist < dist && thisDist >= _minRange && IsInAngleRange(enemy.transform.position))
                 {
                     dist = thisDist;
                     closestEnemy = enemy.transform;
@@ -115,5 +117,23 @@ public class Turret : IFireBullets
         }
 
         return (closestEnemy != null);
-    } 
+    }
+    protected bool IsInAngleRange(Vector3 position)
+    {
+        if (!_limitAngle)
+            return true;
+
+        float angleDif = Vector3.Angle(position - transform.position, transform.right);
+
+        if(angleDif < angleRange)
+        {
+            return true;
+        }
+
+        return false;
+    }
+    protected float NormalizeAngle(float angle)
+    {
+        return (angle + 360f) % 360f;
+    }
 }

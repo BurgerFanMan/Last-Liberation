@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.Audio;
 using TMPro;
 
-public class SniperManager : ICanBeUpgraded //UL(upgrade level) 0 is reload time, 1 is mag size, 2 is fire rate
+public class WeaponManager : ICanBeUpgraded //UL(upgrade level) 0 is reload time, 1 is mag size, 2 is fire rate
 {
     [Header("Main")]
     [SerializeField] GameObject _bulletPrefab;
@@ -18,7 +18,7 @@ public class SniperManager : ICanBeUpgraded //UL(upgrade level) 0 is reload time
     
     [SerializeField] Transform _reloadIcon;
     [SerializeField] List<Transform> _followMouse;
-    [SerializeField] List<Sniper> _snipers;
+    [SerializeField] List<Weapon> _snipers;
 
     [Header("UI")]
     [SerializeField] TextMeshProUGUI _reloadNumb;
@@ -35,15 +35,13 @@ public class SniperManager : ICanBeUpgraded //UL(upgrade level) 0 is reload time
 
     private Vector3 targetPos;
 
-    private RayStore rayStore;
     private AudioSource audioSource;
 
     private void Awake()
     {
-        rayStore = FindObjectOfType<RayStore>();
         audioSource = GetComponent<AudioSource>();
 
-        foreach (Sniper sniper in _snipers)
+        foreach (Weapon sniper in _snipers)
         {
             sniper.SetValues(_bulletPrefab, _turnSpeed, _rotationClamp);
         }
@@ -61,7 +59,7 @@ public class SniperManager : ICanBeUpgraded //UL(upgrade level) 0 is reload time
                       EventSystem.current.currentSelectedGameObject.CompareTag(_forbiddenUITag) ? true
                       : false;
 
-        targetPos = rayStore.RayHitPoint();
+        targetPos = RayStore.hitPoint;
         targetPos.y = 0;
 
 
@@ -72,7 +70,7 @@ public class SniperManager : ICanBeUpgraded //UL(upgrade level) 0 is reload time
         {
             trans.position = Input.mousePosition;
         }
-        foreach (Sniper sniper in _snipers)
+        foreach (Weapon sniper in _snipers)
         {
             sniper.FacePosition(targetPos);
         }
@@ -114,7 +112,7 @@ public class SniperManager : ICanBeUpgraded //UL(upgrade level) 0 is reload time
         {
             if(audioSource != null)
                 audioSource.Play();
-            foreach(Sniper sniper in _snipers)
+            foreach(Weapon sniper in _snipers)
             {
                 if (sniper.Shoot())
                     break;
