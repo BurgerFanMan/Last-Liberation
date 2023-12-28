@@ -15,7 +15,7 @@ public class CameraMove : MonoBehaviour
         if (!Pause.isPaused && !Input.GetKey(_lockCameraKey))
         {
             Vector3 _targetPos;
-            _targetPos = RayStore.hitPoint;
+            _targetPos = RayStore.GroundedHitPoint;
             _targetPos.y = 0;
             Vector3 newPos = ((origin + _targetPos) / 2);
 

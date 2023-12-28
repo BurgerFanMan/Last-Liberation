@@ -5,21 +5,22 @@ using UnityEngine;
 
 public class PauseManager : MonoBehaviour
 {
-    [Tooltip("Should the unpause button be the same as the pause button?")]
-    public bool _unpauseWithKey = true; //Should the unpause button be the same as the pause button?
-    public KeyCode _pauseButton = KeyCode.Escape;
+    [SerializeField] KeyCode _pauseButton = KeyCode.Escape;
 
+    [Header("Time Scale Presets")]
     [Range(0f, 5f)]
     public float _defaultTimeScale = 1f;
     [Range(0f, 0.1f)]
     public float _pauseTimeScale = 0f;
+    [Range(0f, 1f)]
+    public float _slowTimeScale = 0.02f;
 
     [Header("UI Management")]
     [SerializeField] GameObject _pauseMenu;
 
     [Header("Read Only")]
     [Range(0f, 100f)]
-    public float timeScale; //for debugging
+    [SerializeField] float timeScale; //for debugging
 
     private void Awake()
     {
@@ -29,6 +30,7 @@ public class PauseManager : MonoBehaviour
     private void Update()
     {
         if(!Input.GetKeyDown(_pauseButton)) return; 
+
         if (Pause.isPaused && Pause.inPauseMenu) //if the pause menu is open, close it and unpause
         {
             ClosePauseMenu();
@@ -57,18 +59,36 @@ public class PauseManager : MonoBehaviour
         _pauseMenu.SetActive(false);
     }
 
+
     public void PauseGame()
     {
         Pause.timeScale = _pauseTimeScale;
+
+        Cursor.visible = true;
 
         Pause.isPaused = true;
     }
     public void UnpauseGame()
     {
-        Pause.timeScale = _defaultTimeScale;
+        Pause.timeScale = Pause.isSlowed ? _slowTimeScale : _defaultTimeScale;
+
+        Cursor.visible = !SharedVariables.inBuildMode;
 
         Pause.inPauseMenu = false;
         Pause.isPaused = false;
+    }
+
+    public void SlowGame()
+    {
+        Pause.timeScale = _slowTimeScale;
+
+        Pause.isSlowed = true;
+    }
+    public void UnslowGame()
+    {
+        Pause.timeScale = _defaultTimeScale;
+
+        Pause.isSlowed = false;
     }
 }
 public static class Pause
@@ -77,4 +97,6 @@ public static class Pause
     public static float adjTimeScale { get { return timeScale * Time.deltaTime; } }
     public static bool inPauseMenu = false;
     public static bool isPaused = false;
+    public static bool isSlowed = false;
 }
+

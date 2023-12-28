@@ -14,12 +14,12 @@ public class Turret : IFireBullets
     [SerializeField] protected List<Transform> turretsYAxis;
 
     [Header("Distance and Location")]
-    [SerializeField] protected float _maxRange = 20f;
-    [SerializeField] protected float _minRange = 0f;
+    public float maxRange = 20f;
+    public float minRange = 0f;
     [SerializeField] protected bool _calculateLead;
     [SerializeField] protected float _leadRatio = 1f;
     [SerializeField] protected bool _limitAngle = true;
-    [SerializeField] protected float angleRange = 60f; //range of angle to both clockwise and counterclockwise directions
+    public float angleRange = 60f; //range of angle to both clockwise and counterclockwise directions
 
     [Header("Debugging")]
     [SerializeField] protected Transform enemyT;
@@ -102,13 +102,13 @@ public class Turret : IFireBullets
     protected bool EnemyInRange(out Transform closestEnemy)
     {
         closestEnemy = null;
-        float dist = _maxRange;
+        float dist = maxRange;
         foreach (Enemy enemy in enemyManager.enemies)
         {
             if (enemy != null)
             {
                 float thisDist = Vector3.Distance(enemy.transform.position, transform.position);
-                if (thisDist < dist && thisDist >= _minRange && IsInAngleRange(enemy.transform.position))
+                if (thisDist < dist && thisDist >= minRange && IsInAngleRange(enemy.transform.position))
                 {
                     dist = thisDist;
                     closestEnemy = enemy.transform;
@@ -123,7 +123,7 @@ public class Turret : IFireBullets
         if (!_limitAngle)
             return true;
 
-        float angleDif = Vector3.Angle(position - transform.position, transform.right);
+        float angleDif = Vector3.Angle(position - transform.position, -transform.forward);
 
         if(angleDif < angleRange)
         {

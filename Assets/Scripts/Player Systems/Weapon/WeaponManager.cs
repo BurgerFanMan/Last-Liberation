@@ -17,7 +17,6 @@ public class WeaponManager : ICanBeUpgraded //UL(upgrade level) 0 is reload time
     [SerializeField] float _rotationClamp = 90f;
     
     [SerializeField] Transform _reloadIcon;
-    [SerializeField] List<Transform> _followMouse;
     [SerializeField] List<Weapon> _snipers;
 
     [Header("UI")]
@@ -62,14 +61,9 @@ public class WeaponManager : ICanBeUpgraded //UL(upgrade level) 0 is reload time
         targetPos = RayStore.hitPoint;
         targetPos.y = 0;
 
-
         _reloadNumb.text = magazineCount.ToString();
         _reloadCap.text = (_magazineSize + _upgradeLevel[1]).ToString();
 
-        foreach (Transform trans in _followMouse)
-        {
-            trans.position = Input.mousePosition;
-        }
         foreach (Weapon sniper in _snipers)
         {
             sniper.FacePosition(targetPos);
@@ -108,7 +102,7 @@ public class WeaponManager : ICanBeUpgraded //UL(upgrade level) 0 is reload time
                 timeDone = 0f;
             }
         }
-        else if (Input.GetKey(KeyCode.Mouse0) && !overUI)
+        else if (Input.GetKey(KeyCode.Mouse0) && !overUI && !SharedVariables.inBuildMode)
         {
             if(audioSource != null)
                 audioSource.Play();

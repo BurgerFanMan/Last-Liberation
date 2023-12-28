@@ -27,6 +27,7 @@ public class RayStoreManager : MonoBehaviour
 
 public static class RayStore
 {
-    public static Vector3 hitPoint;
     public static RaycastHit hitInfo;
+    public static Vector3 hitPoint;
+    public static Vector3 GroundedHitPoint { get { return new Vector3(hitPoint.x, 0f, hitPoint.z); } }
 }
