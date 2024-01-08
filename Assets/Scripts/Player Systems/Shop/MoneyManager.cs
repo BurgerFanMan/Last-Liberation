@@ -8,33 +8,20 @@ public class MoneyManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI _moneyDisplay;
     [SerializeField] float _enemyBounty;
 
-    public float _startMoney;
-    public float _money = 0f;
-
-    private bool moneyDisplayNull;
+    public float startMoney;
 
     private void Awake()
     {
-        _money = _startMoney;
-
-        moneyDisplayNull = _moneyDisplay == null;
+        Money.money = startMoney;
     }
 
     private void Update()
     {
-        if (moneyDisplayNull)
-            return;
-
-        _moneyDisplay.text = Mathf.Round(_money).ToString();
+        _moneyDisplay.text = Mathf.Round(Money.money).ToString();
     }
+}
 
-    public void DecreaseMoney(float amount)
-    {
-        _money -= amount;
-    }
-
-    public void EnemyKilled()
-    {
-        _money += _enemyBounty;
-    }
+public static class Money
+{
+    public static float money = 0f;
 }

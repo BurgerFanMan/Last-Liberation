@@ -20,20 +20,23 @@ public class EnemyManager : MonoBehaviour
 
     [Header("Spawning")]
     [Range(0f, 80f)]
-    [SerializeField] float _randomSpawnOffset; //Moves the enemy backwards x, where x is a random value between 0 and _randomSpawnOffset.
+    [SerializeField] float _randomSpawnOffset; //Moves the enemy backwards or forwards a random value between -_randomSpawnOffset and _randomSpawnOffset.
     [SerializeField] Transform _spawnPointParent;
     [SerializeField] Transform _spawnPoint;
     [SerializeField] GameObject _enemyDestroyPrefab;
     [SerializeField] GameObject _enemyPrefab;
 
+    [Header("Money")]
+    [SerializeField] float _bounty = 1f;
+    [SerializeField] float _waveBonus = 5f;
+    [SerializeField] bool _increaseBonusWithDifficulty = true;
+
     public List<Enemy> enemies = new List<Enemy>();
 
     float _waveDifficulty; 
-    int _waveNumber = 0; //sort this out
-    bool _ongoingWave = true, _waitingForWave;
+    int _waveNumber = 0; //sort this out- starting wave delay
     float _timePassed;
 
-    private MoneyManager _moneyManager;
     private BuildingManager _buildingManager;
 
     private void Start()
@@ -41,7 +44,6 @@ public class EnemyManager : MonoBehaviour
         _alarmSource = _alarmSource == null ? GetComponent<AudioSource>() : _alarmSource;
         _megaAlarmSource = _megaAlarmSource == null ? GetComponent<AudioSource>() : _megaAlarmSource;
 
-        _moneyManager = FindObjectOfType<MoneyManager>();
         _buildingManager = FindObjectOfType<BuildingManager>();
     }
 
@@ -50,60 +52,45 @@ public class EnemyManager : MonoBehaviour
         if (enemies.Count != 0)
             return;
 
-        if (_ongoingWave)
+        _timePassed += Pause.adjTimeScale;
+        if (_timePassed > _timeBetweenWaves)
         {
-            _ongoingWave = false;
-            _waitingForWave = true;
-            _waveNumbAnim.SetBool("waitingForWave", true);
-        }
-        else if (_waitingForWave)
-        {
-            _timePassed += Pause.adjTimeScale;
-            if (_timePassed > _timeBetweenWaves)
-            {
-                IncreaseWave();
-            }
+            _timePassed = 0f;
+
+            IncreaseWave();
         }
     }
 
     public void IncreaseWave()
     {
-        _waveNumbAnim.SetBool("waitingForWave", false);  
-
-        _timePassed = 0f;
-        _waitingForWave = false;
-        _ongoingWave = true;
-
         _waveNumber += 1;
-        if (_waveNumber % _megaWaveFreq != 0)
-        {           
-            _waveDifficulty = 0.98f * Mathf.Exp(_difficultyPerWave * _waveNumber);
-        }
-        else
-        {         
-            _waveDifficulty = 0.98f * Mathf.Exp(_difficultyPerWave * _waveNumber) * _megaWaveDifMult;
-        }
+
+        _waveDifficulty = (_difficultyPerWave * _waveNumber) + Mathf.Pow(1.1f, _waveNumber);
+        _waveDifficulty *= _waveNumber % _megaWaveFreq == 0 ? _megaWaveDifMult : 1f;
 
         _waveUI.text = _waveNumber.ToString();
+        _waveNumbAnim.SetBool("waitingForWave", false);
 
         SpawnEnemies((int)(_waveDifficulty * _enemiesPerDifficulty));
+    }
+    public void OnWaveEnded()
+    {
+        Money.money += _increaseBonusWithDifficulty ? _waveBonus * _waveDifficulty : _waveBonus;
+
+        _waveNumbAnim.SetBool("waitingForWave", true);
     }
 
     public void KillEnemy(Enemy enemyToKill)
     {
-        for (int i = enemies.Count; i > 0; i--)
-        {
-            if (enemies[i-1] == enemyToKill)
-            {
-                enemies.Remove(enemies[i-1]);
-                Instantiate(_enemyDestroyPrefab, enemyToKill.transform.position, enemyToKill.transform.rotation);
-                Destroy(enemyToKill.gameObject);
-                i = -1;
+        if (!enemies.Contains(enemyToKill))
+            return;
 
-                _moneyManager.EnemyKilled();
-            }
-        }
-        UpdateTargets();
+        Instantiate(_enemyDestroyPrefab, enemyToKill.transform.position, enemyToKill.transform.rotation);
+
+        enemies.Remove(enemyToKill);
+        Destroy(enemyToKill.gameObject);
+
+        Money.money += _bounty;
     }
     public void DamageBuilding(float damage, GameObject building)
     {
@@ -111,12 +98,12 @@ public class EnemyManager : MonoBehaviour
         UpdateTargets();
     }
 
-    void SpawnEnemies(int _numbOfSpawns)
+    void SpawnEnemies(int numbOfSpawns)
     {
-        for (int i = _numbOfSpawns; i > 0; i--)
+        for (int i = 0; i < numbOfSpawns; i++)
         {
             _spawnPointParent.rotation = Quaternion.Euler(0f, Random.Range(0f, 360f), 0f);
-            Vector3 spawnLocat = _spawnPoint.position + (_spawnPoint.forward * Random.Range(0, -_randomSpawnOffset));
+            Vector3 spawnLocat = _spawnPoint.position + (_spawnPoint.forward * Random.Range(-_randomSpawnOffset, _randomSpawnOffset));
 
             Enemy enemy = Instantiate(_enemyPrefab, spawnLocat, Quaternion.identity).GetComponent<Enemy>();
             enemies.Add(enemy);

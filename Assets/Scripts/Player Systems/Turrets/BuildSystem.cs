@@ -61,7 +61,7 @@ public class BuildSystem : MonoBehaviour
 
         Turret turret = _selectedTurret.turretPrefab.GetComponent<Turret>();
 
-        _ghost.GetComponent<TurretGhost>().RenderTurretRange(turret.maxRange, turret.angleRange * 2f);
+        _ghost.GetComponent<TurretGhost>().RenderTurretRange(turret);
 
         _uIManager.ChangeBuildMode(true);
         _pauseManager.SlowGame();
@@ -96,8 +96,11 @@ public class BuildSystem : MonoBehaviour
     {
         Instantiate(_selectedTurret.turretPrefab, RayStore.GroundedHitPoint, _ghost.transform.rotation);
 
+        Money.money -= _selectedTurret.cost;
+
         DeselectTurret();
     }
+
     void ChangeGhostMaterials(GameObject go, Material material)
     {
         TurretGhost ghost = go.GetComponent<TurretGhost>();

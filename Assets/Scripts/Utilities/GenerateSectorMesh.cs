@@ -7,16 +7,9 @@ public class GenerateSectorMesh : MonoBehaviour
 {
     public float radius = 5f;        // Radius of the circle
     public float angle = 60f;        // Angle of the sector in degrees
-    public int segments = 20;        // Number of segments in the circle
+    public float centerAngle = 0f;
+    public int segments = 20;        // Resolution basically, the number of sides of the polygon. Higher means more circular but more vertices to generate.
     public bool centerSector = true; // Centers the sector so the middle always points forward
-
-    private void Update()
-    {
-        if (centerSector)
-        {
-            transform.localRotation = Quaternion.Euler(0f, angle/2f, 0f);
-        }
-    }
 
     public void RenderSector()
     {
@@ -57,5 +50,10 @@ public class GenerateSectorMesh : MonoBehaviour
 
         // Recalculate normals to ensure proper lighting
         mesh.RecalculateNormals();
+
+        if (centerSector)
+        {
+            transform.localRotation = Quaternion.Euler(0f, (angle / 2f) + centerAngle, 0f);
+        }
     }
 }

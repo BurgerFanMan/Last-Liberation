@@ -5,12 +5,12 @@ using UnityEngine;
 [RequireComponent(typeof(Collider))]
 public class TurretGhost : MonoBehaviour
 {
-    [SerializeField] GenerateSectorMesh _meshGenerator;
+    [SerializeField] GameObject _meshGeneratorPrefab;
     public List<MeshRenderer> renderers;
     public List<string> ignoreColliderTags;
 
     private int numberOfColliders;
-    private bool isInRange;
+    private bool isInRange = true;
 
     void Update()
     {
@@ -34,12 +34,23 @@ public class TurretGhost : MonoBehaviour
         }
     }
 
-    public void RenderTurretRange(float range, float angle)
+    public void RenderTurretRange(Turret turret)
     {
-        _meshGenerator.radius = range;
-        _meshGenerator.angle = angle;
+        for(int i = 0; i < turret.subTurrets.Count; i++)
+        {
+            SubTurret subTurret = turret.subTurrets[i];
+            GenerateSectorMesh meshGenerator = Instantiate(_meshGeneratorPrefab, transform, false).GetComponent<GenerateSectorMesh>();
 
-        _meshGenerator.RenderSector();
+            Vector3 forward = -subTurret.turretBase.right;
+
+            meshGenerator.transform.forward = transform.right;
+            meshGenerator.transform.localPosition = subTurret.turretBase.localPosition;
+            meshGenerator.angle = turret.angleRange * 2f;
+            meshGenerator.radius = turret.maxRange;
+            meshGenerator.centerAngle = ((float)Mathf.Atan2(forward.z, forward.x) * Mathf.Rad2Deg) + 180f;
+
+            meshGenerator.RenderSector();
+        }
     }
 
     private void OnTriggerEnter(Collider other)
