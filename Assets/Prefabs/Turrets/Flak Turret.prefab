@@ -919,7 +919,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3209545047372142446}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.26, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3209545047819256682}
@@ -951,9 +951,11 @@ MonoBehaviour:
   _magazineCapacity: 4
   _turretRotationSpeed: 100
   subTurrets:
-  - firePoint: {fileID: 3209545047429405663}
+  - firePoints:
+    - {fileID: 3209545047429405663}
     turretBase: {fileID: 3209545047823190814}
-  - firePoint: {fileID: 3209545046886826568}
+  - firePoints:
+    - {fileID: 3209545046886826568}
     turretBase: {fileID: 3209545046888325802}
   maxRange: 15
   minRange: 0
@@ -962,6 +964,7 @@ MonoBehaviour:
   _limitAngle: 1
   angleRange: 40
   _waitTillAimingAtEnemy: 1
+  _angularDistanceToFire: 2
   enemyT: {fileID: 0}
 --- !u!1 &3209545047372725869
 GameObject:

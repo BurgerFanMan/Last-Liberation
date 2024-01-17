@@ -57,7 +57,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3602261021447108224}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 0.03, y: 0.03, z: 2}
   m_Children: []
   m_Father: {fileID: 4850564633078766996}
@@ -125,7 +125,7 @@ GameObject:
   - component: {fileID: 5225013782830467045}
   - component: {fileID: 5225013782830467044}
   m_Layer: 0
-  m_Name: Flak Turret Bullet
+  m_Name: Flak Bullet
   m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -157,8 +157,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.028, y: 0.028, z: 0.469}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.028, y: 0.028, z: 1}
+  m_Center: {x: 0, y: 0, z: 0.5}
 --- !u!114 &5225013782830467045
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -177,6 +177,7 @@ MonoBehaviour:
   _speed: 15
   _damage: 20
   _range: 40
+  _tagToHit: Enemy
   _hitEffect: {fileID: 0}
   fireBullets: {fileID: 0}
 --- !u!54 &5225013782830467044

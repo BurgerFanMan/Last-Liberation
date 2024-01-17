@@ -5,6 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
 public class GenerateSectorMesh : MonoBehaviour
 {
+    public float innerRadius = 1f;
     public float radius = 5f;        // Radius of the circle
     public float angle = 60f;        // Angle of the sector in degrees
     public float centerAngle = 0f;

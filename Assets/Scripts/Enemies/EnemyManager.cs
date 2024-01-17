@@ -45,6 +45,8 @@ public class EnemyManager : MonoBehaviour
         _megaAlarmSource = _megaAlarmSource == null ? GetComponent<AudioSource>() : _megaAlarmSource;
 
         _buildingManager = FindObjectOfType<BuildingManager>();
+
+        SharedVariables.enemyManager = this;
     }
 
     void Update()

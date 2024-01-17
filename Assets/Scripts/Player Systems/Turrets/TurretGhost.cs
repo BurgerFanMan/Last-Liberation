@@ -41,14 +41,12 @@ public class TurretGhost : MonoBehaviour
             SubTurret subTurret = turret.subTurrets[i];
             GenerateSectorMesh meshGenerator = Instantiate(_meshGeneratorPrefab, transform, false).GetComponent<GenerateSectorMesh>();
 
-            Vector3 forward = -subTurret.turretBase.right;
-
             meshGenerator.transform.forward = transform.right;
             meshGenerator.transform.localPosition = subTurret.turretBase.localPosition;
             meshGenerator.angle = turret.angleRange * 2f;
             meshGenerator.radius = turret.maxRange;
-            meshGenerator.centerAngle = ((float)Mathf.Atan2(forward.z, forward.x) * Mathf.Rad2Deg) + 180f;
-
+            meshGenerator.centerAngle = subTurret.turretBase.eulerAngles.y + 180f;
+            
             meshGenerator.RenderSector();
         }
     }

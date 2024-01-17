@@ -20,6 +20,7 @@ public class Turret : IFireBullets
     [SerializeField] protected bool _limitAngle = true;
     public float angleRange = 60f; //range of angle to both clockwise and counterclockwise directions
     [SerializeField] protected bool _waitTillAimingAtEnemy; //if true, the turret will not fire till it is directly facing the enemy to avoid wasting shells while retargeting
+    [SerializeField] protected float _angularDistanceToFire; //the range of angle at which the turret will open fire if wait till aiming is TRUE
 
     [Header("Debugging")]
     [SerializeField] protected Transform enemyT;
@@ -48,7 +49,7 @@ public class Turret : IFireBullets
             {
                 startingForward = -subTurret.turretBase.right,
                 turretBase = subTurret.turretBase,
-                firePoint = subTurret.firePoint
+                firePoints = subTurret.firePoints
             };
 
             subTurretClasses.Add(subTurretClass);
@@ -70,6 +71,8 @@ public class Turret : IFireBullets
                     enemyPosition += (enemy.position - transform.position).magnitude * _leadRatio * enemy.transform.forward;
 
                 RotateTurret(subTurret, enemyPosition);
+
+                subTurret.targetPosition = enemyPosition;
             }
             else
                 subTurret.aimingAtEnemy = false;
@@ -95,19 +98,15 @@ public class Turret : IFireBullets
             return;
         }
 
-        if (_waitTillAimingAtEnemy)
-        {   //adds all subturrets that are aiming at the enemy to a list
-            List<SubTurretClass> shootableSubTurrets = new List<SubTurretClass>();
 
-            shootableSubTurrets.AddRange(subTurretClasses.Where(subTurret => subTurret.aimingAtEnemy == true));
+        List<SubTurretClass> shootableSubTurrets = new List<SubTurretClass>();
 
-            if (shootableSubTurrets.Count == 0)
-                return;
+        shootableSubTurrets.AddRange(subTurretClasses.Where(subTurret => subTurret.aimingAtEnemy == true));
 
-            FireShell(shootableSubTurrets);
-        }
-        else
-            FireShell(subTurretClasses);
+        if (shootableSubTurrets.Count == 0)
+            return;
+
+        FireShell(shootableSubTurrets);
     }
 
     protected virtual void RotateTurret(SubTurretClass subTurret, Vector3 enemyPosition)
@@ -119,16 +118,19 @@ public class Turret : IFireBullets
 
         turret.rotation = Quaternion.RotateTowards(turret.rotation, targetRot, _turretRotationSpeed * Pause.adjTimeScale);
 
-        subTurret.aimingAtEnemy = GetAngleDifference(targetRotEuler.y + 90f, turret.eulerAngles.y) < 5f;
+        subTurret.aimingAtEnemy = !_waitTillAimingAtEnemy ? true :
+            GetAngleDifference(targetRotEuler.y + 90f, turret.eulerAngles.y) < _angularDistanceToFire;
     }
     protected virtual void FireShell(List<SubTurretClass> subTurretsToFire)
     {
         timeSinceFire = 0f;
         shellsLeft -= 1;
-        
-        Transform firePoint = subTurretsToFire[Random.Range(0, subTurretsToFire.Count)].firePoint;
 
-        SpawnBullet(firePoint.position, firePoint.rotation);
+        SubTurretClass subTurret = subTurretsToFire[Random.Range(0, subTurretsToFire.Count)];
+
+        Transform firePoint = subTurret.firePoints[Random.Range(0, subTurret.firePoints.Count)];
+
+        SpawnBullet(firePoint.position, firePoint.rotation, subTurret.targetPosition);
     }
 
     //Utility functions
@@ -173,16 +175,17 @@ public class Turret : IFireBullets
 [System.Serializable]
 public struct SubTurret
 {
-    public Transform firePoint;
+    public List<Transform> firePoints;
     public Transform turretBase;
 }
 
 public class SubTurretClass
 {
-    public Transform firePoint;
+    public List<Transform> firePoints;
     public Transform turretBase;
 
     public Vector3 startingForward;
+    public Vector3 targetPosition;
 
     public bool aimingAtEnemy;
 }

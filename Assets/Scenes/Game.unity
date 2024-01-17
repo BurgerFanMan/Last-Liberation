@@ -3645,6 +3645,91 @@ PrefabInstance:
       propertyPath: m_Name
       value: Artillery Button
       objectReference: {fileID: 0}
+    - target: {fileID: 9146233821687907187, guid: e89f1ef64fc47d6419b8ca06a85e0735, type: 3}
+      propertyPath: m_Colors.m_NormalColor.b
+      value: 0.21960784
+      objectReference: {fileID: 0}
+    - target: {fileID: 9146233821687907187, guid: e89f1ef64fc47d6419b8ca06a85e0735, type: 3}
+      propertyPath: m_Colors.m_NormalColor.g
+      value: 0.59322244
+      objectReference: {fileID: 0}
+    - target: {fileID: 9146233821687907187, guid: e89f1ef64fc47d6419b8ca06a85e0735, type: 3}
+      propertyPath: m_Colors.m_NormalColor.r
+      value: 0.8784314
+      objectReference: {fileID: 0}
+    - target: {fileID: 9146233821687907187, guid: e89f1ef64fc47d6419b8ca06a85e0735, type: 3}
+      propertyPath: m_Colors.m_PressedColor.b
+      value: 0.12941174
+      objectReference: {fileID: 0}
+    - target: {fileID: 9146233821687907187, guid: e89f1ef64fc47d6419b8ca06a85e0735, type: 3}
+      propertyPath: m_Colors.m_PressedColor.g
+      value: 0.3405229
+      objectReference: {fileID: 0}
+    - target: {fileID: 9146233821687907187, guid: e89f1ef64fc47d6419b8ca06a85e0735, type: 3}
+      propertyPath: m_Colors.m_PressedColor.r
+      value: 0.5019608
+      objectReference: {fileID: 0}
+    - target: {fileID: 9146233821687907187, guid: e89f1ef64fc47d6419b8ca06a85e0735, type: 3}
+      propertyPath: m_Colors.m_DisabledColor.b
+      value: 0.4392157
+      objectReference: {fileID: 0}
+    - target: {fileID: 9146233821687907187, guid: e89f1ef64fc47d6419b8ca06a85e0735, type: 3}
+      propertyPath: m_Colors.m_DisabledColor.g
+      value: 0.5281046
+      objectReference: {fileID: 0}
+    - target: {fileID: 9146233821687907187, guid: e89f1ef64fc47d6419b8ca06a85e0735, type: 3}
+      propertyPath: m_Colors.m_DisabledColor.r
+      value: 0.59607846
+      objectReference: {fileID: 0}
+    - target: {fileID: 9146233821687907187, guid: e89f1ef64fc47d6419b8ca06a85e0735, type: 3}
+      propertyPath: m_Colors.m_SelectedColor.b
+      value: 0.21960784
+      objectReference: {fileID: 0}
+    - target: {fileID: 9146233821687907187, guid: e89f1ef64fc47d6419b8ca06a85e0735, type: 3}
+      propertyPath: m_Colors.m_SelectedColor.g
+      value: 0.59294116
+      objectReference: {fileID: 0}
+    - target: {fileID: 9146233821687907187, guid: e89f1ef64fc47d6419b8ca06a85e0735, type: 3}
+      propertyPath: m_Colors.m_SelectedColor.r
+      value: 0.8784314
+      objectReference: {fileID: 0}
+    - target: {fileID: 9146233821687907187, guid: e89f1ef64fc47d6419b8ca06a85e0735, type: 3}
+      propertyPath: m_Colors.m_HighlightedColor.b
+      value: 0.20392156
+      objectReference: {fileID: 0}
+    - target: {fileID: 9146233821687907187, guid: e89f1ef64fc47d6419b8ca06a85e0735, type: 3}
+      propertyPath: m_Colors.m_HighlightedColor.g
+      value: 0.488366
+      objectReference: {fileID: 0}
+    - target: {fileID: 9146233821687907187, guid: e89f1ef64fc47d6419b8ca06a85e0735, type: 3}
+      propertyPath: m_Colors.m_HighlightedColor.r
+      value: 0.7058824
+      objectReference: {fileID: 0}
+    - target: {fileID: 9146233821687907187, guid: e89f1ef64fc47d6419b8ca06a85e0735, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1445068700}
+    - target: {fileID: 9146233821687907187, guid: e89f1ef64fc47d6419b8ca06a85e0735, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SelectTurret
+      objectReference: {fileID: 0}
+    - target: {fileID: 9146233821687907187, guid: e89f1ef64fc47d6419b8ca06a85e0735, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9146233821931015564, guid: e89f1ef64fc47d6419b8ca06a85e0735, type: 3}
+      propertyPath: m_text
+      value: Improvised rocket artillery prioritising volume over everything else.
+        Extremely inaccurate, but packs a punch against large swarms of enemy tanks.
+      objectReference: {fileID: 0}
+    - target: {fileID: 9146233822606994378, guid: e89f1ef64fc47d6419b8ca06a85e0735, type: 3}
+      propertyPath: m_text
+      value: Rocket Artillery
+      objectReference: {fileID: 0}
+    - target: {fileID: 9146233822606994378, guid: e89f1ef64fc47d6419b8ca06a85e0735, type: 3}
+      propertyPath: m_margin.z
+      value: -66.08381
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e89f1ef64fc47d6419b8ca06a85e0735, type: 3}
 --- !u!224 &343371089 stripped
@@ -8688,7 +8773,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 821852500}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d357fc0381422824a88691848e172d1c, type: 3}
   m_Name: 
@@ -13861,6 +13946,7 @@ MonoBehaviour:
   _pauseManager: {fileID: 501836416}
   _turretInfos:
   - {fileID: 11400000, guid: 0cc5c62460cefdb4f992cebc2e28fc7c, type: 2}
+  - {fileID: 11400000, guid: eb2852c0de023214681b9d040b801fd7, type: 2}
 --- !u!1 &1462648516
 GameObject:
   m_ObjectHideFlags: 0

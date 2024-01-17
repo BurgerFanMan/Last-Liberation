@@ -12,9 +12,7 @@ public class TurretButtons : MonoBehaviour
 
     private void Start()
     {
-        _currencyDisplay.text = $"{_turret.cost}";
-
-        
+        _currencyDisplay.text = $"{_turret.cost}";        
     }
 
     private void Update()

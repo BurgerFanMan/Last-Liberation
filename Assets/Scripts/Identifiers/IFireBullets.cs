@@ -13,9 +13,33 @@ public class IFireBullets : ICanBeUpgraded
     protected List<Bullet> allBullets = new List<Bullet>();
     protected List<Bullet> freeBullets = new List<Bullet>();
 
+    public void SpawnBullet(Vector3 position, Quaternion rotation, Vector3 targetPosition)
+    {
+        Bullet bullet;
+        //check if there are bullets in the pool, if yes activate them, if no spawn a new one
+        if (freeBullets.Count > 0)
+        {
+            bullet = freeBullets[0];
+
+            bullet.gameObject.SetActive(true);
+            bullet.OnSpawn(position, rotation, targetPosition);
+
+            freeBullets.Remove(bullet);
+
+            return;
+        }
+
+        bullet = Instantiate(bulletPrefab, position, rotation).GetComponent<Bullet>();
+
+        bullet.OnSpawn(position, rotation, targetPosition);
+        bullet.fireBullets = this;
+
+        allBullets.Add(bullet);
+        
+    }
     public void SpawnBullet(Vector3 position, Quaternion rotation)
     {
-        Bullet bullet = null;
+        Bullet bullet;
         //check if there are bullets in the pool, if yes activate them, if no spawn a new one
         if(freeBullets.Count > 0)
         {
@@ -30,8 +54,11 @@ public class IFireBullets : ICanBeUpgraded
         }
 
         bullet = Instantiate(bulletPrefab, position, rotation).GetComponent<Bullet>();
-        allBullets.Add(bullet);
+
+        bullet.OnSpawn(position, rotation);
         bullet.fireBullets = this;
+
+        allBullets.Add(bullet);
     }
     public void DestroyBullet(Bullet bullet)
     {
