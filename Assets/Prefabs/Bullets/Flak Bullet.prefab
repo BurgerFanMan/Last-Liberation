@@ -177,8 +177,11 @@ MonoBehaviour:
   _speed: 15
   _damage: 20
   _range: 40
+  _explosionRadius: 0
+  _targetRandomness: 0
   _tagToHit: Enemy
-  _hitEffect: {fileID: 0}
+  _hitEffect: {fileID: 276886302813314505, guid: 28bc4e091bee189449dce4d30cfdf76b, type: 3}
+  _rotateHitEffect: 1
   fireBullets: {fileID: 0}
 --- !u!54 &5225013782830467044
 Rigidbody:

@@ -3645,6 +3645,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Artillery Button
       objectReference: {fileID: 0}
+    - target: {fileID: 9146233821687907186, guid: e89f1ef64fc47d6419b8ca06a85e0735, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 2dddae027f8d1de42a74d5f4c4e1e6a7, type: 3}
     - target: {fileID: 9146233821687907187, guid: e89f1ef64fc47d6419b8ca06a85e0735, type: 3}
       propertyPath: m_Colors.m_NormalColor.b
       value: 0.21960784
@@ -5839,7 +5843,7 @@ GameObject:
   - component: {fileID: 585884401}
   - component: {fileID: 585884400}
   - component: {fileID: 585884399}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Terrain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7504,7 +7508,7 @@ Light:
   m_RenderMode: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 55
+    m_Bits: 183
   m_RenderingLayerMask: 1
   m_Lightmapping: 1
   m_LightShadowCasterMode: 0

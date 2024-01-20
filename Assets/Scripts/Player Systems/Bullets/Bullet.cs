@@ -12,6 +12,7 @@ public class Bullet : ICanBeUpgraded
     [SerializeField] protected float _targetRandomness = 0f;
     [SerializeField] protected string _tagToHit = "Enemy";
     [SerializeField] protected GameObject _hitEffect;
+    [SerializeField] protected bool _rotateHitEffect; //changes the rotation of the hit effect to match the hit direction 
     
     [Header("Readonly")]
     public IFireBullets fireBullets;
@@ -73,7 +74,11 @@ public class Bullet : ICanBeUpgraded
     void DestroyBullet(Vector3 hitPosition)
     {
         if (_hitEffect != null)
-            Instantiate(_hitEffect, hitPosition, Quaternion.identity);
+        { 
+            GameObject hitEffect = Instantiate(_hitEffect, hitPosition, Quaternion.identity);
+
+            hitEffect.transform.rotation = _rotateHitEffect ? transform.rotation : hitEffect.transform.rotation;
+        }
 
         fireBullets.DestroyBullet(this);
     }

@@ -125,7 +125,7 @@ GameObject:
   - component: {fileID: 5225013782830467045}
   - component: {fileID: 5225013782830467044}
   m_Layer: 0
-  m_Name: Sniper Bullet
+  m_Name: Weapon Bullet
   m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -157,8 +157,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.032, y: 0.032, z: 0.3}
-  m_Center: {x: 0, y: 0, z: 0.15}
+  m_Size: {x: 0.032, y: 0.032, z: 1}
+  m_Center: {x: 0, y: 0, z: 0.5}
 --- !u!114 &5225013782830467045
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -177,8 +177,11 @@ MonoBehaviour:
   _speed: 30
   _damage: 20
   _range: 50
+  _explosionRadius: 0
+  _targetRandomness: 0
   _tagToHit: Enemy
-  _hitEffect: {fileID: 0}
+  _hitEffect: {fileID: 237570769428459147, guid: c0f42af2253fa8045a3c9fec07f09ae7, type: 3}
+  _rotateHitEffect: 1
   fireBullets: {fileID: 0}
 --- !u!54 &5225013782830467044
 Rigidbody:

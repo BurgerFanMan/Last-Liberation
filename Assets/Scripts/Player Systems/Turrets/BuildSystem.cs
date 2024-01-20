@@ -53,6 +53,9 @@ public class BuildSystem : MonoBehaviour
 
     public void SelectTurret(int turretInfoIndex)
     {
+	if(_selectedTurret != null)
+		DeselectTurret();
+
         _placable = true;
         SharedVariables.inBuildMode = true;
         

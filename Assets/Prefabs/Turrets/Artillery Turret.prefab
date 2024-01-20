@@ -1609,6 +1609,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3209545047372142447}
   - component: {fileID: 3209545047372142444}
+  - component: {fileID: -602985910608477090}
   m_Layer: 0
   m_Name: Artillery Turret
   m_TagString: Untagged
@@ -1654,7 +1655,7 @@ MonoBehaviour:
   _reloadTime: 4
   _fireRate: 40
   _magazineCapacity: 4
-  _turretRotationSpeed: 100
+  _turretRotationSpeed: 60
   subTurrets:
   - firePoints:
     - {fileID: 8691853604743617683}
@@ -1682,13 +1683,26 @@ MonoBehaviour:
     turretBase: {fileID: 5092113263302187626}
   maxRange: 20
   minRange: 0
-  _calculateLead: 0
-  _leadRatio: 0.1
+  _calculateLead: 1
+  _leadRatio: 0.05
   _limitAngle: 1
   angleRange: 80
-  _waitTillAimingAtEnemy: 0
-  _angularDistanceToFire: 0
+  _waitTillAimingAtEnemy: 1
+  _angularDistanceToFire: 10
   enemyT: {fileID: 0}
+--- !u!65 &-602985910608477090
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3209545047372142446}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.8818619, y: 0.506662, z: 0.8987387}
+  m_Center: {x: 0.018564582, y: 0.246669, z: -0.033753723}
 --- !u!1 &3209545047609193066
 GameObject:
   m_ObjectHideFlags: 0

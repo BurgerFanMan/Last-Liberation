@@ -57,8 +57,7 @@ public class Weapon : IFireBullets
         rotation.y = GetRotation(rotation.y);
         if (rotation.y < _rotClampMax && rotation.y > _rotClampMin)
         {
-            Vector3 spawnOffset = _gunExit.forward * 0.4f;
-            SpawnBullet(_gunExit.position + spawnOffset, _bulletRot);
+            SpawnBullet(_gunExit.position, _bulletRot);
 
             return true;
         }

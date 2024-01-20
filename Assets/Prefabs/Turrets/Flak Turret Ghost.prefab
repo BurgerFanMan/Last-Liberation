@@ -964,9 +964,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3209545047372142447}
-  - component: {fileID: -6946801268410673846}
   - component: {fileID: 1822292229881847642}
   - component: {fileID: 1950296568427555396}
+  - component: {fileID: -6946801268410673846}
   m_Layer: 0
   m_Name: Flak Turret Ghost
   m_TagString: Untagged
@@ -990,19 +990,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &-6946801268410673846
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3209545047372142446}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.8, y: 0.26, z: 0.8}
-  m_Center: {x: 0, y: 0.16, z: 0}
 --- !u!114 &1822292229881847642
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1055,6 +1042,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &-6946801268410673846
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3209545047372142446}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.8, y: 0.26, z: 0.8}
+  m_Center: {x: 0, y: 0.16, z: 0}
 --- !u!1 &3209545047372725869
 GameObject:
   m_ObjectHideFlags: 0

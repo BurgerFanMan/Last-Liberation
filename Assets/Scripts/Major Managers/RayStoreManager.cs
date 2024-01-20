@@ -18,9 +18,14 @@ public class RayStoreManager : MonoBehaviour
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-        if (Physics.Raycast(ray, out RayStore.hitInfo, 40))
+        if (Physics.Raycast(ray, out RayStore.hitInfo, 40f))
         {
             RayStore.hitPoint = RayStore.hitInfo.point;
+        }
+
+	if (Physics.Raycast(ray, out RayStore.groundedHitInfo, 40f, 1<<7))
+        {
+            RayStore.GroundedHitPoint = RayStore.groundedHitInfo.point;
         }
     }
 }
@@ -29,5 +34,6 @@ public static class RayStore
 {
     public static RaycastHit hitInfo;
     public static Vector3 hitPoint;
-    public static Vector3 GroundedHitPoint { get { return new Vector3(hitPoint.x, 0f, hitPoint.z); } }
+    public static RaycastHit groundedHitInfo;
+    public static Vector3 GroundedHitPoint;
 }
