@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cost: 20
   turretPrefab: {fileID: 3209545047372142446, guid: 7f4370c0e8df1a14292b64548821e706, type: 3}
-  turretGhost: {fileID: 3209545047372142446, guid: e4a9a0687eee3a64eaccff8e6a78d4e7, type: 3}
+  turretGhost: {fileID: 3209545047372142446, guid: a482c4b7ad97db7449700f434ccf1a64, type: 3}

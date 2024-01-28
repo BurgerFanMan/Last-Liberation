@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
@@ -7,10 +8,15 @@ public class TurretGhost : MonoBehaviour
 {
     [SerializeField] GameObject _meshGeneratorPrefab;
     public List<MeshRenderer> renderers;
-    public List<string> ignoreColliderTags;
+    public List<string> ignoreColliderTags = new List<string>{ "Enemy" };
 
     private int numberOfColliders;
     private bool isInRange = true;
+
+    void Reset()
+    {
+        renderers = GetComponentsInChildren<MeshRenderer>().ToList();
+    }
 
     void Update()
     {

@@ -139,7 +139,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5225013782830467054}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.412, y: 4.497, z: 0.852}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 4850564633078766996}
@@ -171,7 +171,7 @@ MonoBehaviour:
   _hitEffect: {fileID: 276886302813314505, guid: fd80de4dcfa745a4eac1ac77d4bd5c1f, type: 3}
   _rotateHitEffect: 0
   fireBullets: {fileID: 0}
-  heightFactor: 0.6
+  heightFactor: 0.5
 --- !u!65 &5225013782830467041
 BoxCollider:
   m_ObjectHideFlags: 0

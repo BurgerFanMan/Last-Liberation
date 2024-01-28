@@ -92,7 +92,7 @@ ParticleSystem:
   cullingMode: 0
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
-  looping: 1
+  looping: 0
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
@@ -4954,7 +4954,7 @@ ParticleSystem:
   cullingMode: 0
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
-  looping: 1
+  looping: 0
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
@@ -5023,7 +5023,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 0.3
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -5076,7 +5076,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 3
+      scalar: 6
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -5949,20 +5949,20 @@ ParticleSystem:
         - serializedVersion: 3
           time: 0.0036773682
           value: 0.7702713
-          inSlope: -0.838321
-          outSlope: -0.838321
+          inSlope: -0.00063998904
+          outSlope: -0.00063998904
           tangentMode: 0
           weightedMode: 0
           inWeight: 0.33333334
-          outWeight: 0.21348315
+          outWeight: 0.24886595
         - serializedVersion: 3
           time: 0.9852905
           value: 0
-          inSlope: -0.4820631
-          outSlope: -0.4820631
+          inSlope: -2.1577616
+          outSlope: -2.1577616
           tangentMode: 0
           weightedMode: 0
-          inWeight: 0.22760929
+          inWeight: 0.14652127
           outWeight: 0.33333334
         m_PreInfinity: 2
         m_PostInfinity: 2
