@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.UIElements;
 
 public class Turret : IFireBullets
 {
@@ -14,13 +15,14 @@ public class Turret : IFireBullets
 
     [Header("Distance and Location")]
     public float maxRange = 20f;
-    public float minRange = 0f;
     [SerializeField] protected bool _calculateLead;
     [SerializeField] protected float _leadRatio;
     [SerializeField] protected bool _limitAngle = true;
     public float angleRange = 60f; //range of angle to both clockwise and counterclockwise directions
     [SerializeField] protected bool _waitTillAimingAtEnemy; //if true, the turret will not fire till it is directly facing the enemy to avoid wasting shells while retargeting
     [SerializeField] protected float _angularDistanceToFire; //the range of angle at which the turret will open fire if wait till aiming is TRUE
+    [Range(0f, 1f)]
+    [SerializeField] protected float _angularDistanceBias = 0.5f; //how much should the angle to the enemy be considered when finding the closest enemy
 
     [Header("Debugging")]
     [SerializeField] protected Transform enemyT;
@@ -137,15 +139,29 @@ public class Turret : IFireBullets
     protected bool EnemyInRange(SubTurretClass subTurret, out Transform closestEnemy)
     {
         closestEnemy = null;
-        float dist = maxRange;
+        float lowestScore = Mathf.Infinity;
         foreach (Enemy enemy in enemyManager.enemies)
         {
-            float thisDist = Vector3.Distance(enemy.transform.position, subTurret.turretBase.position);
-            if (thisDist < dist && thisDist >= minRange && IsInAngleRange(enemy.transform.position))
-            {
-                dist = thisDist;
-                closestEnemy = enemy.transform;
-            }          
+            if (!IsInAngleRange(enemy.transform.position))
+                continue;
+
+            float score = 0f;
+            float distanceScore = (enemy.transform.position - subTurret.turretBase.position).sqrMagnitude;
+
+            if (distanceScore > maxRange * maxRange)
+                continue;
+
+            float angleScore = Vector3.Angle(enemy.transform.position - subTurret.turretBase.position, -subTurret.turretBase.right) / 8f;
+            angleScore *= angleScore;
+
+            score += distanceScore * 1f - _angularDistanceBias;
+            score += angleScore * _angularDistanceBias;
+
+            if (lowestScore < score)
+                continue;
+
+            lowestScore = score;
+            closestEnemy = enemy.transform;
         }
 
         return (closestEnemy != null);

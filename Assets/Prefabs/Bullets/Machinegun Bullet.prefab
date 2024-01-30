@@ -174,13 +174,13 @@ MonoBehaviour:
   _upgradeLevel:
   - 1
   - 1
-  _speed: 15
+  _speed: 20
   _damage: 10
   _range: 40
   _explosionRadius: 0
   _targetRandomness: 0
   _tagToHit: Enemy
-  _hitEffect: {fileID: 276886302813314505, guid: 28bc4e091bee189449dce4d30cfdf76b, type: 3}
+  _hitEffect: {fileID: 5225013782830467054}
   _rotateHitEffect: 1
   fireBullets: {fileID: 0}
 --- !u!54 &5225013782830467044

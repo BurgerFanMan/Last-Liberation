@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using UnityEngine;
 
@@ -89,12 +90,13 @@ public class Bullet : ICanBeUpgraded
     }
     void ApplyExplosionDamage(Vector3 position)
     {
-        for (int i = 0; i < SharedVariables.enemyManager.enemies.Count; i++)
-        {
-            Enemy enemy = SharedVariables.enemyManager.enemies[i];
+        List<Collider> hitColliders = Physics.OverlapSphere(position, _explosionRadius, 1 << 8  ).ToList();
 
-            if ((position - enemy.transform.position).sqrMagnitude < _explosionRadius * _explosionRadius)
-                enemy.DealDamage(_damage * _upgradeLevel[1]);
+        for (int i = 0; i < hitColliders.Count; i++)
+        {
+            Enemy enemy = hitColliders[i].GetComponent<Enemy>();
+
+            enemy.DealDamage(_damage * _upgradeLevel[1]);
         }
     }
 }

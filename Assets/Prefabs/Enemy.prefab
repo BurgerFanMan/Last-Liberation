@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1067995443920757979}
   - component: {fileID: 255057136329499853}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Health
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 3371733228260958116}
   - component: {fileID: 6284663403839318330}
   - component: {fileID: 2463910976456570341}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -173,7 +173,7 @@ GameObject:
   m_Component:
   - component: {fileID: 432718671956430545}
   - component: {fileID: 2386531864930767867}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Backing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -254,7 +254,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3536655234090856409}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Health Scale
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -285,7 +285,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6146483999415913486}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Health Rotation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -319,7 +319,7 @@ GameObject:
   - component: {fileID: 5263103225431348442}
   - component: {fileID: 3156687139654829363}
   - component: {fileID: 1852750715298133488}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Smoke Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5121,7 +5121,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7838700946290839805}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5155,7 +5155,7 @@ GameObject:
   - component: {fileID: 2709566944670399111}
   - component: {fileID: 3490812034455296170}
   - component: {fileID: 8541556867240706363}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5241,7 +5241,7 @@ GameObject:
   - component: {fileID: 1670875761231046562}
   - component: {fileID: -3341531459120773344}
   - component: {fileID: -7565003862861358901}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}

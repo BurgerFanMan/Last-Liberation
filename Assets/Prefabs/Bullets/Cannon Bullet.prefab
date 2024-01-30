@@ -269,7 +269,7 @@ MonoBehaviour:
   _upgradeLevel:
   - 1
   - 1
-  _speed: 10
+  _speed: 6
   _damage: 200
   _range: Infinity
   _explosionRadius: 1

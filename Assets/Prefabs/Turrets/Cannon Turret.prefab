@@ -490,11 +490,12 @@ MonoBehaviour:
   maxRange: 20
   minRange: 0
   _calculateLead: 1
-  _leadRatio: 0.1
+  _leadRatio: 0.2
   _limitAngle: 1
   angleRange: 60
   _waitTillAimingAtEnemy: 1
   _angularDistanceToFire: 1
+  _angularDistanceBias: 0.1
   enemyT: {fileID: 0}
 --- !u!65 &1575836945065219253
 BoxCollider:
