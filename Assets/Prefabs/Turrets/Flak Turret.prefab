@@ -877,7 +877,7 @@ GameObject:
   - component: {fileID: 1575836945065219253}
   m_Layer: 0
   m_Name: Flak Turret
-  m_TagString: Untagged
+  m_TagString: Turret
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -917,10 +917,10 @@ MonoBehaviour:
   ignoreTags:
   - Bullet
   - Environment
-  _reloadTime: 4
-  _fireRate: 5
-  _magazineCapacity: 4
-  _turretRotationSpeed: 100
+  reloadTime: 4
+  fireRate: 4
+  magazineCapacity: 4
+  _turretRotationSpeed: 50
   subTurrets:
   - firePoints:
     - {fileID: 3209545047429405663}
@@ -929,7 +929,6 @@ MonoBehaviour:
     - {fileID: 3209545046886826568}
     turretBase: {fileID: 3209545046888325802}
   maxRange: 15
-  minRange: 0
   _calculateLead: 1
   _leadRatio: 0.1
   _limitAngle: 1
@@ -937,6 +936,7 @@ MonoBehaviour:
   _waitTillAimingAtEnemy: 1
   _angularDistanceToFire: 2
   _angularDistanceBias: 0.1
+  overlayIcon: {fileID: 4035014284682217369, guid: 1aa8263f4f88a7744b49079fd65a153f, type: 3}
   enemyT: {fileID: 0}
 --- !u!65 &1575836945065219253
 BoxCollider:

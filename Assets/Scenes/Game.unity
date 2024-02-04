@@ -1545,8 +1545,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 741804209}
-        m_TargetAssemblyTypeName: UIAnimations, Assembly-CSharp
-        m_MethodName: SlideUI
+        m_TargetAssemblyTypeName: ScaleHelper, Assembly-CSharp
+        m_MethodName: Scale
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -10693,7 +10693,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1114048631}
   m_OnClick:
     m_PersistentCalls:
@@ -13862,6 +13862,7 @@ GameObject:
   - component: {fileID: 1445068698}
   - component: {fileID: 1445068697}
   - component: {fileID: 1445068700}
+  - component: {fileID: 1445068701}
   m_Layer: 0
   m_Name: Shop Manager
   m_TagString: Untagged
@@ -13926,7 +13927,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _moneyDisplay: {fileID: 227714266}
   _enemyBounty: 1
-  startMoney: 50
+  startMoney: Infinity
 --- !u!114 &1445068700
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13951,6 +13952,22 @@ MonoBehaviour:
   - {fileID: 11400000, guid: eb2852c0de023214681b9d040b801fd7, type: 2}
   - {fileID: 11400000, guid: 8190ef38b2703d04aa8fc29323099a15, type: 2}
   - {fileID: 11400000, guid: 3a4b6c9749ca5dc42860c3b311771df0, type: 2}
+--- !u!114 &1445068701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1445068695}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8db719b3d160e34c809ec97ac764dfc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rangeRendererPrefab: {fileID: 1505480617084890555, guid: 37fbe0e63b83a2c458738833d78837fa, type: 3}
+  overlayOpenTime: 1
+  overlayOffset: {x: 0, y: 40, z: 0}
+  turretTag: Turret
 --- !u!1 &1462648516
 GameObject:
   m_ObjectHideFlags: 0
@@ -15373,12 +15390,8 @@ PrefabInstance:
         is slow to retarget and reload.
       objectReference: {fileID: 0}
     - target: {fileID: 9146233821931015564, guid: e89f1ef64fc47d6419b8ca06a85e0735, type: 3}
-      propertyPath: m_fontSize
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 9146233821931015564, guid: e89f1ef64fc47d6419b8ca06a85e0735, type: 3}
       propertyPath: m_fontSizeBase
-      value: 9
+      value: 9.5
       objectReference: {fileID: 0}
     - target: {fileID: 9146233822606994378, guid: e89f1ef64fc47d6419b8ca06a85e0735, type: 3}
       propertyPath: m_text
@@ -18701,6 +18714,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 741804204}
     m_Modifications:
+    - target: {fileID: 4577871291767990747, guid: e89f1ef64fc47d6419b8ca06a85e0735, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9146233821687907181, guid: e89f1ef64fc47d6419b8ca06a85e0735, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -18882,10 +18899,6 @@ PrefabInstance:
       value: A single massive Firebird FOWS (Far-Off Weapons System), this baby spits
         out light shells at an astounding rate, but struggles with retargeting and
         reloading similarly to the cannon turret.
-      objectReference: {fileID: 0}
-    - target: {fileID: 9146233821931015564, guid: e89f1ef64fc47d6419b8ca06a85e0735, type: 3}
-      propertyPath: m_fontSize
-      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 9146233821931015564, guid: e89f1ef64fc47d6419b8ca06a85e0735, type: 3}
       propertyPath: m_fontSizeBase
@@ -21139,6 +21152,10 @@ PrefabInstance:
       value: Large naval guns that fire devastating bursts of single-hit shells at
         enemy targets, they lack a significant turning angle and range but are quick
         to lock onto new targets.
+      objectReference: {fileID: 0}
+    - target: {fileID: 9146233821931015564, guid: e89f1ef64fc47d6419b8ca06a85e0735, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 9.6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e89f1ef64fc47d6419b8ca06a85e0735, type: 3}

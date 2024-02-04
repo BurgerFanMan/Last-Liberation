@@ -437,7 +437,7 @@ GameObject:
   - component: {fileID: 1575836945065219253}
   m_Layer: 0
   m_Name: Cannon Turret
-  m_TagString: Untagged
+  m_TagString: Turret
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -477,10 +477,10 @@ MonoBehaviour:
   ignoreTags:
   - Bullet
   - Environment
-  _reloadTime: 10
-  _fireRate: 100
-  _magazineCapacity: 1
-  _turretRotationSpeed: 20
+  reloadTime: 10
+  fireRate: 100
+  magazineCapacity: 1
+  _turretRotationSpeed: 10
   subTurrets:
   - firePoints:
     - {fileID: 8351814087703401893}
@@ -488,14 +488,14 @@ MonoBehaviour:
     - {fileID: 7611699186272744341}
     turretBase: {fileID: 5814589777825663668}
   maxRange: 20
-  minRange: 0
   _calculateLead: 1
   _leadRatio: 0.2
   _limitAngle: 1
   angleRange: 60
   _waitTillAimingAtEnemy: 1
   _angularDistanceToFire: 1
-  _angularDistanceBias: 0.1
+  _angularDistanceBias: 0.9
+  overlayIcon: {fileID: 4035014284682217369, guid: f2df6fcbbe74bef448c0f9a9eff52a67, type: 3}
   enemyT: {fileID: 0}
 --- !u!65 &1575836945065219253
 BoxCollider:

@@ -175,7 +175,7 @@ MonoBehaviour:
   - 1
   - 1
   _speed: 30
-  _damage: 20
+  damage: 20
   _range: 50
   _explosionRadius: 0
   _targetRandomness: 0

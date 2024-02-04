@@ -2,13 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UISlide : MonoBehaviour
+public class ScaleHelper : MonoBehaviour
 {
     public bool isSlidingOpen = false;
     public bool adjustScale = true; //rounds the scale when close to the target
     public float speed = 2f;
     public Vector3 targetOpenScale;
     public Vector3 targetCloseScale;
+
+    private bool destroyOnClose;
 
     private void Update()
     {
@@ -19,16 +21,27 @@ public class UISlide : MonoBehaviour
         if (!adjustScale)
             return;
 
-        if ((transform.localScale - targetScale).magnitude < 0.05f)
+        if ((transform.localScale - targetScale).sqrMagnitude < 0.05f * 0.05f)
+        {
+            if (targetScale == targetCloseScale && destroyOnClose)
+                Destroy(gameObject, 0f);
             transform.localScale = targetScale;
+        }
     }
 
-    public void SlideUI()
+    public void Scale()
     {
         isSlidingOpen = !isSlidingOpen;
     }
-    public void SlideUI(bool slideOpen)
+    public void Scale(bool slideOpen)
     {
         isSlidingOpen = slideOpen;
+    }
+    
+    public void ScaleClosedAndDestroy()
+    {
+        Scale(false);
+
+        destroyOnClose = true;
     }
 }

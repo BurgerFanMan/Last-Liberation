@@ -9,7 +9,7 @@ TagManager:
   - Building
   - Bullet
   - Environment
-  - Player Building
+  - Turret
   layers:
   - Default
   - TransparentFX

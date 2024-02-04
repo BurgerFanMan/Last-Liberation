@@ -5,7 +5,7 @@ using UnityEngine;
 public class IFireBullets : ICanBeUpgraded
 {
     [Header("Projectile Settings")]
-    [SerializeField] protected GameObject bulletPrefab;
+    public GameObject bulletPrefab;
     [SerializeField] protected bool upgradeBullets;
     [SerializeField] protected int bulletUpgradeIndex = 2;
     public                     List<string> ignoreTags;

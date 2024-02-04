@@ -483,7 +483,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24d4393cbd4f4ed40b27397266b3c17f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _meshGeneratorPrefab: {fileID: 1505480617084890555, guid: da926d7e821fbd0468531aa7cc95d3ff, type: 3}
+  _meshGeneratorPrefab: {fileID: 1505480617084890555, guid: 37fbe0e63b83a2c458738833d78837fa, type: 3}
   renderers:
   - {fileID: 2211680456788893194}
   - {fileID: 7435747834659694337}

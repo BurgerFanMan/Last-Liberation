@@ -449,7 +449,7 @@ GameObject:
   - component: {fileID: 1575836945065219253}
   m_Layer: 0
   m_Name: Machinegun Turret
-  m_TagString: Untagged
+  m_TagString: Turret
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -489,23 +489,23 @@ MonoBehaviour:
   ignoreTags:
   - Bullet
   - Environment
-  _reloadTime: 5
-  _fireRate: 10
-  _magazineCapacity: 100
-  _turretRotationSpeed: 20
+  reloadTime: 5
+  fireRate: 10
+  magazineCapacity: 100
+  _turretRotationSpeed: 15
   subTurrets:
   - firePoints:
     - {fileID: 5258134341059328983}
     turretBase: {fileID: 7599330986447106524}
   maxRange: 20
-  minRange: 0
   _calculateLead: 1
   _leadRatio: 0.1
   _limitAngle: 1
   angleRange: 80
   _waitTillAimingAtEnemy: 1
   _angularDistanceToFire: 1
-  _angularDistanceBias: 0.1
+  _angularDistanceBias: 0.9
+  overlayIcon: {fileID: 4035014284682217369, guid: 8b11483b49a889648814e84133901073, type: 3}
   enemyT: {fileID: 0}
 --- !u!65 &1575836945065219253
 BoxCollider:

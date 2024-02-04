@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc03c8de2cb260d4ca49dff2619ba34b, type: 3}
   m_Name: Flak Turret
   m_EditorClassIdentifier: 
-  cost: 20
+  cost: 15
   turretPrefab: {fileID: 3209545047372142446, guid: 45a0ea8159babf845bf5a2bddd604daf, type: 3}
   turretGhost: {fileID: 3209545047372142446, guid: 2bee72725cf0beb46bb140ddfe9929eb, type: 3}

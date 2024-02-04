@@ -7,7 +7,7 @@ using UnityEngine;
 public class Bullet : ICanBeUpgraded
 {
     [SerializeField] protected float _speed;
-    [SerializeField] protected float _damage;
+    public float damage;
     [SerializeField] protected float _range = Mathf.Infinity;
     [SerializeField] protected float _explosionRadius = 0f;
     [SerializeField] protected float _targetRandomness = 0f;
@@ -52,7 +52,7 @@ public class Bullet : ICanBeUpgraded
         {
             if (collision.gameObject.tag == _tagToHit)
             {
-                collision.gameObject.GetComponent<ICanTakeDamage>().DealDamage(_damage * _upgradeLevel[1]);
+                collision.gameObject.GetComponent<ICanTakeDamage>().DealDamage(damage * _upgradeLevel[1]);
             }
         }
         else
@@ -96,7 +96,7 @@ public class Bullet : ICanBeUpgraded
         {
             Enemy enemy = hitColliders[i].GetComponent<Enemy>();
 
-            enemy.DealDamage(_damage * _upgradeLevel[1]);
+            enemy.DealDamage(damage * _upgradeLevel[1]);
         }
     }
 }

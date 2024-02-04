@@ -7,22 +7,25 @@ using UnityEngine.UIElements;
 public class Turret : IFireBullets
 {
     [Header("Weaponry")]
-    [SerializeField] protected float _reloadTime = 5f;
-    [SerializeField] protected float _fireRate = 1f;
-    [SerializeField] protected int _magazineCapacity = 2;
+    public float reloadTime = 5f;
+    public float fireRate = 1f;
+    public int magazineCapacity = 2;
     [SerializeField] protected float _turretRotationSpeed;
     public List<SubTurret> subTurrets;
 
-    [Header("Distance and Location")]
+    [Header("Targeting")]
     public float maxRange = 20f;
     [SerializeField] protected bool _calculateLead;
     [SerializeField] protected float _leadRatio;
     [SerializeField] protected bool _limitAngle = true;
     public float angleRange = 60f; //range of angle to both clockwise and counterclockwise directions
-    [SerializeField] protected bool _waitTillAimingAtEnemy; //if true, the turret will not fire till it is directly facing the enemy to avoid wasting shells while retargeting
-    [SerializeField] protected float _angularDistanceToFire; //the range of angle at which the turret will open fire if wait till aiming is TRUE
+    [SerializeField] protected bool _waitTillAimingAtEnemy = true; //if true, the turret will not fire till it is directly facing the enemy to avoid wasting shells while retargeting
+    [SerializeField] protected float _angularDistanceToFire = 1f; //the range of angle at which the turret will open fire if wait till aiming is TRUE
     [Range(0f, 1f)]
     [SerializeField] protected float _angularDistanceBias = 0.5f; //how much should the angle to the enemy be considered when finding the closest enemy
+
+    [Header("UI")]
+    public GameObject overlayIcon;
 
     [Header("Debugging")]
     [SerializeField] protected Transform enemyT;
@@ -49,6 +52,7 @@ public class Turret : IFireBullets
 
             SubTurretClass subTurretClass = new SubTurretClass
             {
+                startingAngle = subTurret.turretBase.localEulerAngles.y,
                 startingForward = -subTurret.turretBase.right,
                 turretBase = subTurret.turretBase,
                 firePoints = subTurret.firePoints
@@ -84,16 +88,16 @@ public class Turret : IFireBullets
         {
             timeSinceReload += Pause.adjTimeScale;
 
-            if(timeSinceReload > _reloadTime)
+            if(timeSinceReload > reloadTime)
             {
-                shellsLeft = _magazineCapacity;
+                shellsLeft = magazineCapacity;
 
                 timeSinceReload = 0f;
             }
             else return;
         }
 
-        if (timeSinceFire < 1f / _fireRate)
+        if (timeSinceFire < 1f / fireRate)
         {
             timeSinceFire += Pause.adjTimeScale;
 
@@ -129,10 +133,12 @@ public class Turret : IFireBullets
         shellsLeft -= 1;
 
         SubTurretClass subTurret = subTurretsToFire[Random.Range(0, subTurretsToFire.Count)];
-
         Transform firePoint = subTurret.firePoints[Random.Range(0, subTurret.firePoints.Count)];
 
         SpawnBullet(firePoint.position, firePoint.rotation, subTurret.targetPosition);
+
+        if (GetComponent<AudioSource>() != null)
+            GetComponent<AudioSource>().Play();
     }
 
     //Utility functions
@@ -191,17 +197,19 @@ public class Turret : IFireBullets
 [System.Serializable]
 public struct SubTurret
 {
-    public List<Transform> firePoints;
     public Transform turretBase;
+    public List<Transform> firePoints;
 }
 
 public class SubTurretClass
 {
-    public List<Transform> firePoints;
-    public Transform turretBase;
-
-    public Vector3 startingForward;
-    public Vector3 targetPosition;
+    public float startingAngle;
 
     public bool aimingAtEnemy;
+
+    public Vector3 startingForward;
+    public Vector3 targetPosition; 
+
+    public Transform turretBase;
+    public List<Transform> firePoints;
 }
