@@ -4,13 +4,12 @@ using UnityEngine;
 
 public class UIVisibilityManager : MonoBehaviour
 {
-    [SerializeField] KeyCode _toggleUIKey = KeyCode.F1;
     [SerializeField] GameObject _canvas;
     [SerializeField] GameObject _cursorFollowers;
 
     void Update()
     {
-        if (Input.GetKeyDown(_toggleUIKey))
+        if (Input.GetKeyDown(InputManager.GetValue("ui_togglevisibility")))
         {
             _canvas.SetActive(!_canvas.activeSelf);
         }

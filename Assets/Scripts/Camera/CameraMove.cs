@@ -5,14 +5,13 @@ using UnityEngine;
 public class CameraMove : MonoBehaviour
 {
     [SerializeField] Transform _cameraParent;
-    [SerializeField] KeyCode _lockCameraKey;
     [SerializeField] float _speed;
 
     private Vector3 origin = new Vector3(0f, 0f, 0f);
 
     void Update()
     {
-        if (!Pause.isPaused && !Input.GetKey(_lockCameraKey))
+        if (!Pause.isPaused && !Input.GetKey(InputManager.GetValue("camera_lockposition")))
         {
             Vector3 _targetPos;
             _targetPos = RayStore.GroundedHitPoint;

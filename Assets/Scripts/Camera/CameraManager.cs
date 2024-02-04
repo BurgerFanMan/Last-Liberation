@@ -33,14 +33,14 @@ public class CameraManager : MonoBehaviour
         if (Pause.isPaused)
             return;
 
-        if(Input.GetKey(KeyCode.Mouse1))
+        if(Input.GetKey(InputManager.GetValue("camera_rotate")))
         {
             float camYOrbit = Input.GetAxis("Mouse X") * Time.deltaTime * _orbitSpeedY * 10f;
             camYOrbit = Mathf.Clamp(camYOrbit, _orbitSpeedY * -_clampMult * Time.deltaTime, _orbitSpeedY * _clampMult * Time.deltaTime);
             _cameraY.Rotate(0f, camYOrbit, 0f, Space.World);
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(InputManager.GetValue("camera_changemode")))
         {
             ChangeMode();
         }

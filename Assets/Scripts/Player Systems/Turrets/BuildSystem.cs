@@ -3,11 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BuildSystem : MonoBehaviour
-{   //ok so now I have to hide the UI and disable shooting and such when opening the build menu
-
-    [SerializeField] KeyCode _placeKey = KeyCode.Mouse0;
-    [SerializeField] KeyCode _cancelKey = KeyCode.Escape;
-
+{   
     public float minBuildRange;
     public float maxBuildRange;
     
@@ -40,12 +36,12 @@ public class BuildSystem : MonoBehaviour
         _ghost.transform.position = RayStore.GroundedHitPoint;
         _ghost.transform.LookAt(Vector3.Normalize(-_ghost.transform.position) + _ghost.transform.position);
 
-        if (_placable && Input.GetKeyDown(_placeKey))
+        if (_placable && Input.GetKeyDown(InputManager.GetValue("turret_place")))
         {
             PlaceTurret();
         }
 
-        if (Input.GetKeyDown(_cancelKey))
+        if (Input.GetKeyDown(InputManager.GetValue("turret_cancel")))
         {
             DeselectTurret();
         }

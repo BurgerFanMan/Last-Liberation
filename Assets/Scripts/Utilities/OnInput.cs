@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 public class OnInput : MonoBehaviour
 {
-    [SerializeField] KeyCode _key;
+    [SerializeField] string _key;
     [SerializeField] KeyPressType _keyPressType;
     [SerializeField] UnityEvent _onKeyPressed;
 
@@ -30,9 +30,9 @@ public class OnInput : MonoBehaviour
     }
     void Update()
     {
-        bool down = Input.GetKeyDown(_key);
-        bool up = Input.GetKeyUp(_key);
-        bool hold = Input.GetKey(_key);
+        bool down = Input.GetKeyDown(InputManager.GetValue(_key));
+        bool up = Input.GetKeyUp(InputManager.GetValue(_key));
+        bool hold = Input.GetKey(InputManager.GetValue(_key));
 
         if ((_up && up) || (_down && down) || hold)
             _onKeyPressed.Invoke();

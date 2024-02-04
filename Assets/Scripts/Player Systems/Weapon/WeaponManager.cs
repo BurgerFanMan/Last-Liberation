@@ -102,7 +102,7 @@ public class WeaponManager : ICanBeUpgraded //UL(upgrade level) 0 is reload time
                 timeDone = 0f;
             }
         }
-        else if (Input.GetKey(KeyCode.Mouse0) && !overUI && !SharedVariables.inBuildMode)
+        else if (Input.GetKey(InputManager.GetValue("weapon_fire")) && !overUI && !SharedVariables.inBuildMode)
         {
             if(audioSource != null)
                 audioSource.Play();

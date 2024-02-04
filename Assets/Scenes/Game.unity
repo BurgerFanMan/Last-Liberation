@@ -841,7 +841,7 @@ RectTransform:
   - {fileID: 1039768249}
   - {fileID: 741804204}
   m_Father: {fileID: 130542685}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -1275,8 +1275,8 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1733980370}
-  - {fileID: 722192226}
   - {fileID: 93205056}
+  - {fileID: 722192226}
   - {fileID: 518105347}
   m_Father: {fileID: 0}
   m_RootOrder: 1
@@ -2159,7 +2159,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cameraParent: {fileID: 202698344}
-  _lockCameraKey: 304
   _speed: 8
 --- !u!1 &209667416
 GameObject:
@@ -4832,7 +4831,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e152053a76a45864c92bbb727f560edf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pauseButton: 27
   _defaultTimeScale: 1
   _pauseTimeScale: 0
   _slowTimeScale: 0.02
@@ -6168,6 +6166,7 @@ GameObject:
   - component: {fileID: 629972342}
   - component: {fileID: 629972344}
   - component: {fileID: 629972343}
+  - component: {fileID: 629972341}
   m_Layer: 0
   m_Name: General Manager
   m_TagString: Untagged
@@ -6189,6 +6188,30 @@ Transform:
   m_Father: {fileID: 1141905301}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &629972341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 629972339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af1e4c4e6777f724e85c3c3f0bd502c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputKeys:
+  - camera_rotate
+  - camera_lockposition
+  - camera_changemode
+  - pause_togglepause
+  - shop_togglevisibility
+  - turret_place
+  - turret_cancel
+  - ui_togglevisibility
+  - weapon_fire
+  - weapon_reload
+  inputValues: 4401000030010000200000001b0000000900000043010000440100001a0100004301000072000000
 --- !u!114 &629972342
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6227,7 +6250,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c94408d635af93b42ba49c9c9132aada, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _toggleUIKey: 282
   _canvas: {fileID: 130542681}
   _cursorFollowers: {fileID: 722192225}
 --- !u!1 &644998432
@@ -7699,7 +7721,7 @@ RectTransform:
   - {fileID: 1102059305}
   - {fileID: 1800765585}
   m_Father: {fileID: 130542685}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -13897,7 +13919,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _pauseManager: {fileID: 501836416}
-  _shopButton: 9
   _shopMenu: {fileID: 255905550}
 --- !u!114 &1445068698
 MonoBehaviour:
@@ -13940,8 +13961,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9ca3ebdf1717ec43a60e569513d2ff1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _placeKey: 323
-  _cancelKey: 324
   minBuildRange: 7
   maxBuildRange: 14
   _ghostMaterial: {fileID: 2100000, guid: d963b9a368a6483409bcf332f45538d2, type: 2}

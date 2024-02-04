@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class PauseManager : MonoBehaviour
 {
-    [SerializeField] KeyCode _pauseButton = KeyCode.Escape;
-
     [Header("Time Scale Presets")]
     [Range(0f, 5f)]
     public float _defaultTimeScale = 1f;
@@ -29,7 +27,7 @@ public class PauseManager : MonoBehaviour
     
     private void Update()
     {
-        if(!Input.GetKeyDown(_pauseButton)) return; 
+        if(!Input.GetKeyDown(InputManager.GetValue("pause_togglepause"))) return; 
 
         if (Pause.isPaused && Pause.inPauseMenu) //if the pause menu is open, close it and unpause
         {

@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class ShopInterface : MonoBehaviour
 {
     [SerializeField] PauseManager _pauseManager;
-    [SerializeField] KeyCode _shopButton;
     [SerializeField] GameObject _shopMenu;
 
     private bool _shopMenuOpen = false;
@@ -17,7 +16,7 @@ public class ShopInterface : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(_shopButton) && (!Pause.inPauseMenu))
+        if (Input.GetKeyDown(InputManager.GetValue("shop_togglevisibility")) && (!Pause.inPauseMenu))
         {
             ShopMenuClicked();
         }
