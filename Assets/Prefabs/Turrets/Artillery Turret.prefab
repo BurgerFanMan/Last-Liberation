@@ -1610,6 +1610,7 @@ GameObject:
   - component: {fileID: 3209545047372142447}
   - component: {fileID: 3209545047372142444}
   - component: {fileID: -602985910608477090}
+  - component: {fileID: -8372652402641304201}
   m_Layer: 0
   m_Name: Artillery Turret
   m_TagString: Turret
@@ -1657,30 +1658,30 @@ MonoBehaviour:
   magazineCapacity: 4
   _turretRotationSpeed: 50
   subTurrets:
-  - firePoints:
+  - turretBase: {fileID: 5520328797727324974}
+    firePoints:
     - {fileID: 8691853604743617683}
     - {fileID: 7711824576516925386}
     - {fileID: 5536216819247908955}
     - {fileID: 993269884241248013}
     - {fileID: 5432817325096181405}
     - {fileID: 1997464542783098837}
-    turretBase: {fileID: 5520328797727324974}
-  - firePoints:
+  - turretBase: {fileID: 8199212976952373807}
+    firePoints:
     - {fileID: 6468467301043778139}
     - {fileID: 1948183656909411435}
     - {fileID: 683521754188764308}
     - {fileID: 7583397803249188952}
     - {fileID: 31554156668332581}
     - {fileID: 1394697767887137445}
-    turretBase: {fileID: 8199212976952373807}
-  - firePoints:
+  - turretBase: {fileID: 5092113263302187626}
+    firePoints:
     - {fileID: 221122965798181557}
     - {fileID: 7735570216940376863}
     - {fileID: 4366594127362314533}
     - {fileID: 5844895565802981496}
     - {fileID: 5862056088595826889}
     - {fileID: 4166548243323280245}
-    turretBase: {fileID: 5092113263302187626}
   maxRange: 20
   _calculateLead: 1
   _leadRatio: 0.05
@@ -1690,6 +1691,7 @@ MonoBehaviour:
   _angularDistanceToFire: 10
   _angularDistanceBias: 0.1
   overlayIcon: {fileID: 4035014284682217369, guid: 45b4693f990ec394f96bd0fa1ee9e337, type: 3}
+  overrideSoundOnShoot: 0
   enemyT: {fileID: 0}
 --- !u!65 &-602985910608477090
 BoxCollider:
@@ -1704,6 +1706,102 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.8818619, y: 0.5, z: 0.8987387}
   m_Center: {x: 0, y: 0.251, z: 0}
+--- !u!82 &-8372652402641304201
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3209545047372142446}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 248fabdca3a2a464899a5e2a6649b3e8, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1.1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.95
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &3209545047609193066
 GameObject:
   m_ObjectHideFlags: 0

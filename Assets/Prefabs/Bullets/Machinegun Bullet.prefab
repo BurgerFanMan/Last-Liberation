@@ -180,7 +180,7 @@ MonoBehaviour:
   _explosionRadius: 0
   _targetRandomness: 0
   _tagToHit: Enemy
-  _hitEffect: {fileID: 5225013782830467054}
+  _hitEffect: {fileID: 237570769428459147, guid: cec3291a92539a648916941e06747f4e, type: 3}
   _rotateHitEffect: 1
   fireBullets: {fileID: 0}
 --- !u!54 &5225013782830467044

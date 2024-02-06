@@ -75,7 +75,7 @@ public class TurretGhost : MonoBehaviour
 
         numberOfColliders -= 1;
 
-        if(numberOfColliders == 0)
+        if(numberOfColliders == 0 && isInRange)
             SharedVariables.buildSys.UnblockPlacement();
     }
 

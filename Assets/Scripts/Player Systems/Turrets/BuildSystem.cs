@@ -6,13 +6,15 @@ public class BuildSystem : MonoBehaviour
 {   
     public float minBuildRange;
     public float maxBuildRange;
-    
+
+    [SerializeField] GameObject _placeEffect;
     [SerializeField] Material _ghostMaterial;
     [SerializeField] Material _blockedGhostMaterial;
 
     [SerializeField] PauseManager _pauseManager;
 
     [SerializeField] List<TurretInfo> _turretInfos;
+
 
     private TurretInfo _selectedTurret;
     private UIVisibilityManager _uIManager;
@@ -49,8 +51,8 @@ public class BuildSystem : MonoBehaviour
 
     public void SelectTurret(int turretInfoIndex)
     {
-	if(_selectedTurret != null)
-		DeselectTurret();
+	    if(_selectedTurret != null)
+		    DeselectTurret();
 
         _placable = true;
         SharedVariables.inBuildMode = true;
@@ -94,6 +96,9 @@ public class BuildSystem : MonoBehaviour
     void PlaceTurret()
     {
         Instantiate(_selectedTurret.turretPrefab, RayStore.GroundedHitPoint, _ghost.transform.rotation);
+
+        if(_placeEffect != null)
+            Instantiate(_placeEffect, RayStore.GroundedHitPoint, _ghost.transform.rotation);
 
         Money.money -= _selectedTurret.cost;
 

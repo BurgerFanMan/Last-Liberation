@@ -26,6 +26,7 @@ public class Turret : IFireBullets
 
     [Header("UI")]
     public GameObject overlayIcon;
+    [SerializeField] protected bool overrideSoundOnShoot = true;
 
     [Header("Debugging")]
     [SerializeField] protected Transform enemyT;
@@ -33,6 +34,8 @@ public class Turret : IFireBullets
     public List<SubTurretClass> subTurretClasses = new List<SubTurretClass>();
 
     protected EnemyManager enemyManager;
+
+    private AudioSource audioSource;
 
     private float timeSinceFire;
     private float timeSinceReload;
@@ -42,6 +45,8 @@ public class Turret : IFireBullets
     private void Awake()
     {
         enemyManager = FindObjectOfType<EnemyManager>();
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Start()
@@ -137,8 +142,8 @@ public class Turret : IFireBullets
 
         SpawnBullet(firePoint.position, firePoint.rotation, subTurret.targetPosition);
 
-        if (GetComponent<AudioSource>() != null)
-            GetComponent<AudioSource>().Play();
+        if (audioSource != null && !(!overrideSoundOnShoot && audioSource.isPlaying))
+            audioSource.Play();
     }
 
     //Utility functions
