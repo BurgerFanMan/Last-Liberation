@@ -448,6 +448,7 @@ GameObject:
   - component: {fileID: 3209545047372142444}
   - component: {fileID: 1575836945065219253}
   - component: {fileID: 729939225755302006}
+  - component: {fileID: 1110689138916756799}
   m_Layer: 0
   m_Name: Machinegun Turret
   m_TagString: Turret
@@ -618,6 +619,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1110689138916756799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3209545047372142446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2769c28862f113740811b3615bd758a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 0}
+  changeSpeedToPauseTime: 1
 --- !u!1 &3209545047819256685
 GameObject:
   m_ObjectHideFlags: 0

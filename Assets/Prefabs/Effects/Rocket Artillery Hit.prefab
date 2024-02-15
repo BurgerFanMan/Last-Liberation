@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 276886302813314518}
   - component: {fileID: 7801213914085561732}
   - component: {fileID: 2528068857306701722}
+  - component: {fileID: 8377219737011059250}
   m_Layer: 0
   m_Name: Rocket Artillery Hit
   m_TagString: Untagged
@@ -47,6 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   delay: 1
+  usePauseTime: 1
 --- !u!82 &2528068857306701722
 AudioSource:
   m_ObjectHideFlags: 0
@@ -143,6 +145,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &8377219737011059250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 276886302813314505}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2769c28862f113740811b3615bd758a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 0}
+  changeSpeedToPauseTime: 1
 --- !u!1 &276886303944763594
 GameObject:
   m_ObjectHideFlags: 0
@@ -154,6 +170,7 @@ GameObject:
   - component: {fileID: 276886303944763595}
   - component: {fileID: 276886303944763593}
   - component: {fileID: 276886303944763592}
+  - component: {fileID: 1564800257313665153}
   m_Layer: 0
   m_Name: Effect
   m_TagString: Untagged
@@ -5005,6 +5022,20 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!114 &1564800257313665153
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 276886303944763594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff9ceb1b61f535144aaa6560b0ffa34a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particleEffect: {fileID: 0}
+  changeSpeedToPauseTime: 1
 --- !u!1 &4432310134495439266
 GameObject:
   m_ObjectHideFlags: 0
@@ -5016,6 +5047,7 @@ GameObject:
   - component: {fileID: 4340333276730713214}
   - component: {fileID: 6208545460036659117}
   - component: {fileID: 9093323033027810866}
+  - component: {fileID: 928759185772355931}
   m_Layer: 0
   m_Name: Effect (1)
   m_TagString: Untagged
@@ -9867,3 +9899,17 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!114 &928759185772355931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4432310134495439266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff9ceb1b61f535144aaa6560b0ffa34a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particleEffect: {fileID: 0}
+  changeSpeedToPauseTime: 1

@@ -45,7 +45,7 @@ public class WeaponManager : ICanBeUpgraded //UL(upgrade level) 0 is reload time
             sniper.SetValues(_bulletPrefab, _turnSpeed, _rotationClamp);
         }
 
-        magazineCount = _magazineSize;
+        magazineCount = _magazineSize + (int)_upgradeLevel[1];
         _reloadIcon.gameObject.SetActive(false);
     }
     void Update()
@@ -53,43 +53,36 @@ public class WeaponManager : ICanBeUpgraded //UL(upgrade level) 0 is reload time
         if (Pause.isPaused)
             return;
 
-        bool overUI = EventSystem.current.IsPointerOverGameObject() &&
-                      EventSystem.current.currentSelectedGameObject != null &&
-                      EventSystem.current.currentSelectedGameObject.CompareTag(_forbiddenUITag) ? true
-                      : false;
-
-        targetPos = RayStore.hitPoint;
-        targetPos.y = 0;
-
-        _reloadNumb.text = magazineCount.ToString();
-        _reloadCap.text = (_magazineSize + _upgradeLevel[1]).ToString();
+        _reloadNumb.text = $"{magazineCount}";
+        _reloadCap.text = $"{_magazineSize + (int)_upgradeLevel[1]}";
 
         foreach (Weapon sniper in _snipers)
         {
-            sniper.FacePosition(targetPos);
+            sniper.FacePosition(RayStore.GroundedHitPoint);
         }
+
+        if (Input.GetKey(InputManager.GetValue("weapon_reload")))
+        {
+            magazineCount = 0;
+
+            BeginReload();
+        }
+       
 
         if (magazineCount <= 0)
         {
             if (reloadFirstFrame)
             {
-                _reloadIcon.gameObject.SetActive(true);   
-
-                readyToFire = true;
-                timeDone = 0f;
-
-                reloadFirstFrame = false;
+                BeginReload();
             }
 
-            timeSinceReload += 1f * Pause.adjTimeScale;
             _reloadIcon.localScale = new Vector3(timeSinceReload / (_reloadTime * _upgradeLevel[0]), 1f, 1f);
+
+            timeSinceReload += 1f * Pause.adjTimeScale;
 
             if (timeSinceReload >= _reloadTime * _upgradeLevel[0])
             {
-                magazineCount = _magazineSize + (int)_upgradeLevel[1]; timeSinceReload = 0f;
-                _reloadIcon.gameObject.SetActive(false);
-
-                reloadFirstFrame = true;
+                FinishReload();
             }
         }
         else if (!readyToFire)
@@ -102,18 +95,49 @@ public class WeaponManager : ICanBeUpgraded //UL(upgrade level) 0 is reload time
                 timeDone = 0f;
             }
         }
-        else if (Input.GetKey(InputManager.GetValue("weapon_fire")) && !overUI && !SharedVariables.inBuildMode)
+        else if (Input.GetKey(InputManager.GetValue("weapon_fire")) && !OverUI() && !SharedVariables.inBuildMode)
         {
-            if(audioSource != null)
-                audioSource.Play();
-            foreach(Weapon sniper in _snipers)
-            {
-                if (sniper.Shoot())
-                    break;
-            }
-
-            readyToFire = false;
-            magazineCount--;
+            Fire();
         }
+    }
+
+    void Fire()
+    {
+        if (audioSource != null)
+            audioSource.Play();
+        foreach (Weapon sniper in _snipers)
+        {
+            if (sniper.Shoot())
+                break;
+        }
+
+        readyToFire = false;
+        magazineCount--;
+    }
+
+    void BeginReload()
+    {
+        _reloadIcon.gameObject.SetActive(true);
+
+        readyToFire = true;
+        timeDone = 0f;
+
+        reloadFirstFrame = false;
+    }
+    void FinishReload()
+    {
+        magazineCount = _magazineSize + (int)_upgradeLevel[1]; timeSinceReload = 0f;
+        _reloadIcon.gameObject.SetActive(false);
+
+        reloadFirstFrame = true;
+    }
+
+    //Utility functions
+    bool OverUI()
+    {
+        return EventSystem.current.IsPointerOverGameObject() &&
+                      EventSystem.current.currentSelectedGameObject != null &&
+                      EventSystem.current.currentSelectedGameObject.CompareTag(_forbiddenUITag) ? true
+                      : false;
     }
 }

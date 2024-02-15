@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 237570768899274905}
   - component: {fileID: 237570768899274907}
   - component: {fileID: 237570768899274904}
+  - component: {fileID: 2522686184959301383}
   m_Layer: 0
   m_Name: Effect
   m_TagString: Untagged
@@ -4920,6 +4921,20 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!114 &2522686184959301383
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 237570768899274910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff9ceb1b61f535144aaa6560b0ffa34a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particleEffect: {fileID: 0}
+  changeSpeedToPauseTime: 1
 --- !u!1 &237570769428459147
 GameObject:
   m_ObjectHideFlags: 0
@@ -4931,6 +4946,7 @@ GameObject:
   - component: {fileID: 237570769428459146}
   - component: {fileID: -3723109174632431903}
   - component: {fileID: -7079753578936296709}
+  - component: {fileID: 5698569756253017196}
   m_Layer: 0
   m_Name: Weapon Bullet Hit
   m_TagString: Untagged
@@ -4966,6 +4982,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   delay: 1
+  usePauseTime: 1
 --- !u!82 &-7079753578936296709
 AudioSource:
   m_ObjectHideFlags: 0
@@ -5062,3 +5079,17 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &5698569756253017196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 237570769428459147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2769c28862f113740811b3615bd758a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 0}
+  changeSpeedToPauseTime: 1

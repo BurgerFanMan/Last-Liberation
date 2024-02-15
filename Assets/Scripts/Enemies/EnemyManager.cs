@@ -78,7 +78,7 @@ public class EnemyManager : MonoBehaviour
     public void OnWaveEnded()
     {
         Money.money += _increaseBonusWithDifficulty ? _waveBonus * _waveDifficulty : _waveBonus;
-
+        Debug.Log("Wave ended");
         _waveNumbAnim.SetBool("waitingForWave", true);
     }
 
@@ -87,9 +87,12 @@ public class EnemyManager : MonoBehaviour
         if (!enemies.Contains(enemyToKill))
             return;
 
-        Instantiate(_enemyDestroyPrefab, enemyToKill.transform.position, enemyToKill.transform.rotation);
+        GameObject go = Instantiate(_enemyDestroyPrefab, enemyToKill.transform.position, enemyToKill.transform.rotation);
+        GetComponent<LimitRubble>().AddRubble(go);
+
 
         enemies.Remove(enemyToKill);
+
         Destroy(enemyToKill.gameObject);
 
         Money.money += _bounty;

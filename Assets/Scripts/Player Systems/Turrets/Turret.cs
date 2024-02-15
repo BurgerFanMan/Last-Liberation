@@ -65,6 +65,8 @@ public class Turret : IFireBullets
 
             subTurretClasses.Add(subTurretClass);
         }
+
+        shellsLeft = magazineCapacity;
     }
 
     private void Update()

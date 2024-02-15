@@ -1611,6 +1611,7 @@ GameObject:
   - component: {fileID: 3209545047372142444}
   - component: {fileID: -602985910608477090}
   - component: {fileID: -8372652402641304201}
+  - component: {fileID: 8750136572397467806}
   m_Layer: 0
   m_Name: Artillery Turret
   m_TagString: Turret
@@ -1802,6 +1803,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &8750136572397467806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3209545047372142446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2769c28862f113740811b3615bd758a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 0}
+  changeSpeedToPauseTime: 1
 --- !u!1 &3209545047609193066
 GameObject:
   m_ObjectHideFlags: 0

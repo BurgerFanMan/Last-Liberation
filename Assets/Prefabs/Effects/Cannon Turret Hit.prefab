@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 276886302813314518}
   - component: {fileID: 7801213914085561732}
   - component: {fileID: -8191397786520590392}
+  - component: {fileID: -650034754368204142}
   m_Layer: 0
   m_Name: Cannon Turret Hit
   m_TagString: Untagged
@@ -46,6 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   delay: 1
+  usePauseTime: 1
 --- !u!82 &-8191397786520590392
 AudioSource:
   m_ObjectHideFlags: 0
@@ -142,6 +144,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-650034754368204142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 276886302813314505}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2769c28862f113740811b3615bd758a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 0}
+  changeSpeedToPauseTime: 1
 --- !u!1 &5400362972265225545
 GameObject:
   m_ObjectHideFlags: 0
@@ -153,6 +169,7 @@ GameObject:
   - component: {fileID: 7115356073715382015}
   - component: {fileID: 2312336828090252882}
   - component: {fileID: 5298046102198164757}
+  - component: {fileID: 2281890733252726879}
   m_Layer: 0
   m_Name: Effect
   m_TagString: Untagged
@@ -5004,3 +5021,17 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!114 &2281890733252726879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5400362972265225545}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff9ceb1b61f535144aaa6560b0ffa34a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particleEffect: {fileID: 0}
+  changeSpeedToPauseTime: 1
