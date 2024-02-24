@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,31 +14,28 @@ public class TurretGhost : MonoBehaviour
     private int numberOfColliders;
     private bool isInRange = true;
 
+    private BuildSystem buildSys;
+
     void Reset()
     {
         renderers = GetComponentsInChildren<MeshRenderer>().ToList();
     }
 
+    private void Start()
+    {
+        buildSys = SharedVariables.buildSys;
+
+        SharedVariables.buildSys.UnblockPlacement();
+    }
+
     void Update()
     {
-        if (numberOfColliders > 0)
-            return;
+        float distanceSqr = transform.position.sqrMagnitude;
 
-        if (IsInBuildZone())
-        {
-            if (!isInRange)
-            {
-                SharedVariables.buildSys.UnblockPlacement();
-
-                isInRange = true;
-            }
-        }
-        else if(isInRange)
-        {
-            SharedVariables.buildSys.BlockPlacement();
-
-            isInRange = false;
-        }
+        if (distanceSqr < buildSys.minBuildRange * buildSys.minBuildRange)
+            transform.position = transform.position.normalized * buildSys.minBuildRange;
+        else if (distanceSqr > buildSys.maxBuildRange * buildSys.maxBuildRange)
+            transform.position = transform.position.normalized * buildSys.maxBuildRange;
     }
 
     public void RenderTurretRange(Turret turret)
@@ -77,12 +75,5 @@ public class TurretGhost : MonoBehaviour
 
         if(numberOfColliders == 0 && isInRange)
             SharedVariables.buildSys.UnblockPlacement();
-    }
-
-    private bool IsInBuildZone()
-    {
-        float distance = transform.position.sqrMagnitude;
-        bool isInBuildZone = distance > SharedVariables.buildSys.minBuildRange * SharedVariables.buildSys.minBuildRange && distance < SharedVariables.buildSys.maxBuildRange * SharedVariables.buildSys.maxBuildRange;
-        return isInBuildZone;
     }
 }

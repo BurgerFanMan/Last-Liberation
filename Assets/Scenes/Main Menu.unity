@@ -1974,7 +1974,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSlidingOpen: 0
   adjustScale: 1
-  speed: 2
+  speed: 4
   targetOpenScale: {x: 1.2, y: 1.2, z: 1.2}
   targetCloseScale: {x: 1, y: 1, z: 1}
 --- !u!114 &184383513
@@ -5925,7 +5925,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSlidingOpen: 0
   adjustScale: 1
-  speed: 2
+  speed: 4
   targetOpenScale: {x: 1.2, y: 1.2, z: 1.2}
   targetCloseScale: {x: 1, y: 1, z: 1}
 --- !u!114 &686538156
@@ -7148,7 +7148,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSlidingOpen: 0
   adjustScale: 1
-  speed: 2
+  speed: 4
   targetOpenScale: {x: 1.2, y: 1.2, z: 1.2}
   targetCloseScale: {x: 1, y: 1, z: 1}
 --- !u!114 &751793612
@@ -9227,7 +9227,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &997135545
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12353,7 +12353,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSlidingOpen: 0
   adjustScale: 1
-  speed: 2
+  speed: 4
   targetOpenScale: {x: 1.2, y: 1.2, z: 1.2}
   targetCloseScale: {x: 1, y: 1, z: 1}
 --- !u!114 &1476546851
@@ -14381,7 +14381,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSlidingOpen: 0
   adjustScale: 1
-  speed: 2
+  speed: 4
   targetOpenScale: {x: 1.2, y: 1.2, z: 1.2}
   targetCloseScale: {x: 1, y: 1, z: 1}
 --- !u!114 &1838010917

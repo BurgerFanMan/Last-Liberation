@@ -1,5 +1,60 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &330826003858675635
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6347355098208884506}
+  - component: {fileID: 6862703888565007811}
+  m_Layer: 5
+  m_Name: Scaler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &6347355098208884506
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 330826003858675635}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 9146233821364698163}
+  m_Father: {fileID: 9146233821687907181}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -55, y: 0}
+  m_SizeDelta: {x: 320, y: 335}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &6862703888565007811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 330826003858675635}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb85450619944114b97e1d6f9b5934cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSlidingOpen: 0
+  adjustScale: 1
+  isFullyScaledOnStart: 1
+  speed: 5
+  targetOpenScale: {x: 1, y: 1, z: 1}
+  targetCloseScale: {x: 0, y: 0, z: 1}
 --- !u!1 &973217015786272924
 GameObject:
   m_ObjectHideFlags: 0
@@ -1786,7 +1841,6 @@ GameObject:
   - component: {fileID: 9146233821364698163}
   - component: {fileID: 9146233821364698161}
   - component: {fileID: 9146233821364698162}
-  - component: {fileID: 9146233821364698160}
   m_Layer: 5
   m_Name: Turret Info
   m_TagString: Untagged
@@ -1811,12 +1865,12 @@ RectTransform:
   - {fileID: 9146233821931015565}
   - {fileID: 4577871291767990747}
   - {fileID: 8668765799799378460}
-  m_Father: {fileID: 9146233821687907181}
+  m_Father: {fileID: 6347355098208884506}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -100, y: 245}
+  m_AnchoredPosition: {x: -160, y: 245}
   m_SizeDelta: {x: 320, y: 335}
   m_Pivot: {x: 1.0000001, y: 1.0000001}
 --- !u!222 &9146233821364698161
@@ -1857,23 +1911,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &9146233821364698160
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9146233821364698156}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb85450619944114b97e1d6f9b5934cc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isSlidingOpen: 0
-  adjustScale: 1
-  speed: 5
-  targetOpenScale: {x: 1.4, y: 1.4, z: 1}
-  targetCloseScale: {x: 0, y: 0, z: 1}
 --- !u!1 &9146233821687907182
 GameObject:
   m_ObjectHideFlags: 0
@@ -1907,7 +1944,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 9146233821364698163}
+  - {fileID: 6347355098208884506}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2063,7 +2100,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 9146233821364698160}
+        - m_Target: {fileID: 6862703888565007811}
           m_TargetAssemblyTypeName: ScaleHelper, Assembly-CSharp
           m_MethodName: Scale
           m_Mode: 6
@@ -2079,7 +2116,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 9146233821364698160}
+        - m_Target: {fileID: 6862703888565007811}
           m_TargetAssemblyTypeName: ScaleHelper, Assembly-CSharp
           m_MethodName: Scale
           m_Mode: 6

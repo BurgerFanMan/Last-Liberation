@@ -14,7 +14,8 @@ public class Bullet : ICanBeUpgraded
     [SerializeField] protected string _tagToHit = "Enemy";
     [SerializeField] protected GameObject _hitEffect;
     [SerializeField] protected bool _rotateHitEffect; //changes the rotation of the hit effect to match the hit direction 
-    
+    [SerializeField] protected float _hitEffectOffset;
+
     [Header("Readonly")]
     public IFireBullets fireBullets;
 
@@ -25,6 +26,7 @@ public class Bullet : ICanBeUpgraded
     {
         targetPoint = targetPosition;
         targetPoint += new Vector3(Random.Range(-_targetRandomness, _targetRandomness), 0f, Random.Range(-_targetRandomness, _targetRandomness));
+
         OnSpawn(position, rotation);
     }
     public virtual void OnSpawn(Vector3 position, Quaternion rotation)
@@ -41,6 +43,7 @@ public class Bullet : ICanBeUpgraded
         //checks range
         if (transform.position.y < -1f || Vector3.Distance(startPoint, transform.position) >= _range * _upgradeLevel[0]) 
         {
+            Debug.Log("Exceeded range");
             DestroyBullet();
         }
     }
@@ -76,11 +79,11 @@ public class Bullet : ICanBeUpgraded
     {
         if (_hitEffect != null)
         { 
-            GameObject hitEffect = Instantiate(_hitEffect, hitPosition, Quaternion.identity);
+            GameObject hitEffect = Instantiate(_hitEffect, hitPosition + (_hitEffectOffset * transform.forward), Quaternion.identity);
 
             hitEffect.transform.rotation = _rotateHitEffect ? transform.rotation : hitEffect.transform.rotation;
         }
-
+        Debug.Log($"Bullet destroyed, {transform.position.y}");
         fireBullets.DestroyBullet(this);
     }
     //just tells firer to destroy bullet

@@ -34,7 +34,7 @@ public class OnInput : MonoBehaviour
         bool up = Input.GetKeyUp(InputManager.GetValue(_key));
         bool hold = Input.GetKey(InputManager.GetValue(_key));
 
-        if ((_up && up) || (_down && down) || hold)
+        if ((_up && up) || (_down && down) || (!_down && !_up && hold))
             _onKeyPressed.Invoke();
     }
 }

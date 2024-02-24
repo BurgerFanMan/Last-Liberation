@@ -10,8 +10,10 @@ public class MajorEvents : MonoBehaviour
     public void Lose()
     {
         Invoke("LoadMenu", _timeToLose);
+
+        FindObjectOfType<PauseManager>().PauseGame();
+
         _loseScreen.SetActive(true);
-        _loseScreen.GetComponent<Animator>().SetBool("Lose", true);
     }
 
     public void LoadMenu()

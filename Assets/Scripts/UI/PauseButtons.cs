@@ -12,16 +12,16 @@ public class PauseButtons : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
+    public void QuitToOS()
+    {
+        Application.Quit();
+    }
+
     public void ResumeGame()
     {
         if(_pauseManager != null || gameObject.TryGetComponent(out _pauseManager))
         {
             _pauseManager.ClosePauseMenu();
         }
-    }
-
-    public void OpenOptions()
-    {
-
     }
 }

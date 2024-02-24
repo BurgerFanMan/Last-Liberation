@@ -13,9 +13,6 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] float _megaWaveDifMult;
     [Range(0f, 20f)]
     [SerializeField] float _timeBetweenWaves;
-    [SerializeField] Animator _waveNumbAnim;
-    [SerializeField] AudioSource _alarmSource;
-    [SerializeField] AudioSource _megaAlarmSource;
     [SerializeField] TextMeshProUGUI _waveUI;
 
     [Header("Spawning")]
@@ -41,9 +38,6 @@ public class EnemyManager : MonoBehaviour
 
     private void Start()
     {
-        _alarmSource = _alarmSource == null ? GetComponent<AudioSource>() : _alarmSource;
-        _megaAlarmSource = _megaAlarmSource == null ? GetComponent<AudioSource>() : _megaAlarmSource;
-
         _buildingManager = FindObjectOfType<BuildingManager>();
 
         SharedVariables.enemyManager = this;
@@ -53,6 +47,9 @@ public class EnemyManager : MonoBehaviour
     {
         if (enemies.Count != 0)
             return;
+
+        if (_timePassed == 0f)
+            OnWaveEnded();
 
         _timePassed += Pause.adjTimeScale;
         if (_timePassed > _timeBetweenWaves)
@@ -71,15 +68,15 @@ public class EnemyManager : MonoBehaviour
         _waveDifficulty *= _waveNumber % _megaWaveFreq == 0 ? _megaWaveDifMult : 1f;
 
         _waveUI.text = _waveNumber.ToString();
-        _waveNumbAnim.SetBool("waitingForWave", false);
+        _waveUI.GetComponent<FadeHelper>().EndRecursiveFade(true);
 
         SpawnEnemies((int)(_waveDifficulty * _enemiesPerDifficulty));
     }
     public void OnWaveEnded()
     {
         Money.money += _increaseBonusWithDifficulty ? _waveBonus * _waveDifficulty : _waveBonus;
-        Debug.Log("Wave ended");
-        _waveNumbAnim.SetBool("waitingForWave", true);
+
+        _waveUI.GetComponent<FadeHelper>().StartRecursiveFade();
     }
 
     public void KillEnemy(Enemy enemyToKill)
@@ -89,7 +86,6 @@ public class EnemyManager : MonoBehaviour
 
         GameObject go = Instantiate(_enemyDestroyPrefab, enemyToKill.transform.position, enemyToKill.transform.rotation);
         GetComponent<LimitRubble>().AddRubble(go);
-
 
         enemies.Remove(enemyToKill);
 
