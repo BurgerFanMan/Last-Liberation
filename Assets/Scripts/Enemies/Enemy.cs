@@ -136,8 +136,10 @@ public class Enemy : ICanTakeDamage
         if(target != null)
             _enemyManager.DamageBuilding(_damage, target);
 
-        if(_detonationEffect != null)
-            Instantiate(_detonationEffect, transform.position, transform.rotation);
+        if (_detonationEffect != null)
+        {
+            Instantiate(_detonationEffect, transform.position, transform.rotation);  
+        }
 
         DeathAction();
     }

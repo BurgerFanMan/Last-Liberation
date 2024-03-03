@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4850564633078766996}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 7464845705117328836}
   - component: {fileID: 1429530360973603206}
   - component: {fileID: 3848047376755913118}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -124,7 +124,7 @@ GameObject:
   - component: {fileID: -2927678203172149289}
   - component: {fileID: 5225013782830467041}
   - component: {fileID: 5225013782830467044}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Artillery Bullet
   m_TagString: Bullet
   m_Icon: {fileID: 0}
@@ -170,6 +170,7 @@ MonoBehaviour:
   _tagToHit: Enemy
   _hitEffect: {fileID: 276886302813314505, guid: fd80de4dcfa745a4eac1ac77d4bd5c1f, type: 3}
   _rotateHitEffect: 0
+  _hitEffectOffset: 0
   fireBullets: {fileID: 0}
   heightFactor: 0.5
 --- !u!65 &5225013782830467041
@@ -213,7 +214,7 @@ GameObject:
   - component: {fileID: 4450861376532801251}
   - component: {fileID: 6677371955885119059}
   - component: {fileID: 2304476752601045136}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}

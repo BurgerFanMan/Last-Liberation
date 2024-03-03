@@ -8,7 +8,7 @@ public class IFireBullets : ICanBeUpgraded
     public GameObject bulletPrefab;
     [SerializeField] protected bool upgradeBullets;
     [SerializeField] protected int bulletUpgradeIndex = 2;
-    public                     List<string> ignoreTags;
+    public List<string> ignoreTags;
 
     protected List<Bullet> allBullets = new List<Bullet>();
     protected List<Bullet> freeBullets = new List<Bullet>();
@@ -60,6 +60,7 @@ public class IFireBullets : ICanBeUpgraded
 
         allBullets.Add(bullet);
     }
+
     public void DestroyBullet(Bullet bullet)
     {
         freeBullets.Add(bullet);

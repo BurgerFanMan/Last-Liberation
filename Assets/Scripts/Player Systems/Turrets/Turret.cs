@@ -215,7 +215,7 @@ public class SubTurretClass
     public bool aimingAtEnemy;
 
     public Vector3 startingForward;
-    public Vector3 targetPosition; 
+    public Vector3 targetPosition;
 
     public Transform turretBase;
     public List<Transform> firePoints;

@@ -43,7 +43,6 @@ public class Bullet : ICanBeUpgraded
         //checks range
         if (transform.position.y < -1f || Vector3.Distance(startPoint, transform.position) >= _range * _upgradeLevel[0]) 
         {
-            Debug.Log("Exceeded range");
             DestroyBullet();
         }
     }
@@ -83,7 +82,7 @@ public class Bullet : ICanBeUpgraded
 
             hitEffect.transform.rotation = _rotateHitEffect ? transform.rotation : hitEffect.transform.rotation;
         }
-        Debug.Log($"Bullet destroyed, {transform.position.y}");
+
         fireBullets.DestroyBullet(this);
     }
     //just tells firer to destroy bullet

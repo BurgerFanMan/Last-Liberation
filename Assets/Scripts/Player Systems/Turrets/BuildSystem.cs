@@ -22,6 +22,7 @@ public class BuildSystem : MonoBehaviour
     private GameObject _ghost;
 
     private bool _placable;
+    private bool _hasToExitBuildMode;
 
     private void Start()
     {
@@ -32,6 +33,11 @@ public class BuildSystem : MonoBehaviour
 
     private void Update()
     {
+        if(_hasToExitBuildMode && Input.GetKeyUp(InputManager.GetValue("turret_place")))
+        {
+            ExitBuildMode();
+        }
+
         if (_selectedTurret == null || Pause.isPaused)
             return;
 
@@ -41,11 +47,15 @@ public class BuildSystem : MonoBehaviour
         if (_placable && Input.GetKeyDown(InputManager.GetValue("turret_place")))
         {
             PlaceTurret();
+
+            _hasToExitBuildMode = true;
         }
 
         if (Input.GetKeyDown(InputManager.GetValue("turret_cancel")))
         {
             DeselectTurret();
+
+            ExitBuildMode();
         }
     }
 
@@ -70,8 +80,6 @@ public class BuildSystem : MonoBehaviour
     public void DeselectTurret()
     {
         Destroy(_ghost, 0f);
-
-        Invoke("ExitBuildMode", 0.1f);
         
         _selectedTurret = null;
         _ghost = null;
@@ -118,5 +126,7 @@ public class BuildSystem : MonoBehaviour
     void ExitBuildMode()
     {
         SharedVariables.inBuildMode = false;
+
+        _hasToExitBuildMode = false;
     }
 }

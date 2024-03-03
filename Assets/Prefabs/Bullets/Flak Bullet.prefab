@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4850564633078766996}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 7464845705117328836}
   - component: {fileID: 1429530360973603206}
   - component: {fileID: 3848047376755913118}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -124,7 +124,7 @@ GameObject:
   - component: {fileID: 5225013782830467041}
   - component: {fileID: 5225013782830467045}
   - component: {fileID: 5225013782830467044}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Flak Bullet
   m_TagString: Bullet
   m_Icon: {fileID: 0}
@@ -182,6 +182,7 @@ MonoBehaviour:
   _tagToHit: Enemy
   _hitEffect: {fileID: 276886302813314505, guid: 28bc4e091bee189449dce4d30cfdf76b, type: 3}
   _rotateHitEffect: 1
+  _hitEffectOffset: 0
   fireBullets: {fileID: 0}
 --- !u!54 &5225013782830467044
 Rigidbody:

@@ -87,6 +87,13 @@ public class EnemyManager : MonoBehaviour
         GameObject go = Instantiate(_enemyDestroyPrefab, enemyToKill.transform.position, enemyToKill.transform.rotation);
         GetComponent<LimitRubble>().AddRubble(go);
 
+        Rigidbody[] rigidbodies = go.GetComponentsInChildren<Rigidbody>();
+
+        for (int i = 0; i < rigidbodies.Length; i++)
+        {
+            rigidbodies[i].AddExplosionForce(100f + Random.Range(-50f, 50f), enemyToKill.transform.position, 10f);
+        }
+
         enemies.Remove(enemyToKill);
 
         Destroy(enemyToKill.gameObject);
