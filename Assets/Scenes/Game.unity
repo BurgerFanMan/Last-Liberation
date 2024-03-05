@@ -2136,8 +2136,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0053c3db5f3348f488a79bd7ec10a2f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cameraParent: {fileID: 202698344}
-  _speed: 8
+  speed: 5
+  targetPosWeight: 1
+  cameraMode: 1
+  cameraParent: {fileID: 202698344}
 --- !u!1 &209667416
 GameObject:
   m_ObjectHideFlags: 0
