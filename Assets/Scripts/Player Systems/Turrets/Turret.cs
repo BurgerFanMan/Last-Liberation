@@ -45,13 +45,10 @@ public class Turret : IFireBullets
     private void Awake()
     {
         enemyManager = FindObjectOfType<EnemyManager>();
-
         audioSource = GetComponent<AudioSource>();
-    }
 
-    private void Start()
-    {   //takes the values from the subTurret structs and inputs them in a new class
-        for(int i = 0; i < subTurrets.Count; i++)
+        //takes the values from the subTurret structs and inputs them in a new class
+        for (int i = 0; i < subTurrets.Count; i++)
         {
             SubTurret subTurret = subTurrets[i];
 

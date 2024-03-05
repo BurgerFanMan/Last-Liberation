@@ -5806,12 +5806,14 @@ MonoBehaviour:
   - pause_togglepause
   - shop_togglevisibility
   - turret_place
+  - turret_placemultiple
   - turret_cancel
+  - turret_togglerangevisibility
   - ui_togglevisibility
   - ui_shortcutturret
   - weapon_fire
   - weapon_reload
-  inputValues: 4401000030010000200000001b0000000900000043010000440100001a010000740000004301000072000000
+  inputValues: 4401000030010000200000001b000000090000004301000032010000440100001b0100001a010000740000004301000072000000
 --- !u!114 &629972342
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13079,7 +13081,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _moneyDisplay: {fileID: 227714266}
   _enemyBounty: 1
-  startMoney: 30
+  startMoney: 200
 --- !u!114 &1445068700
 MonoBehaviour:
   m_ObjectHideFlags: 0

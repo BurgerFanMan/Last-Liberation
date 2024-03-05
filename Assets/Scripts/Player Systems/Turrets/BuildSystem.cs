@@ -46,9 +46,8 @@ public class BuildSystem : MonoBehaviour
 
         if (_placable && Input.GetKeyDown(InputManager.GetValue("turret_place")))
         {
-            PlaceTurret();
-
-            _hasToExitBuildMode = true;
+            if(PlaceTurret())
+                _hasToExitBuildMode = true;
         }
 
         if (Input.GetKeyDown(InputManager.GetValue("turret_cancel")))
@@ -101,16 +100,27 @@ public class BuildSystem : MonoBehaviour
         _placable = false;
     }
 
-    void PlaceTurret()
+    bool PlaceTurret() //returns false if the user is building more turrets
     {
-        Instantiate(_selectedTurret.turretPrefab, RayStore.GroundedHitPoint, _ghost.transform.rotation);
+        Turret turret = Instantiate(_selectedTurret.turretPrefab, RayStore.GroundedHitPoint, _ghost.transform.rotation).GetComponent<Turret>();
 
         if(_placeEffect != null)
             Instantiate(_placeEffect, RayStore.GroundedHitPoint, _ghost.transform.rotation);
 
         Money.money -= _selectedTurret.cost;
 
-        DeselectTurret();
+        TurretOverlay overlay = FindObjectOfType<TurretOverlay>();
+        if (overlay != null)
+            overlay.GenerateOverlay(turret); // fix this
+
+        if (!(Input.GetKey(InputManager.GetValue("turret_placemultiple")) && Money.money >= _selectedTurret.cost))
+        {
+            DeselectTurret();
+
+            return true;
+        }
+
+        return false;
     }
 
     void ChangeGhostMaterials(GameObject go, Material material)
