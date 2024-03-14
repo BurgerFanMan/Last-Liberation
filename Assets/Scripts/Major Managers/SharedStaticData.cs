@@ -7,4 +7,5 @@ public static class SharedVariables
     //single class scripts
     public static BuildSystem buildSys;
     public static EnemyManager enemyManager;
+    public static CameraShake cameraShake;
 }

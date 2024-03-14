@@ -41,7 +41,15 @@ public class BuildSystem : MonoBehaviour
         if (_selectedTurret == null || Pause.isPaused)
             return;
 
+        //setting ghost position and rotation
         _ghost.transform.position = RayStore.GroundedHitPoint;
+
+        float distanceSqr = _ghost.transform.position.sqrMagnitude;
+        if (distanceSqr < minBuildRange * minBuildRange)
+            _ghost.transform.position = _ghost.transform.position.normalized * minBuildRange;
+        else if (distanceSqr > maxBuildRange * maxBuildRange)
+            _ghost.transform.position = _ghost.transform.position.normalized * maxBuildRange;
+
         _ghost.transform.LookAt(Vector3.Normalize(-_ghost.transform.position) + _ghost.transform.position);
 
         if (_placable && Input.GetKeyDown(InputManager.GetValue("turret_place")))
@@ -102,16 +110,18 @@ public class BuildSystem : MonoBehaviour
 
     bool PlaceTurret() //returns false if the user is building more turrets
     {
-        Turret turret = Instantiate(_selectedTurret.turretPrefab, RayStore.GroundedHitPoint, _ghost.transform.rotation).GetComponent<Turret>();
+        Turret turret = Instantiate(_selectedTurret.turretPrefab, _ghost.transform.position, _ghost.transform.rotation).GetComponent<Turret>();    
 
         if(_placeEffect != null)
-            Instantiate(_placeEffect, RayStore.GroundedHitPoint, _ghost.transform.rotation);
+            Instantiate(_placeEffect, _ghost.transform.position, _ghost.transform.rotation);
 
         Money.money -= _selectedTurret.cost;
 
         TurretOverlay overlay = FindObjectOfType<TurretOverlay>();
         if (overlay != null)
-            overlay.GenerateOverlay(turret); // fix this
+            overlay.GenerateOverlay(turret);
+        if (SharedVariables.cameraShake != null)
+            SharedVariables.cameraShake.ShakeCamera(20f, 0.1f, 1);
 
         if (!(Input.GetKey(InputManager.GetValue("turret_placemultiple")) && Money.money >= _selectedTurret.cost))
         {
@@ -132,7 +142,6 @@ public class BuildSystem : MonoBehaviour
             renderer.material = material;
         }
     }
-
     void ExitBuildMode()
     {
         SharedVariables.inBuildMode = false;

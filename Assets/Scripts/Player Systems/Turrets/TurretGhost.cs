@@ -14,8 +14,6 @@ public class TurretGhost : MonoBehaviour
     private int numberOfColliders;
     private bool isInRange = true;
 
-    private BuildSystem buildSys;
-
     void Reset()
     {
         renderers = GetComponentsInChildren<MeshRenderer>().ToList();
@@ -23,19 +21,7 @@ public class TurretGhost : MonoBehaviour
 
     private void Start()
     {
-        buildSys = SharedVariables.buildSys;
-
         SharedVariables.buildSys.UnblockPlacement();
-    }
-
-    void Update()
-    {
-        float distanceSqr = transform.position.sqrMagnitude;
-
-        if (distanceSqr < buildSys.minBuildRange * buildSys.minBuildRange)
-            transform.position = transform.position.normalized * buildSys.minBuildRange;
-        else if (distanceSqr > buildSys.maxBuildRange * buildSys.maxBuildRange)
-            transform.position = transform.position.normalized * buildSys.maxBuildRange;
     }
 
     public void RenderTurretRange(Turret turret)

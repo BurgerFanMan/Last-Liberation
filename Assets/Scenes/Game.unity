@@ -798,9 +798,9 @@ MonoBehaviour:
   bulletUpgradeIndex: 2
   ignoreTags:
   - 
-  magazineSize: 30
-  reloadTime: 1
-  fireRate: 10
+  magazineSize: 40
+  reloadTime: 2
+  fireRate: 8
   audioSource: {fileID: 0}
   turretTurnSpeed: 30
   turretGunTurnSpeed: 50
@@ -2101,7 +2101,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 202698344}
-  - component: {fileID: 202698345}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -2120,26 +2119,10 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1485710072}
+  - {fileID: 963194228}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -30, y: 0, z: 0}
---- !u!114 &202698345
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 202698343}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0053c3db5f3348f488a79bd7ec10a2f4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 5
-  targetPosWeight: 1
-  cameraMode: 1
-  cameraParent: {fileID: 202698344}
 --- !u!1 &209667416
 GameObject:
   m_ObjectHideFlags: 0
@@ -9152,9 +9135,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 963194228}
+  - component: {fileID: 963194229}
+  - component: {fileID: 963194230}
   - component: {fileID: 963194227}
   - component: {fileID: 963194226}
-  - component: {fileID: 963194229}
   - component: {fileID: 963194231}
   m_Layer: 0
   m_Name: Main Camera
@@ -9221,11 +9205,11 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.70710677}
   m_LocalPosition: {x: 0, y: 19.47, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1485710072}
+  m_Father: {fileID: 202698344}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!114 &963194229
@@ -9240,15 +9224,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66945c343838b7541805c45f97ad7086, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _switchCursor: 1
-  _cursorImage: {fileID: 2800000, guid: d07d5645300ac8b47b6d61781c1ac72c, type: 3}
-  _cursorOffset: {x: 500, y: 500}
-  _cameraY: {fileID: 1485710072}
-  _cameraX: {fileID: 202698344}
-  _orbitSpeedY: 64
-  _clampMult: 5
-  _topDown: 1
-  _camXAngle: -30
+  cursorImage: {fileID: 2800000, guid: d07d5645300ac8b47b6d61781c1ac72c, type: 3}
+  cursorOffset: {x: 500, y: 500}
+  cameraParent: {fileID: 202698344}
+  orbitSpeedY: 100
+  topDown: 0
+  cameraXAngle: -30
+  speed: 5
+  targetPosWeight: 1
+  cameraMode: 1
+--- !u!114 &963194230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eccb33f5961a085448276a3476a49bea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentShakeAmplitude: 10
+  shakeDecreaseRate: 10
+  shakeDecreaseIsConstant: 0
 --- !u!114 &963194231
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11130,7 +11129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sharedProfile: {fileID: 11400000, guid: 996e4034ccc1c4b48a39ad7de9c6bc72, type: 2}
+  sharedProfile: {fileID: 11400000, guid: 4e6259de477aeaa4381cdf45c3fa84ab, type: 2}
   isGlobal: 1
   blendDistance: 0
   weight: 1
@@ -13083,7 +13082,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _moneyDisplay: {fileID: 227714266}
   _enemyBounty: 1
-  startMoney: 200
+  startMoney: 40
 --- !u!114 &1445068700
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13123,37 +13122,6 @@ MonoBehaviour:
   overlayOpenTime: 1
   overlayOffset: {x: 0, y: 40, z: 0}
   turretTag: Turret
---- !u!1 &1485710071
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1485710072}
-  m_Layer: 0
-  m_Name: CameraRotationY
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1485710072
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1485710071}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 963194228}
-  m_Father: {fileID: 202698344}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1489563172
 GameObject:
   m_ObjectHideFlags: 0

@@ -12,6 +12,7 @@ public class Weapon : IFireBullets
     public int magazineSize;
     public float reloadTime;
     public float fireRate;
+    public float cameraShakeIntensity = 4f;
     public AudioSource audioSource;
 
     [Header("Turrets")]
@@ -167,6 +168,9 @@ public class Weapon : IFireBullets
 
             if (audioSource != null)
                 audioSource.Play();
+
+            if (SharedVariables.cameraShake != null)
+                SharedVariables.cameraShake.ShakeCamera(cameraShakeIntensity, 0.1f, 0);
         }
     }
 

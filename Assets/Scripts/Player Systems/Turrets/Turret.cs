@@ -26,6 +26,7 @@ public class Turret : IFireBullets
 
     [Header("UI")]
     public GameObject overlayIcon;
+    public GameObject turretEffectPrefab;
     [SerializeField] protected bool overrideSoundOnShoot = true;
 
     [Header("Debugging")]
@@ -140,6 +141,9 @@ public class Turret : IFireBullets
         Transform firePoint = subTurret.firePoints[Random.Range(0, subTurret.firePoints.Count)];
 
         SpawnBullet(firePoint.position, firePoint.rotation, subTurret.targetPosition);
+
+        if (turretEffectPrefab != null)
+            Instantiate(turretEffectPrefab, firePoint.position, firePoint.rotation);
 
         if (audioSource != null && !(!overrideSoundOnShoot && audioSource.isPlaying))
             audioSource.Play();

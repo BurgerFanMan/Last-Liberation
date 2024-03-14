@@ -498,6 +498,7 @@ MonoBehaviour:
   _angularDistanceToFire: 1
   _angularDistanceBias: 0.9
   overlayIcon: {fileID: 4035014284682217369, guid: f2df6fcbbe74bef448c0f9a9eff52a67, type: 3}
+  turretEffectPrefab: {fileID: 6199680748179949525, guid: 8541492cbdbe36d48a2bed792977ba27, type: 3}
   overrideSoundOnShoot: 1
   enemyT: {fileID: 0}
 --- !u!65 &1575836945065219253

@@ -95,7 +95,6 @@ public class EnemyManager : MonoBehaviour
         }
 
         enemies.Remove(enemyToKill);
-
         Destroy(enemyToKill.gameObject);
 
         Money.money += _bounty;

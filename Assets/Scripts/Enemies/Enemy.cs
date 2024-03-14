@@ -118,6 +118,9 @@ public class Enemy : ICanTakeDamage
 
     protected override void DeathAction()
     {
+        if (SharedVariables.cameraShake != null)
+            SharedVariables.cameraShake.ShakeCamera(10f, 0.2f, 5);
+
         _enemyManager.KillEnemy(this);
     }
     
@@ -142,5 +145,8 @@ public class Enemy : ICanTakeDamage
         }
 
         DeathAction();
+
+        if (SharedVariables.cameraShake != null)
+            SharedVariables.cameraShake.ShakeCamera(20f, 1f, 5);
     }
 }
