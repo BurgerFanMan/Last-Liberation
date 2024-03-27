@@ -27,7 +27,7 @@ public class PauseManager : MonoBehaviour
     
     private void Update()
     {
-        if(!Input.GetKeyDown(InputManager.GetValue("pause_togglepause"))) return; 
+        if(!Input.GetKeyDown(InputManager.GetValue("pause_toggle"))) return; 
 
         if (Pause.isPaused && Pause.inPauseMenu) //if the pause menu is open, close it and unpause
         {

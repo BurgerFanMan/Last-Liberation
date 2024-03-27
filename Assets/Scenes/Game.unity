@@ -801,6 +801,7 @@ MonoBehaviour:
   magazineSize: 40
   reloadTime: 2
   fireRate: 8
+  cameraShakeIntensity: 4
   audioSource: {fileID: 0}
   turretTurnSpeed: 30
   turretGunTurnSpeed: 50
@@ -5750,7 +5751,6 @@ GameObject:
   - component: {fileID: 629972342}
   - component: {fileID: 629972344}
   - component: {fileID: 629972343}
-  - component: {fileID: 629972341}
   m_Layer: 0
   m_Name: General Manager
   m_TagString: Untagged
@@ -5772,33 +5772,6 @@ Transform:
   m_Father: {fileID: 1141905301}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &629972341
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 629972339}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af1e4c4e6777f724e85c3c3f0bd502c7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inputKeys:
-  - camera_rotate
-  - camera_lockposition
-  - camera_changemode
-  - pause_togglepause
-  - shop_togglevisibility
-  - turret_place
-  - turret_placemultiple
-  - turret_cancel
-  - turret_togglerangevisibility
-  - ui_togglevisibility
-  - ui_shortcutturret
-  - weapon_fire
-  - weapon_reload
-  inputValues: 4401000030010000200000001b000000090000004301000032010000440100001b0100001a010000740000004301000072000000
 --- !u!114 &629972342
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7441,7 +7414,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: faa8cf6578a5f8349bbba811d6318386, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _key: ui_shortcutturret
+  _key: ui_turretmenuhotkey
   _keyPressType: 0
   _onKeyPressed:
     m_PersistentCalls:
@@ -9245,9 +9218,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eccb33f5961a085448276a3476a49bea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentShakeAmplitude: 10
-  shakeDecreaseRate: 10
-  shakeDecreaseIsConstant: 0
+  intensityModifier: 1
+  currentShakeIntensity: 0
+  currentDuration: 0
+  currentPriority: 0
 --- !u!114 &963194231
 MonoBehaviour:
   m_ObjectHideFlags: 0

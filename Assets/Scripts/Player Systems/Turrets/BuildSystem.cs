@@ -58,7 +58,7 @@ public class BuildSystem : MonoBehaviour
                 _hasToExitBuildMode = true;
         }
 
-        if (Input.GetKeyDown(InputManager.GetValue("turret_cancel")))
+        if (Input.GetKeyDown(InputManager.GetValue("turret_cancelplace")))
         {
             DeselectTurret();
 

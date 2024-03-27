@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 
-public class ReadWriteFiles : MonoBehaviour
+public static class ReadWriteFiles
 {
+    static string fileFolder = "/Saved Data/";
+    public static string DataPath { get { return Application.persistentDataPath + fileFolder; } }
+
     public static void WriteString(string name, string content)
     {
-        string path = Application.dataPath + "/" + name;
+        string path = DataPath + name;
         //Write some text to the file
         StreamWriter writer = new StreamWriter(path, true);
         writer.Write(content);
@@ -15,7 +18,7 @@ public class ReadWriteFiles : MonoBehaviour
     }
     public static void WriteStringAndClear(string name, string content)
     {
-        string path = Application.dataPath + "/" + name;
+        string path = DataPath + name;
         //Write some text to the test.txt file
         StreamWriter writer = new StreamWriter(path, false);
         writer.Write(content);
@@ -23,7 +26,7 @@ public class ReadWriteFiles : MonoBehaviour
     }
     public static string ReadString(string name)
     {
-        string path = Application.dataPath + "/" + name;
+        string path = DataPath + name;
         //Read the text from directly from the file
         StreamReader reader = new StreamReader(path);
         string contents = reader.ReadToEnd();
@@ -32,8 +35,9 @@ public class ReadWriteFiles : MonoBehaviour
     }
     public static bool FileExists(string name)
     {
-        string path = Application.dataPath + "/" + name;
-        if (Directory.Exists(path))
+        string path = DataPath + name;
+
+        if (File.Exists(path))
         {
             return true;
         }
@@ -41,7 +45,7 @@ public class ReadWriteFiles : MonoBehaviour
     }
     public static void CreateFile(string name)
     {
-        string path = Application.dataPath + "/" + name;
+        string path = DataPath + name;
         File.Create(path);
     }
 }

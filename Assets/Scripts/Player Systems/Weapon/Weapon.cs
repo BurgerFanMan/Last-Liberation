@@ -93,8 +93,8 @@ public class Weapon : IFireBullets
                 else
                     hitPoint = turret.turretGun.forward * 100f;
 
-                turret.lineRenderer.SetPosition(0, turret.firePoint.position);
-                turret.lineRenderer.SetPosition(1, hitPoint);
+                turret.lineRenderer.SetPosition(0, turret.firePoint.position + new Vector3(0f, -0.02f, 0f));
+                turret.lineRenderer.SetPosition(1, hitPoint + new Vector3(0f, -0.02f, 0f));
             }
             else
             {
@@ -219,7 +219,7 @@ public class Weapon : IFireBullets
         for(int i = 0; i < turrets.Count; i++)
         {
             Vector3 direction = turrets[i].turretBody.position - RayStore.GroundedHitPoint;
-            float thisAngleDistance = Vector3.Angle(-direction, turrets[i].startingForward);
+            float thisAngleDistance = Vector3.Angle(-direction, turrets[i].turretBody.forward);
 
             if(thisAngleDistance < angleDistance && thisAngleDistance < turretRotationClamp)
             {

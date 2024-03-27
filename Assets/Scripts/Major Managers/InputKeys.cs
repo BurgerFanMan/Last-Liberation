@@ -1,46 +1,55 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
 using UnityEngine;
-
-public class InputKeys : MonoBehaviour
-{
-    public List<string> inputKeys;
-    public List<KeyCode> inputValues;
-    
-    void Start()
-    {
-        UpdateInputKeyValues();
-    }
-
-    public void UpdateInputKeyValues()
-    {
-        InputManager.inputKeyValues = new Dictionary<string, KeyCode>();
-
-        for(int i = 0; i < inputKeys.Count; i++)
-        {
-            if(!(i < inputValues.Count))
-            {
-                Debug.Log($"Mismatched number of input values and keys. Aborting key adding at {inputKeys[i]}.");
-
-                break;
-            }
-
-            InputManager.inputKeyValues.Add(inputKeys[i], inputValues[i]);
-        }
-    }
-}
 
 public static class InputManager
 {
     public static Dictionary<string, KeyCode> inputKeyValues = new Dictionary<string, KeyCode>();
+    public static List<string> inputNames = new List<string>();
 
-    public static KeyCode GetValue(string keyCode)
+    public static string GetKey(int index)
     {
-        if(inputKeyValues.ContainsKey(keyCode))
-            return inputKeyValues[keyCode];
+        return inputKeyValues.Keys.ToList()[index];
+    }
 
-        Debug.Log($"Keycode not found: {keyCode}.");
+    public static KeyCode GetValue(string inputKey)
+    {
+        if(inputKeyValues.ContainsKey(inputKey))
+            return inputKeyValues[inputKey];
+
+        Debug.Log($"Keycode not found: {inputKey}.");
 
         return KeyCode.None;
+    }
+    public static KeyCode GetValue(int index)
+    {
+        return inputKeyValues.Values.ToList()[index];
+    }
+
+    public static string GetKeyName(int index)
+    {
+        return inputNames[index];
+    }
+    public static string GetValueName(int index)
+    {
+        string valueName = inputKeyValues.Values.ToList()[index].ToString();
+
+        return valueName;
+    }
+
+    public static void ChangeInputKeyValue(string inputKey, KeyCode inputValue)
+    {
+        if (!inputKeyValues.ContainsKey(inputKey))
+        {
+            Debug.LogWarning($"InputManager does not have a key matching {inputKey}, yet it is attempting to change its value to {inputValue}.");
+
+            return;
+        }
+
+        inputKeyValues[inputKey] = inputValue;
+
+        Options.WriteOptionsFile(false);
     }
 }
