@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7801213914085561732}
   - component: {fileID: 2528068857306701722}
   - component: {fileID: 8377219737011059250}
+  - component: {fileID: -12266552666656145}
   m_Layer: 0
   m_Name: Rocket Artillery Hit
   m_TagString: Untagged
@@ -159,6 +160,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioSource: {fileID: 0}
   changeSpeedToPauseTime: 1
+--- !u!114 &-12266552666656145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 276886302813314505}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 908fc624f9a1ccb4a8f0d36e03492cab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 0}
+  soundMultiplier: 0.5
+  soundChannel: 1
 --- !u!1 &276886303944763594
 GameObject:
   m_ObjectHideFlags: 0

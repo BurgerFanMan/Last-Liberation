@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Xml;
@@ -5,23 +6,32 @@ using System.Xml.Linq;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 using TMPro;
-using System.Runtime.CompilerServices;
-using System;
 
 public class OptionsManager : MonoBehaviour
 {
     public string fileName = "options.xml";
     public string currentOptionsVersion = "000";
+
+    [Header("Sound")]
+    public UnityEvent onSoundValueChanged;
+    public List<string> soundNames;
+    [Range(0f, 2f)]
+    public List<float> soundValues;
+
+    [Header("Keybinds")]
     public List<string> defaultInputKeys;
     public List<KeyCode> defaultInputValues;
     public List<string> defaultInputNames;
 
     [Header("UI")]
-    public GameObject buttonPrefab;
-    public GameObject textPrefab;
-    public Transform buttonsParent;
-    public Transform textsParent;
+    public Button applyButton;
+    public Button cancelButton;
+    public GameObject soundPrefab;
+    public Transform soundParent;
+    public GameObject inputPrefab;
+    public Transform inputParent; 
 
     private bool listeningForInputKeyValueChange = false;
     private string inputKeyToChange;
@@ -32,6 +42,9 @@ public class OptionsManager : MonoBehaviour
 
         Options.manager = this;
         Options.OnStart();
+
+        applyButton.interactable = false;
+        cancelButton.interactable = false;
     }
 
     public void Update()
@@ -46,15 +59,52 @@ public class OptionsManager : MonoBehaviour
 
             listeningForInputKeyValueChange = false;
             InputManager.ChangeInputKeyValue(inputKeyToChange, keyCode);
+
+            Options.GenerateOptionsMenu();
         }
 
     }
 
+    public void SoundValueChanged(int index, float amount)
+    {
+        applyButton.interactable = true;
+        cancelButton.interactable = true;
+
+        Options.soundValues[index] = amount;
+
+        onSoundValueChanged.Invoke();
+    }
     public void ListenForInputKeyValueChange(string inputKey)
     {
+        applyButton.interactable = true;
+        cancelButton.interactable = true;
+
         listeningForInputKeyValueChange = true;
 
         inputKeyToChange = inputKey;
+    }
+    
+    public void ApplyOptions()
+    {
+        Options.WriteOptionsFile();
+
+        applyButton.interactable = false;
+        cancelButton.interactable = false;
+    }
+    public void RevertOptions()
+    {
+        Options.LoadOptionsFile();
+
+        applyButton.interactable = false;
+        cancelButton.interactable = false;
+    }
+    public void RevertOptionsToDefault()
+    {
+        Options.WriteOptionsFile(true);
+        Options.LoadOptionsFile();
+
+        applyButton.interactable = false;
+        cancelButton.interactable = false;
     }
 }
 
@@ -62,45 +112,66 @@ public static class Options
 {
     public static OptionsManager manager;
 
-    private static List<GameObject> buttons = new List<GameObject>();
-    private static List<GameObject> texts = new List<GameObject>();
+    public static List<float> soundValues = new List<float>();
+
+    private static List<GameObject> soundObjects = new List<GameObject>();
+    private static List<GameObject> inputObjects = new List<GameObject>();
 
     public static void OnStart()
     {
         LoadOptionsFile();
     }
 
-    public static void WriteOptionsFile(bool overrideInputKeys)
+    public static void WriteOptionsFile(bool useDefaultSettings = false)
     {
-        //deciding whether to use the default inputs (in case this is the first time booting the game and we have no options file), or write in the current inputs
-        Dictionary<string, KeyCode> dictionaryToUse = new Dictionary<string, KeyCode>();
-
-        if (ReadWriteFiles.FileExists(manager.fileName) && !overrideInputKeys)
-            dictionaryToUse = InputManager.inputKeyValues;
-        else
-            dictionaryToUse = manager.defaultInputKeys.Zip(manager.defaultInputValues, (k, v) => new { k, v })
-              .ToDictionary(x => x.k, x => x.v);
-
         XDocument xmlDoc = new XDocument(
             new XElement("options", new XAttribute("version", manager.currentOptionsVersion),
+            new XElement("sound"),
             new XElement("inputkeyvalues")));
 
-        //inputting keycode data
-        for (int i = 0; i < dictionaryToUse.Count; i++)
+        //deciding whether to use the default settings (in case this is the first time booting the game and we have no options file), or write in the current settings
+        List<float> soundValuesToUse = new List<float>();
+        Dictionary<string, KeyCode> inputDictionary = new Dictionary<string, KeyCode>();
+
+        if (ReadWriteFiles.FileExists(manager.fileName) && !useDefaultSettings)
         {
-            string inputKey = dictionaryToUse.Keys.ToList()[i];
+            soundValuesToUse = soundValues;
+            inputDictionary = InputManager.inputKeyValues;
+        }
+        else
+        {
+            soundValuesToUse = manager.soundValues;
+            inputDictionary = manager.defaultInputKeys.Zip(manager.defaultInputValues, (k, v) => new { k, v })
+              .ToDictionary(x => x.k, x => x.v);
+        }
+
+        //writing sound values
+        for (int i = 0; i < soundValuesToUse.Count; i++)
+        {
+            XElement sound = xmlDoc.Descendants().First().Descendants("sound").First();
+
+            sound.Add(new XElement("sound",
+                new XAttribute("soundname", manager.soundNames[i]),
+                new XAttribute("soundvalue", soundValuesToUse[i])
+                ));
+        }
+
+        //writing keybinds
+        for (int i = 0; i < inputDictionary.Count; i++)
+        {
+            string inputKey = inputDictionary.Keys.ToList()[i];
             XElement inputKeyValues = xmlDoc.Descendants().First().Descendants("inputkeyvalues").First();
 
             inputKeyValues.Add(new XElement("inputkeyvalue",
                 new XAttribute("inputkey", inputKey),
-                new XAttribute("inputvalue", dictionaryToUse[inputKey]),
-                new XAttribute("inputname", manager.defaultInputNames[i])
+                new XAttribute("inputvalue", inputDictionary[inputKey])
                 ));
         }
 
         ReadWriteFiles.WriteStringAndClear(manager.fileName, xmlDoc.ToString());
 
         LoadOptionsFile();
+        GenerateOptionsMenu();
     }
     public static void LoadOptionsFile()
     {
@@ -110,9 +181,6 @@ public static class Options
 
             return;
         }
-
-        Dictionary<string, KeyCode> inputKeyValues = new Dictionary<string, KeyCode>();
-        List<string> inputNames = new List<string>();
 
         XmlDocument xmlDoc = new XmlDocument();
         xmlDoc.Load(ReadWriteFiles.DataPath + manager.fileName);
@@ -125,6 +193,21 @@ public static class Options
             return;
         }
 
+        //sound options
+        soundValues = new List<float>();
+        XmlNodeList sound = xmlDoc.SelectSingleNode("/options/sound").ChildNodes;
+
+        foreach(XmlNode soundNode in sound)
+        {
+            string soundValueString = soundNode.Attributes.GetNamedItem("soundvalue").Value;
+            float soundValueFloat = float.Parse(soundValueString);
+
+            soundValues.Add(soundValueFloat);
+        }
+
+        //input rebindings
+        Dictionary<string, KeyCode> inputKeyValues = new Dictionary<string, KeyCode>();
+
         XmlNodeList inputKeyValuesXml = xmlDoc.SelectSingleNode("/options/inputkeyvalues").ChildNodes;
 
         //parse xml attributes into the string and keycode to put into inputKeyValues
@@ -132,7 +215,6 @@ public static class Options
         {
             string inputKey = inputKeyNode.Attributes.GetNamedItem("inputkey").Value;
             string inputValue = inputKeyNode.Attributes.GetNamedItem("inputvalue").Value;
-            string inputName = inputKeyNode.Attributes.GetNamedItem("inputname").Value;
 
             if (!Enum.TryParse(inputValue, out KeyCode inputValueCode))
             {
@@ -142,61 +224,99 @@ public static class Options
             }
 
             inputKeyValues.Add(inputKey, inputValueCode);
-            inputNames.Add(inputName);
         }
 
         InputManager.inputKeyValues = inputKeyValues;
-        InputManager.inputNames = inputNames;
+        InputManager.inputNames = manager.defaultInputNames;
 
-        GenerateButtons();
+        GenerateOptionsMenu();
     }
 
-    public static void GenerateButtons()
-    {
-        for(int i = 0; i < buttons.Count; i++)
+    public static void GenerateOptionsMenu()
+    {  
+        for(int i = 0; i < soundObjects.Count; i++)
         {
-            GameObject button = buttons[i];
-            GameObject text = texts[i];
-
-            GameObject.Destroy(button);
-            GameObject.Destroy(text);
+            GameObject soundObject = soundObjects[i];
+            GameObject.Destroy(soundObject);
+        }
+        for(int i = 0; i < inputObjects.Count; i++)
+        {
+            GameObject inputObject = inputObjects[i];
+            GameObject.Destroy(inputObject);
         }
 
-        buttons = new List<GameObject>();
-        texts = new List<GameObject>();
+        soundObjects = new List<GameObject>();
+        inputObjects = new List<GameObject>();
 
+        //generating sound sliders
+        for(int i = 0; i < manager.soundValues.Count; i++)
+        {
+            GenerateSoundObjects(i);
+        }
+
+        //generating input rebind buttons
         for (int i = 0; i < manager.defaultInputKeys.Count; i++)
         {
-            GenerateButtons(i);
+            GenerateInputObjects(i);
         }
     }
-    public static void GenerateButtons(int index)
+    static void GenerateSoundObjects(int index)
     {
-        GameObject text;
-        GameObject button;
+        Transform soundSlider = GameObject.Instantiate(manager.soundPrefab, manager.soundParent).transform;
 
-        text = GameObject.Instantiate(manager.textPrefab, manager.textsParent);
-        button = GameObject.Instantiate(manager.buttonPrefab, manager.buttonsParent);
-
-        text.GetComponent<TextMeshProUGUI>().text = InputManager.GetKeyName(index);
-        button.GetComponentInChildren<TextMeshProUGUI>().text = InputManager.GetValueName(index);
-
-        Button buttonComponent = button.GetComponent<Button>();
-        buttonComponent.onClick.AddListener(() => 
-        manager.ListenForInputKeyValueChange(InputManager.GetKey(index)));
-
-        if (texts.Count <= index)
+        foreach(Transform childTransform in soundSlider)
         {
-            texts.Add(text);
-            buttons.Add(button);
+            if (!childTransform.TryGetComponent(out TextMeshProUGUI textMesh))
+            {
+                Slider slider = childTransform.GetComponent<Slider>();
+
+                slider.value = soundValues[index];
+                slider.onValueChanged.AddListener((float newValue) =>
+                    manager.SoundValueChanged(index, newValue));      
+
+                continue;
+            }
+
+            textMesh.text = manager.soundNames[index];
+        }
+
+        if (soundObjects.Count <= index)
+        {
+            soundObjects.Add(soundSlider.gameObject);
 
             return;
         }
 
-        texts[index] = text;
-        buttons[index] = button;
+        soundObjects[index] = soundSlider.gameObject;
+        soundSlider.SetSiblingIndex(index);
+    }
+    static void GenerateInputObjects(int index)
+    {
+        Transform inputObject = GameObject.Instantiate(manager.inputPrefab, manager.inputParent).transform;
 
-        text.transform.SetSiblingIndex(index);
-        button.transform.SetSiblingIndex(index);
+        foreach(Transform childTransform in inputObject)
+        {
+            if(!childTransform.TryGetComponent(out TextMeshProUGUI textMesh))
+            {
+                childTransform.GetComponent<Button>().onClick.AddListener(() =>
+                    manager.ListenForInputKeyValueChange(InputManager.GetKey(index)));
+
+                childTransform.GetComponentInChildren<TextMeshProUGUI>().text = InputManager.GetValueName(index);
+
+                continue;
+            }
+
+            textMesh.text = InputManager.GetKeyName(index);
+        }
+
+        if (inputObjects.Count <= index)
+        {
+            inputObjects.Add(inputObject.gameObject);
+
+            return;
+        }
+
+        inputObjects[index] = inputObject.gameObject;
+        inputObject.SetSiblingIndex(index);
     }
 }

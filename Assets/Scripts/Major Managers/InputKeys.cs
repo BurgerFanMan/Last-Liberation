@@ -49,7 +49,5 @@ public static class InputManager
         }
 
         inputKeyValues[inputKey] = inputValue;
-
-        Options.WriteOptionsFile(false);
     }
 }

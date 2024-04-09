@@ -4947,6 +4947,7 @@ GameObject:
   - component: {fileID: -3723109174632431903}
   - component: {fileID: -753872524435313739}
   - component: {fileID: 7424414721585593407}
+  - component: {fileID: -1532473623020544757}
   m_Layer: 0
   m_Name: Machinegun Turret Hit
   m_TagString: Untagged
@@ -5093,3 +5094,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioSource: {fileID: 0}
   changeSpeedToPauseTime: 1
+--- !u!114 &-1532473623020544757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 237570769428459147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 908fc624f9a1ccb4a8f0d36e03492cab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 0}
+  soundMultiplier: 0.5
+  soundChannel: 1
