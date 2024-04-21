@@ -498,6 +498,8 @@ MonoBehaviour:
   - {fileID: 3719591999916975754}
   ignoreColliderTags:
   - Enemy
+  - Environment
+  - Bullet
 --- !u!65 &1575836945065219253
 BoxCollider:
   m_ObjectHideFlags: 0

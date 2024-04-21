@@ -168,9 +168,15 @@ MonoBehaviour:
   _explosionRadius: 1
   _targetRandomness: 0
   _tagToHit: Enemy
-  _hitEffect: {fileID: 276886302813314505, guid: acf9bbb2139c73e45bfdca17d21a05dd, type: 3}
   _rotateHitEffect: 0
   _hitEffectOffset: 0
+  _persistentTrail: {fileID: 0}
+  _hitEffect: {fileID: 276886302813314505, guid: acf9bbb2139c73e45bfdca17d21a05dd, type: 3}
+  _scorchMarks:
+  - {fileID: 5067024980652683215, guid: b3e614c1f9b489944b2f03ac11a05a34, type: 3}
+  - {fileID: 1527662346078454573, guid: a2d4d55594acc2f4f946e0ea191e40f9, type: 3}
+  - {fileID: 8194902002408584448, guid: 7592da62a23822041b311589740324f8, type: 3}
+  - {fileID: 7506675496016417136, guid: e2a786d7d8a4c4c4f84cf440f8c6d69e, type: 3}
   fireBullets: {fileID: 0}
   heightFactor: 0.8
 --- !u!65 &5225013782830467041

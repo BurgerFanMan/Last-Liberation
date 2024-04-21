@@ -23,25 +23,25 @@ public class Turret : IFireBullets
     [SerializeField] protected float _angularDistanceToFire = 1f; //the range of angle at which the turret will open fire if wait till aiming is TRUE
     [Range(0f, 1f)]
     [SerializeField] protected float _angularDistanceBias = 0.5f; //how much should the angle to the enemy be considered when finding the closest enemy
+    public bool alwaysFireFullSalvo; //if enabled, the whole magazine will always be emptied, even if there are no targets
 
     [Header("UI")]
+    public bool overrideSoundOnShoot = true;
     public GameObject overlayIcon;
     public GameObject turretEffectPrefab;
-    [SerializeField] protected bool overrideSoundOnShoot = true;
-
-    [Header("Debugging")]
-    [SerializeField] protected Transform enemyT;
 
     public List<SubTurretClass> subTurretClasses = new List<SubTurretClass>();
 
+
     protected EnemyManager enemyManager;
 
-    private AudioSource audioSource;
-
+    
     private float timeSinceFire;
     private float timeSinceReload;
 
     private int shellsLeft;
+
+    private AudioSource audioSource;
 
     private void Awake()
     {
@@ -101,7 +101,6 @@ public class Turret : IFireBullets
             }
             else return;
         }
-
         if (timeSinceFire < 1f / fireRate)
         {
             timeSinceFire += Pause.adjTimeScale;
@@ -109,15 +108,7 @@ public class Turret : IFireBullets
             return;
         }
 
-
-        List<SubTurretClass> shootableSubTurrets = new List<SubTurretClass>();
-
-        shootableSubTurrets.AddRange(subTurretClasses.Where(subTurret => subTurret.aimingAtEnemy == true));
-
-        if (shootableSubTurrets.Count == 0)
-            return;
-
-        FireShell(shootableSubTurrets);
+        FireShell();
     }
 
     protected virtual void RotateTurret(SubTurretClass subTurret, Vector3 enemyPosition)
@@ -132,12 +123,16 @@ public class Turret : IFireBullets
         subTurret.aimingAtEnemy = !_waitTillAimingAtEnemy ? true :
             GetAngleDifference(targetRotEuler.y + 90f, turret.eulerAngles.y) < _angularDistanceToFire;
     }
-    protected virtual void FireShell(List<SubTurretClass> subTurretsToFire)
+    protected virtual void FireShell()
     {
+        SubTurretClass subTurret = GetSubTurretToFire();
+
+        if (subTurret == null)
+            return;
+
         timeSinceFire = 0f;
         shellsLeft -= 1;
-
-        SubTurretClass subTurret = subTurretsToFire[Random.Range(0, subTurretsToFire.Count)];
+ 
         Transform firePoint = subTurret.firePoints[Random.Range(0, subTurret.firePoints.Count)];
 
         SpawnBullet(firePoint.position, firePoint.rotation, subTurret.targetPosition);
@@ -147,6 +142,22 @@ public class Turret : IFireBullets
 
         if (audioSource != null && !(!overrideSoundOnShoot && audioSource.isPlaying))
             audioSource.Play();
+    }
+    
+    protected virtual SubTurretClass GetSubTurretToFire()
+    {
+        List<SubTurretClass> shootableSubTurrets = new List<SubTurretClass>();
+
+        shootableSubTurrets.AddRange(subTurretClasses.Where(subTurret => subTurret.aimingAtEnemy == true));
+
+        if (shootableSubTurrets.Count == 0)
+        {
+            if (alwaysFireFullSalvo && shellsLeft < magazineCapacity)
+                shootableSubTurrets.AddRange(subTurretClasses);
+            else return null;
+        }
+
+        return shootableSubTurrets[Random.Range(0, shootableSubTurrets.Count)];
     }
 
     //Utility functions

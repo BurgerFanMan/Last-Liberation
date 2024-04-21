@@ -490,7 +490,7 @@ MonoBehaviour:
     - {fileID: 8351814087703401893}
     - {fileID: 3043557350540594024}
     - {fileID: 7611699186272744341}
-  maxRange: 20
+  maxRange: 25
   _calculateLead: 1
   _leadRatio: 0.2
   _limitAngle: 1

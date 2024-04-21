@@ -12,9 +12,13 @@ public class Bullet : ICanBeUpgraded
     [SerializeField] protected float _explosionRadius = 0f;
     [SerializeField] protected float _targetRandomness = 0f;
     [SerializeField] protected string _tagToHit = "Enemy";
-    [SerializeField] protected GameObject _hitEffect;
+
+    [Header("Effects")]
     [SerializeField] protected bool _rotateHitEffect; //changes the rotation of the hit effect to match the hit direction 
     [SerializeField] protected float _hitEffectOffset;
+    [SerializeField] protected GameObject _persistentTrail; //used to prevent trails from suddenly disappearing
+    [SerializeField] protected GameObject _hitEffect;
+    [SerializeField] protected List<GameObject> _scorchMarks;
 
     [Header("Readonly")]
     public IFireBullets fireBullets;
@@ -73,14 +77,42 @@ public class Bullet : ICanBeUpgraded
         transform.position += _speed * Pause.adjTimeScale * transform.forward;
     }
 
-    //tells firer to destroy bullet and spawns a hit effect
+    //tells firer to destroy bullet and spawns a hit effect and scorch mark
     void DestroyBullet(Vector3 hitPosition)
     {
+        if(_persistentTrail != null)
+        {
+            GameObject a = Instantiate(_persistentTrail, _persistentTrail.transform.parent);
+            _persistentTrail.transform.parent = null;
+
+            if (_persistentTrail.TryGetComponent(out ParticleSystem particleSystem)) 
+            {
+                ParticleSystem.MainModule main = particleSystem.main;
+                ParticleSystem.EmissionModule emission = particleSystem.emission;
+
+                main.loop = false;
+
+                emission.rateOverDistanceMultiplier = 0f;
+                emission.rateOverTimeMultiplier = 0f;
+            }
+
+            _persistentTrail = a;
+        }
+
+        //instantiating hit effect and scorchmark
+        Vector3 hitEffectPosition = hitPosition + (_hitEffectOffset * transform.forward);
         if (_hitEffect != null)
         { 
-            GameObject hitEffect = Instantiate(_hitEffect, hitPosition + (_hitEffectOffset * transform.forward), Quaternion.identity);
+            GameObject hitEffect = Instantiate(_hitEffect, hitEffectPosition, Quaternion.identity);
 
             hitEffect.transform.rotation = _rotateHitEffect ? transform.rotation : hitEffect.transform.rotation;
+        }
+
+        if(_scorchMarks.Count >= 1 && hitEffectPosition.y < 1f)
+        {
+            hitEffectPosition.y = 0f;
+
+            Instantiate(_scorchMarks[Random.Range(0, _scorchMarks.Count)], hitEffectPosition, Quaternion.identity);
         }
 
         fireBullets.DestroyBullet(this);

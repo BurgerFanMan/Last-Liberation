@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2730889816218505406}
   m_Layer: 0
   m_Name: Tank_Wheel
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 1213809581443696437}
   m_Layer: 0
   m_Name: Tank_Wheel.003
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -245,7 +245,7 @@ GameObject:
   - component: {fileID: 3095649107646425004}
   m_Layer: 0
   m_Name: Tank_Antenna
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -358,7 +358,7 @@ GameObject:
   - component: {fileID: 8555016303434848819}
   m_Layer: 0
   m_Name: Tank_Wheel.006
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -471,7 +471,7 @@ GameObject:
   - component: {fileID: 5193228255357517781}
   m_Layer: 0
   m_Name: Tank_ExplosiveInner
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -554,7 +554,7 @@ GameObject:
   - component: {fileID: 3192462097231931236}
   m_Layer: 0
   m_Name: Tank_Wheel.007
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -669,7 +669,7 @@ GameObject:
   - component: {fileID: 5948737415794366580}
   m_Layer: 0
   m_Name: Tank_Wheel.001
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -784,7 +784,7 @@ GameObject:
   - component: {fileID: 7422608882486010189}
   m_Layer: 0
   m_Name: Tank_Wheel.002
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -898,7 +898,7 @@ GameObject:
   - component: {fileID: 4007135393356968341}
   m_Layer: 0
   m_Name: Smoke2
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5718,7 +5718,7 @@ GameObject:
   - component: {fileID: 136127623546824902}
   m_Layer: 0
   m_Name: Tank_AntennaBase
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5831,7 +5831,7 @@ GameObject:
   - component: {fileID: 1747948928043454802}
   m_Layer: 0
   m_Name: Tank_ExplosiveCase
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5945,7 +5945,7 @@ GameObject:
   - component: {fileID: 5090431819194859150}
   m_Layer: 0
   m_Name: Tank_Chassis_cell.001
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6061,7 +6061,7 @@ GameObject:
   - component: {fileID: 7250439582281182833}
   m_Layer: 0
   m_Name: Tank_DecorativeHeadlights
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6174,7 +6174,7 @@ GameObject:
   - component: {fileID: 7208312067353360367}
   m_Layer: 0
   m_Name: Smoke4
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10993,7 +10993,7 @@ GameObject:
   - component: {fileID: 3923547527346937058}
   m_Layer: 0
   m_Name: Smoke3
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15812,7 +15812,7 @@ GameObject:
   - component: {fileID: 8386463312376791292}
   m_Layer: 0
   m_Name: Smoke1
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -20683,7 +20683,7 @@ GameObject:
   - component: {fileID: 7685113918704169204}
   m_Layer: 0
   m_Name: Tank_Wheel.004
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -20798,7 +20798,7 @@ GameObject:
   - component: {fileID: 7837570735984809165}
   m_Layer: 0
   m_Name: Tank_Wheel.005
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -20909,7 +20909,7 @@ GameObject:
   - component: {fileID: 7241492757572744506}
   m_Layer: 0
   m_Name: ExplosiveTankShattered
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -20958,7 +20958,7 @@ GameObject:
   - component: {fileID: 3491270754146751909}
   m_Layer: 0
   m_Name: Tank_Chassis_cell
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -21072,7 +21072,7 @@ GameObject:
   - component: {fileID: 6615380741316159197}
   m_Layer: 0
   m_Name: Tank_DecorativeCylinder
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

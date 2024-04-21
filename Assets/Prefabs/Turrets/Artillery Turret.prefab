@@ -1692,10 +1692,10 @@ MonoBehaviour:
   _waitTillAimingAtEnemy: 1
   _angularDistanceToFire: 10
   _angularDistanceBias: 0.1
+  alwaysFireFullSalvo: 1
+  overrideSoundOnShoot: 0
   overlayIcon: {fileID: 4035014284682217369, guid: 45b4693f990ec394f96bd0fa1ee9e337, type: 3}
   turretEffectPrefab: {fileID: 0}
-  overrideSoundOnShoot: 0
-  enemyT: {fileID: 0}
 --- !u!65 &-602985910608477090
 BoxCollider:
   m_ObjectHideFlags: 0

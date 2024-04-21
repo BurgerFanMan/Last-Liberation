@@ -32,6 +32,9 @@ class ParabolicBullet : Bullet
 
     protected override void Move()
     {
+        if (Pause.isPaused)
+            return;
+
         distanceTravelled += _speed * Pause.adjTimeScale;
 
         float cCoefficient = startPoint.y - (startPoint.y * distanceTravelled / distanceToTarget);

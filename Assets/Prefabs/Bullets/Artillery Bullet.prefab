@@ -58,7 +58,7 @@ Transform:
   m_GameObject: {fileID: 3602261021447108224}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0.64}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 1.5}
+  m_LocalScale: {x: 0.17606, y: 0.17606, z: 2.6409}
   m_Children: []
   m_Father: {fileID: 4850564633078766996}
   m_RootOrder: 0
@@ -168,9 +168,15 @@ MonoBehaviour:
   _explosionRadius: 3
   _targetRandomness: 2
   _tagToHit: Enemy
-  _hitEffect: {fileID: 276886302813314505, guid: fd80de4dcfa745a4eac1ac77d4bd5c1f, type: 3}
   _rotateHitEffect: 0
   _hitEffectOffset: 0
+  _persistentTrail: {fileID: 6563663568774806386}
+  _hitEffect: {fileID: 276886302813314505, guid: fd80de4dcfa745a4eac1ac77d4bd5c1f, type: 3}
+  _scorchMarks:
+  - {fileID: 5067024980652683215, guid: b3e614c1f9b489944b2f03ac11a05a34, type: 3}
+  - {fileID: 1527662346078454573, guid: a2d4d55594acc2f4f946e0ea191e40f9, type: 3}
+  - {fileID: 8194902002408584448, guid: 7592da62a23822041b311589740324f8, type: 3}
+  - {fileID: 7506675496016417136, guid: e2a786d7d8a4c4c4f84cf440f8c6d69e, type: 3}
   fireBullets: {fileID: 0}
   heightFactor: 0.5
 --- !u!65 &5225013782830467041
@@ -245,7 +251,7 @@ ParticleSystem:
   serializedVersion: 7
   lengthInSec: 5
   simulationSpeed: 1
-  stopAction: 0
+  stopAction: 2
   cullingMode: 0
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
