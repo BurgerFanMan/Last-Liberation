@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dc03c8de2cb260d4ca49dff2619ba34b, type: 3}
-  m_Name: Cannon Turret
+  m_Name: Flak Turret Info
   m_EditorClassIdentifier: 
-  cost: 30
-  turretPrefab: {fileID: 3209545047372142446, guid: 9297612f38cb0e64ab81f63b4dd15df0, type: 3}
-  turretGhost: {fileID: 3209545047372142446, guid: c30973bce7069c74a9514f79bb509ff0, type: 3}
+  cost: 15
+  turretPrefab: {fileID: 3209545047372142446, guid: 45a0ea8159babf845bf5a2bddd604daf, type: 3}
+  turretGhost: {fileID: 7933406041669615275, guid: 2bee72725cf0beb46bb140ddfe9929eb, type: 3}

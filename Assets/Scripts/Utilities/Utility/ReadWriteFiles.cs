@@ -5,8 +5,13 @@ using System.IO;
 
 public static class ReadWriteFiles
 {
-    static string fileFolder = "/Saved Data/";
+    static readonly string fileFolder = "/Saved Data/";
     public static string DataPath { get { return Application.persistentDataPath + fileFolder; } }
+
+    public static void CreateDataDirectory()
+    {
+        Directory.CreateDirectory(DataPath);
+    }
 
     public static void WriteString(string name, string content)
     {
@@ -33,8 +38,11 @@ public static class ReadWriteFiles
         reader.Close();
         return contents;
     }
+
     public static bool FileExists(string name)
     {
+        CreateDataDirectory();
+
         string path = DataPath + name;
 
         if (File.Exists(path))

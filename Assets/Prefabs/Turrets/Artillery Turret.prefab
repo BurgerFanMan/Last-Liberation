@@ -1658,7 +1658,7 @@ MonoBehaviour:
   reloadTime: 5
   fireRate: 4
   magazineCapacity: 4
-  _turretRotationSpeed: 50
+  _turretRotationSpeed: 30
   subTurrets:
   - turretBase: {fileID: 5520328797727324974}
     firePoints:
@@ -1686,13 +1686,14 @@ MonoBehaviour:
     - {fileID: 4166548243323280245}
   maxRange: 20
   _calculateLead: 1
-  _leadRatio: 0.05
+  _leadRatio: 0.1
   _limitAngle: 1
   angleRange: 80
   _waitTillAimingAtEnemy: 1
   _angularDistanceToFire: 10
   _angularDistanceBias: 0.1
   alwaysFireFullSalvo: 1
+  fireSalvoFromOneSubturret: 1
   overrideSoundOnShoot: 0
   overlayIcon: {fileID: 4035014284682217369, guid: 45b4693f990ec394f96bd0fa1ee9e337, type: 3}
   turretEffectPrefab: {fileID: 0}

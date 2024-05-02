@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dc03c8de2cb260d4ca49dff2619ba34b, type: 3}
-  m_Name: Artillery Turret
+  m_Name: Artillery Turret Info
   m_EditorClassIdentifier: 
-  cost: 20
+  cost: 25
   turretPrefab: {fileID: 3209545047372142446, guid: 7f4370c0e8df1a14292b64548821e706, type: 3}
-  turretGhost: {fileID: 3209545047372142446, guid: a482c4b7ad97db7449700f434ccf1a64, type: 3}
+  turretGhost: {fileID: 3507616865382883732, guid: a482c4b7ad97db7449700f434ccf1a64, type: 3}

@@ -26,6 +26,7 @@ public class OptionsManager : MonoBehaviour
     public List<string> defaultInputNames;
 
     [Header("UI")]
+    public bool generateOptionsMenu = false;
     public Button applyButton;
     public Button cancelButton;
     public GameObject soundPrefab;
@@ -36,12 +37,13 @@ public class OptionsManager : MonoBehaviour
     private bool listeningForInputKeyValueChange = false;
     private string inputKeyToChange;
 
-    private void Start()
+    private void Awake()
     {
-        DontDestroyOnLoad(gameObject);
-
         Options.manager = this;
         Options.OnStart();
+
+        if (!generateOptionsMenu)
+            return;
 
         applyButton.interactable = false;
         cancelButton.interactable = false;
@@ -233,7 +235,10 @@ public static class Options
     }
 
     public static void GenerateOptionsMenu()
-    {  
+    {
+        if (!manager.generateOptionsMenu)
+            return;
+
         for(int i = 0; i < soundObjects.Count; i++)
         {
             GameObject soundObject = soundObjects[i];

@@ -51,6 +51,7 @@ public class Weapon : IFireBullets
                 firePoint = turret.firePoint,
 
                 lineRenderer = turret.lineRenderer,
+                redDot = turret.redDot,
 
                 startingForward = turret.turretBody.forward,
                 startingAngle = turret.turretBody.eulerAngles.y
@@ -70,41 +71,50 @@ public class Weapon : IFireBullets
             WeaponTurret turret = turrets[i];
 
             //actual rotation stuff
-            Vector3 direction = turret.turretBody.position - RayStore.GroundedHitPoint;
-            Vector3 gunDirection = turret.turretGun.position - RayStore.GroundedHitPoint;
+            Vector3 targetDirection = RayStore.GroundedHitPoint - turret.turretBody.position;
+            Vector3 guntargetDirection = RayStore.GroundedHitPoint - turret.turretGun.position;
 
-            float angleToTarget = Vector3.Angle(direction.normalized, -turret.startingForward);
+            float angleToTarget = Vector3.Angle(-targetDirection.normalized, -turret.startingForward);
 
             Vector3 bodyRotation;
             Vector3 gunRotation;
 
-            if (angleToTarget < turretRotationClamp)
+            if (angleToTarget <= turretRotationClamp)
             {
-                bodyRotation = Quaternion.LookRotation(-direction).eulerAngles;
+                bodyRotation = Quaternion.LookRotation(targetDirection).eulerAngles;
+                gunRotation = Quaternion.LookRotation(guntargetDirection).eulerAngles;
 
-                gunRotation = Quaternion.LookRotation(-gunDirection).eulerAngles;
 
-
-                //setting line renderer position
+                //setting line renderer position and red dot
                 Vector3 hitPoint;
 
-                if (Physics.Raycast(turret.firePoint.position, turret.turretGun.forward, out RaycastHit hitInfo, 100f, ~(1 << 9)))
+                int layerMask = ~((1 << 9) | (1 << 2));
+
+                if (Physics.Raycast(turret.firePoint.position, turret.turretGun.forward, out RaycastHit hitInfo, 100f, layerMask))
                     hitPoint = hitInfo.point;
                 else
                     hitPoint = turret.turretGun.forward * 100f;
 
                 turret.lineRenderer.SetPosition(0, turret.firePoint.position + new Vector3(0f, -0.02f, 0f));
                 turret.lineRenderer.SetPosition(1, hitPoint + new Vector3(0f, -0.02f, 0f));
+
+                if(turret.redDot != null)
+                    turret.redDot.transform.position = hitPoint;
             }
             else
             {
                 bodyRotation = Quaternion.LookRotation(turret.startingForward).eulerAngles;
-
                 gunRotation = Quaternion.LookRotation(turret.startingForward).eulerAngles;
 
                 turret.lineRenderer.SetPosition(0, Vector3.zero);
                 turret.lineRenderer.SetPosition(1, Vector3.zero);
+
+                if (turret.redDot != null)
+                    turret.redDot.transform.position = Vector3.zero;
             }
+
+            bodyRotation.x = turret.turretBody.eulerAngles.x + 10f; //this is to apply an artificial slowing effect when nearing the target y rotation of the turret body            
+            gunRotation.y += 5f;
 
             bodyRotation = MoveTowardsWrapAround(turret.turretBody.eulerAngles, bodyRotation, turretTurnSpeed * Pause.adjTimeScale);
             gunRotation = MoveTowardsWrapAround(turret.turretGun.eulerAngles, gunRotation, turretGunTurnSpeed * Pause.adjTimeScale);
@@ -114,7 +124,6 @@ public class Weapon : IFireBullets
         }
 
         UpdateDisplays();
-
 
         CheckReload();
 
@@ -147,7 +156,7 @@ public class Weapon : IFireBullets
 
     void CheckReload()
     {
-        if (Input.GetKey(InputManager.GetValue("weapon_reload")))
+        if (Input.GetKey(InputManager.GetValue("weapon_reload")) && magazineCount < magazineSize)
         {
             magazineCount = 0;
         }
@@ -156,7 +165,7 @@ public class Weapon : IFireBullets
     {
         if (Input.GetKey(InputManager.GetValue("weapon_fire")) && !OverUI() && !SharedVariables.inBuildMode)
         {
-            if (!GetClosestTurret(turrets, out WeaponTurret turret))
+            if (!TurretInRange(turrets, out WeaponTurret turret))
                 return;
 
             float randomRange = 1f;
@@ -189,16 +198,28 @@ public class Weapon : IFireBullets
     //Utility functions
     Vector3 MoveTowardsWrapAround(Vector3 current, Vector3 target, float maxDistanceDelta)
     {
+        float wrapPoint = 360f;
+        float upperThreshold = wrapPoint * 0.75f; //270
+        float lowerThreshold = wrapPoint * 0.25f; //90
+
+        current.x %= wrapPoint;
+        current.y %= wrapPoint;
+        current.z %= wrapPoint;
+
+        target.x %= wrapPoint;
+        target.y %= wrapPoint;
+        target.z %= wrapPoint;
+
         // avoid vector ops because current scripting backends are terrible at inlining
         float toVector_x = target.x - current.x;
         float toVector_y = target.y - current.y;
         float toVector_z = target.z - current.z;
 
-        if ((target.x >= 270f && current.x <= 90f) || (target.x <= 90f && current.x >= 270f))
+        if ((target.x >= upperThreshold && current.x <= lowerThreshold) || (target.x <= lowerThreshold && current.x >= upperThreshold))
             toVector_x *= -1f;
-        if ((target.y >= 270f && current.y <= 90f) || (target.y <= 90f && current.y >= 270f))
+        if ((target.y >= upperThreshold && current.y <= lowerThreshold) || (target.y <= lowerThreshold && current.y >= upperThreshold))
             toVector_y *= -1f;
-        if ((target.z >= 270f && current.z <= 90f) || (target.z <= 90f && current.z >= 270f))
+        if ((target.z >= upperThreshold && current.z <= lowerThreshold) || (target.z <= lowerThreshold && current.z >= upperThreshold))
             toVector_z *= -1f;
 
         float sqdist = toVector_x * toVector_x + toVector_y * toVector_y + toVector_z * toVector_z;
@@ -211,25 +232,25 @@ public class Weapon : IFireBullets
             current.y + toVector_y / dist * maxDistanceDelta,
             current.z + toVector_z / dist * maxDistanceDelta);
     }
-    bool GetClosestTurret(List<WeaponTurret> turrets, out WeaponTurret turret)
+    bool TurretInRange(List<WeaponTurret> turrets, out WeaponTurret closestTurret)
     {
-        turret = null;
+        closestTurret = null;
         float angleDistance = Mathf.Infinity;
 
         for(int i = 0; i < turrets.Count; i++)
         {
-            Vector3 direction = turrets[i].turretBody.position - RayStore.GroundedHitPoint;
-            float thisAngleDistance = Vector3.Angle(-direction, turrets[i].turretBody.forward);
+            Vector3 direction = RayStore.GroundedHitPoint - turrets[i].firePoint.position;
+            float thisAngleDistance = Vector3.Angle(direction, turrets[i].firePoint.forward);
 
             if(thisAngleDistance < angleDistance && thisAngleDistance < turretRotationClamp)
             {
-                turret = turrets[i];
+                closestTurret = turrets[i];
 
                 angleDistance = thisAngleDistance;
             }
         }
 
-        return turret != null;
+        return closestTurret != null;
     }
     bool OverUI()
     {
@@ -249,6 +270,7 @@ public struct WeaponTurretStruct
     public Transform firePoint;
 
     public LineRenderer lineRenderer;
+    public GameObject redDot;
 }
 
 public class WeaponTurret
@@ -259,6 +281,7 @@ public class WeaponTurret
     public Transform firePoint;
 
     public LineRenderer lineRenderer;
+    public GameObject redDot;
 
     public Vector3 startingForward;
     public float startingAngle;

@@ -7,9 +7,9 @@ using UnityEngine;
 [RequireComponent(typeof(Collider))]
 public class TurretGhost : MonoBehaviour
 {
-    [SerializeField] GameObject _meshGeneratorPrefab;
+    public GameObject rangeRendererPrefab;
     public List<MeshRenderer> renderers;
-    public List<string> ignoreColliderTags = new List<string>{ "Enemy" };
+    public List<string> ignoreColliderTags = new List<string>{ "Enemy", "Environment", "Bullet" };
 
     private int numberOfColliders;
     private bool isInRange = true;
@@ -29,7 +29,7 @@ public class TurretGhost : MonoBehaviour
         for(int i = 0; i < turret.subTurrets.Count; i++)
         {
             SubTurret subTurret = turret.subTurrets[i];
-            GenerateSectorMesh meshGenerator = Instantiate(_meshGeneratorPrefab, transform, false).GetComponent<GenerateSectorMesh>();
+            GenerateSectorMesh meshGenerator = Instantiate(rangeRendererPrefab, transform, false).GetComponent<GenerateSectorMesh>();
 
             meshGenerator.transform.forward = transform.right;
             meshGenerator.transform.localPosition = subTurret.turretBase.localPosition;

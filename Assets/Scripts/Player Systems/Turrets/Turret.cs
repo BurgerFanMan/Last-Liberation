@@ -24,6 +24,8 @@ public class Turret : IFireBullets
     [Range(0f, 1f)]
     [SerializeField] protected float _angularDistanceBias = 0.5f; //how much should the angle to the enemy be considered when finding the closest enemy
     public bool alwaysFireFullSalvo; //if enabled, the whole magazine will always be emptied, even if there are no targets
+    public bool fireSalvoFromOneSubturret; //if enabled, the whole salvo will be fired from the turret that initiated the salvo
+
 
     [Header("UI")]
     public bool overrideSoundOnShoot = true;
@@ -40,6 +42,8 @@ public class Turret : IFireBullets
     private float timeSinceReload;
 
     private int shellsLeft;
+
+    private SubTurretClass lastSubTurretFired;
 
     private AudioSource audioSource;
 
@@ -142,6 +146,8 @@ public class Turret : IFireBullets
 
         if (audioSource != null && !(!overrideSoundOnShoot && audioSource.isPlaying))
             audioSource.Play();
+
+        lastSubTurretFired = subTurret;
     }
     
     protected virtual SubTurretClass GetSubTurretToFire()
@@ -150,12 +156,20 @@ public class Turret : IFireBullets
 
         shootableSubTurrets.AddRange(subTurretClasses.Where(subTurret => subTurret.aimingAtEnemy == true));
 
-        if (shootableSubTurrets.Count == 0)
+        if (alwaysFireFullSalvo && shellsLeft < magazineCapacity)
         {
-            if (alwaysFireFullSalvo && shellsLeft < magazineCapacity)
-                shootableSubTurrets.AddRange(subTurretClasses);
-            else return null;
+            if (fireSalvoFromOneSubturret)
+            {
+                shootableSubTurrets = new List<SubTurretClass>
+                {
+                    lastSubTurretFired
+                };
+            }
+            else if (shootableSubTurrets.Count == 0)
+                shootableSubTurrets.Add(lastSubTurretFired);
         }
+        else if (shootableSubTurrets.Count == 0)
+            return null;
 
         return shootableSubTurrets[Random.Range(0, shootableSubTurrets.Count)];
     }

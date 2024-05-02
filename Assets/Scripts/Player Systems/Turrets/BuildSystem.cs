@@ -13,7 +13,7 @@ public class BuildSystem : MonoBehaviour
 
     [SerializeField] PauseManager _pauseManager;
 
-    [SerializeField] List<TurretInfo> _turretInfos;
+    public List<TurretInfo> turretInfos;
 
 
     private TurretInfo _selectedTurret;
@@ -74,7 +74,7 @@ public class BuildSystem : MonoBehaviour
         _placable = true;
         SharedVariables.inBuildMode = true;
         
-        _selectedTurret = _turretInfos[turretInfoIndex];
+        _selectedTurret = turretInfos[turretInfoIndex];
         _ghost = Instantiate(_selectedTurret.turretGhost, RayStore.GroundedHitPoint, Quaternion.identity);
 
         Turret turret = _selectedTurret.turretPrefab.GetComponent<Turret>();

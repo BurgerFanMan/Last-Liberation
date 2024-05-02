@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SoundSpeed : MonoBehaviour
+public class AdjustSoundSpeed : MonoBehaviour
 {
     public AudioSource audioSource;
     public bool changeSpeedToPauseTime = true;

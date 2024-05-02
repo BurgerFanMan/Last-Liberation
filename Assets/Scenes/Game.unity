@@ -685,18 +685,22 @@ MonoBehaviour:
     turretGun: {fileID: 717318823}
     firePoint: {fileID: 1555006652}
     lineRenderer: {fileID: 536396546}
+    redDot: {fileID: 1691141083448257901}
   - turretBody: {fileID: 124183042}
     turretGun: {fileID: 124183043}
     firePoint: {fileID: 124183044}
     lineRenderer: {fileID: 124183045}
+    redDot: {fileID: 124183046}
   - turretBody: {fileID: 543672070}
     turretGun: {fileID: 543672071}
     firePoint: {fileID: 543672072}
     lineRenderer: {fileID: 543672073}
+    redDot: {fileID: 543672074}
   - turretBody: {fileID: 304031073}
     turretGun: {fileID: 304031074}
     firePoint: {fileID: 304031076}
     lineRenderer: {fileID: 304031075}
+    redDot: {fileID: 304031077}
   reloadIcon: {fileID: 422951882}
   magazineCountDisplay: {fileID: 1207338307}
   magazineSizeDisplay: {fileID: 1102059306}
@@ -1048,6 +1052,11 @@ Transform:
 --- !u!120 &124183045 stripped
 LineRenderer:
   m_CorrespondingSourceObject: {fileID: 1691141083179282030, guid: 378fc9e48985fc643b68deb2befce6be, type: 3}
+  m_PrefabInstance: {fileID: 124183040}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &124183046 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 187279851611506439, guid: 378fc9e48985fc643b68deb2befce6be, type: 3}
   m_PrefabInstance: {fileID: 124183040}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &127182623
@@ -2922,6 +2931,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1691141082050406864, guid: 378fc9e48985fc643b68deb2befce6be, type: 3}
   m_PrefabInstance: {fileID: 304031071}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &304031077 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 187279851611506439, guid: 378fc9e48985fc643b68deb2befce6be, type: 3}
+  m_PrefabInstance: {fileID: 304031071}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &329304176
 GameObject:
   m_ObjectHideFlags: 0
@@ -3300,7 +3314,7 @@ PrefabInstance:
     - target: {fileID: 9146233821687907184, guid: e89f1ef64fc47d6419b8ca06a85e0735, type: 3}
       propertyPath: _turret
       value: 
-      objectReference: {fileID: 11400000, guid: eb2852c0de023214681b9d040b801fd7, type: 2}
+      objectReference: {fileID: 11400000, guid: b3d235c5654c55b45bb49e2b9afb8bb9, type: 2}
     - target: {fileID: 9146233821687907186, guid: e89f1ef64fc47d6419b8ca06a85e0735, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -5013,6 +5027,11 @@ Transform:
 --- !u!120 &543672073 stripped
 LineRenderer:
   m_CorrespondingSourceObject: {fileID: 1691141083179282030, guid: 378fc9e48985fc643b68deb2befce6be, type: 3}
+  m_PrefabInstance: {fileID: 543672068}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &543672074 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 187279851611506439, guid: 378fc9e48985fc643b68deb2befce6be, type: 3}
   m_PrefabInstance: {fileID: 543672068}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &546472817
@@ -12962,11 +12981,11 @@ MonoBehaviour:
   _ghostMaterial: {fileID: 2100000, guid: d963b9a368a6483409bcf332f45538d2, type: 2}
   _blockedGhostMaterial: {fileID: 2100000, guid: 0fc7c7d844049014cb6cd3aa97651db7, type: 2}
   _pauseManager: {fileID: 501836416}
-  _turretInfos:
-  - {fileID: 11400000, guid: 0cc5c62460cefdb4f992cebc2e28fc7c, type: 2}
-  - {fileID: 11400000, guid: eb2852c0de023214681b9d040b801fd7, type: 2}
-  - {fileID: 11400000, guid: 8190ef38b2703d04aa8fc29323099a15, type: 2}
-  - {fileID: 11400000, guid: 3a4b6c9749ca5dc42860c3b311771df0, type: 2}
+  turretInfos:
+  - {fileID: 11400000, guid: 480fd037206b35447aa25dd749be35e7, type: 2}
+  - {fileID: 11400000, guid: b3d235c5654c55b45bb49e2b9afb8bb9, type: 2}
+  - {fileID: 11400000, guid: 4b05defcb0d687d469bb8a54c4a12c96, type: 2}
+  - {fileID: 11400000, guid: 1c4a941fca7d9634ba8b371d410c53e4, type: 2}
 --- !u!114 &1445068701
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13893,6 +13912,104 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1614288766}
   m_CullTransparentMesh: 1
+--- !u!1 &1619929586
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1619929588}
+  - component: {fileID: 1619929587}
+  m_Layer: 0
+  m_Name: Options
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1619929587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1619929586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4efea0497a60bcd4bae125137dde0179, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fileName: options.xml
+  currentOptionsVersion: 001
+  onSoundValueChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  soundNames:
+  - Master
+  - Sound Effects
+  - UI Effects
+  - Music
+  - Ambience
+  - Radio Chatter
+  soundValues:
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  defaultInputKeys:
+  - camera_rotate
+  - camera_lockposition
+  - camera_changemode
+  - pause_toggle
+  - shop_togglevisibility
+  - turret_place
+  - turret_placemultiple
+  - turret_cancelplace
+  - turret_togglerangevisibility
+  - ui_togglevisibility
+  - ui_turretmenuhotkey
+  - weapon_fire
+  - weapon_reload
+  defaultInputValues: 4401000030010000200000001b000000090000004301000032010000440100001b0100001a010000740000004301000072000000
+  defaultInputNames:
+  - Rotate Camera
+  - Lock Position of Camera
+  - Change Camera Mode
+  - Open Pause Menu
+  - Open Shop Menu
+  - Place Turret
+  - Place Multiple Turrets
+  - Cancel Placing Turret
+  - View Turret Ranges
+  - Toggle UI
+  - Turret Bar Hotkey
+  - Fire Weapon
+  - Reload Weapon
+  generateOptionsMenu: 0
+  applyButton: {fileID: 0}
+  cancelButton: {fileID: 0}
+  soundPrefab: {fileID: 1568242938454135299, guid: 982618201d111664ca17b745f95f9b90, type: 3}
+  soundParent: {fileID: 0}
+  inputPrefab: {fileID: 1568242938454135299, guid: 86a899861de97c54bbfa2e57461b93b9, type: 3}
+  inputParent: {fileID: 0}
+--- !u!4 &1619929588
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1619929586}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 15.638027, y: 0.19662571, z: 5.462511}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1654587931
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13995,7 +14112,7 @@ PrefabInstance:
     - target: {fileID: 9146233821687907184, guid: e89f1ef64fc47d6419b8ca06a85e0735, type: 3}
       propertyPath: _turret
       value: 
-      objectReference: {fileID: 11400000, guid: 8190ef38b2703d04aa8fc29323099a15, type: 2}
+      objectReference: {fileID: 11400000, guid: 4b05defcb0d687d469bb8a54c4a12c96, type: 2}
     - target: {fileID: 9146233821687907186, guid: e89f1ef64fc47d6419b8ca06a85e0735, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -17318,7 +17435,7 @@ PrefabInstance:
     - target: {fileID: 9146233821687907184, guid: e89f1ef64fc47d6419b8ca06a85e0735, type: 3}
       propertyPath: _turret
       value: 
-      objectReference: {fileID: 11400000, guid: 3a4b6c9749ca5dc42860c3b311771df0, type: 2}
+      objectReference: {fileID: 11400000, guid: 1c4a941fca7d9634ba8b371d410c53e4, type: 2}
     - target: {fileID: 9146233821687907186, guid: e89f1ef64fc47d6419b8ca06a85e0735, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -18048,6 +18165,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 378fc9e48985fc643b68deb2befce6be, type: 3}
+--- !u!1 &1691141083448257901 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 187279851611506439, guid: 378fc9e48985fc643b68deb2befce6be, type: 3}
+  m_PrefabInstance: {fileID: 1691141083448257900}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1950460518421123417
 GameObject:
   m_ObjectHideFlags: 0
@@ -18788,6 +18910,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Flak Button
       objectReference: {fileID: 0}
+    - target: {fileID: 9146233821687907184, guid: e89f1ef64fc47d6419b8ca06a85e0735, type: 3}
+      propertyPath: _turret
+      value: 
+      objectReference: {fileID: 11400000, guid: 480fd037206b35447aa25dd749be35e7, type: 2}
     - target: {fileID: 9146233821687907187, guid: e89f1ef64fc47d6419b8ca06a85e0735, type: 3}
       propertyPath: m_Colors.m_NormalColor.b
       value: 0.83
