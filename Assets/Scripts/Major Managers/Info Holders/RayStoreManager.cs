@@ -6,15 +6,15 @@ public class RayStoreManager : MonoBehaviour
 {
     private void Start()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-        if (Physics.Raycast(ray, out RayStore.hitInfo, 40))
-        {
-            RayStore.hitPoint = RayStore.hitInfo.point;
-        }
+        CastRay();
     }
 
     void Update()
+    {
+        CastRay();
+    }
+
+    void CastRay()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
@@ -23,7 +23,7 @@ public class RayStoreManager : MonoBehaviour
             RayStore.hitPoint = RayStore.hitInfo.point;
         }
 
-	if (Physics.Raycast(ray, out RayStore.groundedHitInfo, 40f, 1<<7))
+        if (Physics.Raycast(ray, out RayStore.groundedHitInfo, 40f, 1 << 7))
         {
             RayStore.GroundedHitPoint = RayStore.groundedHitInfo.point;
         }

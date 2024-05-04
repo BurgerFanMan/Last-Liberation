@@ -14,8 +14,7 @@ public class MenuItems
 
         Object.DestroyImmediate(turretGhost.GetComponent<Turret>());
         Object.DestroyImmediate(turretGhost.GetComponent<AudioSource>());
-        Object.DestroyImmediate(turretGhost.GetComponent<AdjustSoundVolume>());
-        Object.DestroyImmediate(turretGhost.GetComponent<AdjustSoundSpeed>());
+        Object.DestroyImmediate(turretGhost.GetComponent<CustomAudioMixer>());
 
         turretGhost.AddComponent<TurretGhost>();
         turretGhost.AddComponent<Rigidbody>().isKinematic = true;

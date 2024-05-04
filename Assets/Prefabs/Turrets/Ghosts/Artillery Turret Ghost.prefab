@@ -2069,7 +2069,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24d4393cbd4f4ed40b27397266b3c17f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rangeRendererPrefab: {fileID: 0}
+  rangeRendererPrefab: {fileID: 1505480617084890555, guid: 37fbe0e63b83a2c458738833d78837fa, type: 3}
   renderers:
   - {fileID: 5658605321736416687}
   - {fileID: 5261656667002032269}

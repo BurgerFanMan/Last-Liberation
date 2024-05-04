@@ -2,12 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IFireBullets : ICanBeUpgraded
+public class IFireBullets : MonoBehaviour
 {
     [Header("Projectile Settings")]
     public GameObject bulletPrefab;
-    [SerializeField] protected bool upgradeBullets;
-    [SerializeField] protected int bulletUpgradeIndex = 2;
     public List<string> ignoreTags;
 
     protected List<Bullet> allBullets = new List<Bullet>();

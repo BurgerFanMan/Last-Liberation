@@ -436,8 +436,7 @@ GameObject:
   - component: {fileID: 3209545047372142444}
   - component: {fileID: 1575836945065219253}
   - component: {fileID: 341683359434178492}
-  - component: {fileID: 276384672339569635}
-  - component: {fileID: -9165803088738594573}
+  - component: {fileID: -2883774023514767020}
   m_Layer: 0
   m_Name: Cannon Turret
   m_TagString: Turret
@@ -473,10 +472,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c9c47053d147fb4399875fae1f39f8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _upgradeLevel: []
   bulletPrefab: {fileID: 5225013782830467054, guid: 5fda14d306ee86a489109ad7635c42d5, type: 3}
-  upgradeBullets: 0
-  bulletUpgradeIndex: 0
   ignoreTags:
   - Bullet
   - Environment
@@ -498,10 +494,11 @@ MonoBehaviour:
   _waitTillAimingAtEnemy: 1
   _angularDistanceToFire: 1
   _angularDistanceBias: 0.9
+  alwaysFireFullSalvo: 0
+  fireSalvoFromOneSubturret: 0
+  overrideSoundOnShoot: 1
   overlayIcon: {fileID: 4035014284682217369, guid: f2df6fcbbe74bef448c0f9a9eff52a67, type: 3}
   turretEffectPrefab: {fileID: 6199680748179949525, guid: 8541492cbdbe36d48a2bed792977ba27, type: 3}
-  overrideSoundOnShoot: 1
-  enemyT: {fileID: 0}
 --- !u!65 &1575836945065219253
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -611,7 +608,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &276384672339569635
+--- !u!114 &-2883774023514767020
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -620,25 +617,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 3209545047372142446}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2769c28862f113740811b3615bd758a8, type: 3}
+  m_Script: {fileID: 11500000, guid: 4c692235738377546afbc39994b5a7d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 0}
   changeSpeedToPauseTime: 1
---- !u!114 &-9165803088738594573
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3209545047372142446}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 908fc624f9a1ccb4a8f0d36e03492cab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audioSource: {fileID: 0}
-  soundMultiplier: 0.6
+  soundMultiplier: 0.5
   soundChannel: 1
 --- !u!1 &3209545047819256685
 GameObject:

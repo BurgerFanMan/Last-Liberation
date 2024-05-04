@@ -4886,7 +4886,7 @@ GameObject:
   - component: {fileID: 5674108472665389028}
   - component: {fileID: 5674108472665389029}
   - component: {fileID: 648620866454196371}
-  - component: {fileID: -6576488550941042489}
+  - component: {fileID: 2114519739954839433}
   m_Layer: 0
   m_Name: Enemy Explosion Effect
   m_TagString: Untagged
@@ -9849,7 +9849,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &-6576488550941042489
+--- !u!114 &2114519739954839433
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9858,9 +9858,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 5674108472665389027}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 908fc624f9a1ccb4a8f0d36e03492cab, type: 3}
+  m_Script: {fileID: 11500000, guid: 4c692235738377546afbc39994b5a7d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 0}
+  changeSpeedToPauseTime: 1
   soundMultiplier: 0.5
   soundChannel: 1

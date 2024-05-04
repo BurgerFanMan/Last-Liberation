@@ -666,10 +666,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa18fc6242bc7e74c890115976cc4882, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _upgradeLevel: []
   bulletPrefab: {fileID: 5225013782830467054, guid: 1ac509510414be24f82e24797ab474dd, type: 3}
-  upgradeBullets: 0
-  bulletUpgradeIndex: 2
   ignoreTags:
   - 
   magazineSize: 40
@@ -810,10 +807,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 95824509}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 908fc624f9a1ccb4a8f0d36e03492cab, type: 3}
+  m_Script: {fileID: 11500000, guid: 4c692235738377546afbc39994b5a7d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 0}
+  changeSpeedToPauseTime: 1
   soundMultiplier: 0.5
   soundChannel: 1
 --- !u!1 &119385092
@@ -10033,7 +10031,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1445068697}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ShopInterface, Assembly-CSharp
         m_MethodName: ShopMenuClicked
         m_Mode: 1
@@ -12895,8 +12893,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1445068696}
   - component: {fileID: 1445068699}
-  - component: {fileID: 1445068698}
-  - component: {fileID: 1445068697}
   - component: {fileID: 1445068700}
   - component: {fileID: 1445068701}
   m_Layer: 0
@@ -12920,34 +12916,6 @@ Transform:
   m_Father: {fileID: 1141905301}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1445068697
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1445068695}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 699a00751cdb8ad49936db831bcabed3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _pauseManager: {fileID: 501836416}
-  _shopMenu: {fileID: 255905550}
---- !u!114 &1445068698
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1445068695}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e9fc9a66ad850643a5af4fbe3df1d36, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _moneyWarning: {fileID: 1687653927}
-  _timeToWarningFade: 2
 --- !u!114 &1445068699
 MonoBehaviour:
   m_ObjectHideFlags: 0

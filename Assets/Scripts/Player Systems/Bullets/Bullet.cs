@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading;
 using UnityEngine;
 
-public class Bullet : ICanBeUpgraded
+public class Bullet : MonoBehaviour
 {
     [SerializeField] protected float _speed;
     public float damage;
@@ -45,7 +45,7 @@ public class Bullet : ICanBeUpgraded
         Move();
 
         //checks range
-        if (transform.position.y < -1f || Vector3.Distance(startPoint, transform.position) >= _range * _upgradeLevel[0]) 
+        if (transform.position.y < -1f || Vector3.Distance(startPoint, transform.position) >= _range) 
         {
             DestroyBullet();
         }
@@ -58,7 +58,7 @@ public class Bullet : ICanBeUpgraded
         {
             if (collision.gameObject.tag == _tagToHit)
             {
-                collision.gameObject.GetComponent<ICanTakeDamage>().DealDamage(damage * _upgradeLevel[1]);
+                collision.gameObject.GetComponent<ICanTakeDamage>().DealDamage(damage);
             }
         }
         else
@@ -130,7 +130,7 @@ public class Bullet : ICanBeUpgraded
         {
             Enemy enemy = hitColliders[i].GetComponent<Enemy>();
 
-            enemy.DealDamage(damage * _upgradeLevel[1]);
+            enemy.DealDamage(damage);
         }
     }
 }
